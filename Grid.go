@@ -1,8 +1,11 @@
 package main
 
 import (
+	"fmt"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
+	"fyne.io/fyne/v2/container"
 	"github.com/Mossblac/Rally_Mapper/commands"
 )
 
@@ -21,10 +24,30 @@ type Cell struct {
 }
 
 func BuildGrid() error {
-	// this will take the numrows and numcols from the input widget on the initial page.
-	// first cell (top, left) is cell_num_row 0, cell_num_col 0
-	// create a cell struct for each row x col and add to Grid slice
-	// for each cell c.Draw()
+
+	test_cell := Cell{
+		has_left_wall:   true,
+		has_right_wall:  true,
+		has_top_wall:    true,
+		has_bottom_wall: true,
+		x1:              1,
+		y1:              1,
+		cell_size:       5,
+		window:          course,
+		visited:         false,
+	}
+
+	CT, CL, CB, CR, err := test_cell.Draw()
+	if err != nil {
+		fmt.Println("error creating lines")
+	}
+
+	courseContainer := container.NewWithoutLayout(CT, CL, CB, CR)
+	course.SetContent(courseContainer)
+	course.Resize(fyne.NewSize(float32(test_cell.cell_size*10), float32(test_cell.cell_size*10)))
+
+	course.Show()
+
 	return nil
 }
 

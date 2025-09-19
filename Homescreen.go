@@ -12,7 +12,13 @@ func HomeScreen() {
 		showInstructions()
 	})
 
-	centeredContent := container.New(layout.NewCenterLayout(), mainB)
+	createB := widget.NewButton("create", func() {
+		BuildGrid()
+	})
+
+	buttonBox := container.New(layout.NewHBoxLayout(), mainB, createB)
+
+	centeredContent := container.New(layout.NewCenterLayout(), buttonBox)
 
 	mainWin.SetContent(centeredContent)
 }
