@@ -9,10 +9,21 @@ import (
 	"fyne.io/fyne/v2/layout"
 )
 
-func Grid_Widget() {
+func Grid_Widget(value string) {
+	var numCols int
+	var numRows int
 
-	numCols := 3
-	numRows := 18
+	numObstacles := 6
+
+	if value == "loop" {
+		numCols = 3 * numObstacles
+		numRows = 3 * numObstacles
+	}
+
+	if value == "linear" {
+		numCols = 3
+		numCols = 3 * numObstacles
+	}
 
 	gridItems := make([]fyne.CanvasObject, numCols*numRows)
 	cells := make([][]*canvas.Rectangle, numRows)
@@ -57,7 +68,13 @@ func Grid_Widget() {
 		changeColorButton,
 	)*/
 	course.SetContent(container.NewScroll(grid))
-	course.Resize(fyne.NewSize(200, 600))
+	if value == "linear" {
+		course.Resize(fyne.NewSize(float32(numRows)*50, 600)) //not quite right
+	}
+	if value == "loop" {
+		course.Resize(fyne.NewSize(float32(numRows)*50, float32(numCols)*50)) // pretty close but cutting off sides and bottom
+	}
+
 	course.SetFixedSize(true)
 	course.Show()
 }

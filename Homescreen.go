@@ -9,17 +9,28 @@ import (
 )
 
 func HomeScreen() {
+	var courseType string
+
 	mainB := widget.NewButton("Instructions", func() {
 		showInstructions()
 	})
 
 	createB := widget.NewButton("create", func() {
-		Grid_Widget()
+		Grid_Widget(courseType)
 	})
 
-	buttonBox := container.NewHBox(mainB, createB)               //new horizontal box, making buttons side by side
-	centeredBox := container.NewCenter(buttonBox)                // center the buttons and they will conform to standard size of text
-	borderBox := container.NewBorder(nil, centeredBox, nil, nil) // once they are centered, place them on the edge of the screen ( this order matters !)
+	options := []string{"loop", "linear"}
+
+	setGridsize := func(value string) {
+		courseType = value
+	}
+
+	radio := widget.NewRadioGroup(options, setGridsize)
+	radioBox := container.NewCenter(radio)
+
+	buttonBox := container.NewHBox(mainB, createB)                    //new horizontal box, making buttons side by side
+	centeredBox := container.NewCenter(buttonBox)                     // center the buttons and they will conform to standard size of text
+	borderBox := container.NewBorder(radioBox, centeredBox, nil, nil) // once they are centered, place them on the edge of the screen ( this order matters !)
 
 	logo := canvas.NewImageFromFile("/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rally_mapper_logo.png")
 	logo.FillMode = canvas.ImageFillContain
