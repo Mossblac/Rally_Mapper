@@ -9,13 +9,12 @@ import (
 
 var mainWin fyne.Window
 var course fyne.Window
-var displayErrors fyne.Window
 
 func main() {
 
 	Rally_Mapper := app.New()
 	mainWin = Rally_Mapper.NewWindow("Rally Mapper")
-	mainWin.Resize(fyne.NewSize(200, 100))
+	mainWin.Resize(fyne.NewSize(500, 400))
 	course = Rally_Mapper.NewWindow("Course")
 
 	HomeScreen()

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/widget"
@@ -16,17 +17,20 @@ func HomeScreen() {
 		Grid_Widget()
 	})
 
-	buttonBox := container.New(layout.NewHBoxLayout(), mainB, createB)
+	buttonBox := container.NewHBox(mainB, createB)               //new horizontal box, making buttons side by side
+	centeredBox := container.NewCenter(buttonBox)                // center the buttons and they will conform to standard size of text
+	borderBox := container.NewBorder(nil, centeredBox, nil, nil) // once they are centered, place them on the edge of the screen ( this order matters !)
 
-	centeredContent := container.New(layout.NewCenterLayout(), buttonBox)
+	logo := canvas.NewImageFromFile("/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rally_mapper_logo.png")
+	logo.FillMode = canvas.ImageFillContain
+
+	centeredContent := container.NewStack(logo, borderBox)
+
+	mainWin.SetContent(logo)
 
 	mainWin.SetContent(centeredContent)
 
-	//you will add new inputs here-
-	// if inputs == nil, add error to errs []errors and return
 }
-
-//check all you input errors here
 
 func showInstructions() {
 	textLabel := widget.NewLabel("Enter number of punches\nEnter physical equipment avalable\nEnter number of desired obstacles\nEnter 0-4 to reprisent percentage of required obstacles (0 = 0%, 2 = 50%, 4 = 100%)\nEnter maximum size of area in square feet - default is unlimited\nverify info and confirm")

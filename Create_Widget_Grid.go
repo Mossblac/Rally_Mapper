@@ -7,7 +7,6 @@ import (
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/layout"
-	"fyne.io/fyne/v2/widget"
 )
 
 func Grid_Widget() {
@@ -45,7 +44,7 @@ func Grid_Widget() {
 
 	grid := container.New(layout.NewGridLayoutWithColumns(numCols), gridItems...)
 
-	// Example of changing a cell's color on interaction (e.g., button click)
+	/* Example of changing a cell's color on interaction (e.g., button click)
 	changeColorButton := widget.NewButton("Change Cell (1,1) to Blue", func() {
 		if cells[1][1] != nil {
 			cells[1][1].FillColor = color.RGBA{B: 255, A: 255} // Blue
@@ -56,8 +55,9 @@ func Grid_Widget() {
 	content := container.NewVBox(
 		grid,
 		changeColorButton,
-	)
-	course.SetContent(container.NewScroll(content))
-	course.Resize(fyne.NewSize(200, 800))
+	)*/
+	course.SetContent(container.NewScroll(grid))
+	course.Resize(fyne.NewSize(200, 600))
+	course.SetFixedSize(true)
 	course.Show()
 }
