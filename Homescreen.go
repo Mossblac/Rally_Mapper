@@ -41,7 +41,7 @@ func HomeScreen() {
 
 	courseTypeSelect := widget.NewSelect(TypeOptions, setTypeOption)
 	numObstacleSelect := widget.NewSelect(ObstaclesOption, setObstacleOption)
-	selectBox := container.NewVBox(courseTypeSelect, numObstacleSelect)
+	selectBox := container.NewVBox(widget.NewLabel("Course Type"), courseTypeSelect, widget.NewLabel("# Obstacles"), numObstacleSelect)
 	centeredselectBox := container.NewCenter(selectBox)
 
 	buttonBox := container.NewHBox(mainB, createB)                             //new horizontal box, making buttons side by side
