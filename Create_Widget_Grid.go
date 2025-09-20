@@ -22,7 +22,7 @@ func Grid_Widget(value string) {
 
 	if value == "linear" {
 		numCols = 3
-		numCols = 3 * numObstacles
+		numRows = 3 * numObstacles
 	}
 
 	gridItems := make([]fyne.CanvasObject, numCols*numRows)
@@ -39,7 +39,7 @@ func Grid_Widget(value string) {
 
 			// Add a tap gesture to change cell color on click
 
-			rect.SetMinSize(fyne.NewSize(50, 50)) // Set a minimum size for visibility
+			rect.SetMinSize(fyne.NewSize(36, 36)) // Set a minimum size for visibility
 			rect.Refresh()                        // Refresh to apply changes
 
 			// Example of how to change a cell's color individually:
@@ -54,6 +54,7 @@ func Grid_Widget(value string) {
 	}
 
 	grid := container.New(layout.NewGridLayoutWithColumns(numCols), gridItems...)
+	centeredGrid := container.NewCenter(grid)
 
 	/* Example of changing a cell's color on interaction (e.g., button click)
 	changeColorButton := widget.NewButton("Change Cell (1,1) to Blue", func() {
@@ -67,7 +68,7 @@ func Grid_Widget(value string) {
 		grid,
 		changeColorButton,
 	)*/
-	course.SetContent(container.NewScroll(grid))
+	course.SetContent(container.NewScroll(centeredGrid))
 	if value == "linear" {
 		course.Resize(fyne.NewSize(float32(numRows)*50, 600)) //not quite right
 	}
@@ -75,6 +76,5 @@ func Grid_Widget(value string) {
 		course.Resize(fyne.NewSize(float32(numRows)*50, float32(numCols)*50)) // pretty close but cutting off sides and bottom
 	}
 
-	course.SetFixedSize(true)
 	course.Show()
 }
