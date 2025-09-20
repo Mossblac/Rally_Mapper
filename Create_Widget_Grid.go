@@ -9,11 +9,9 @@ import (
 	"fyne.io/fyne/v2/layout"
 )
 
-func Grid_Widget(value string) {
+func Grid_Widget(value string, numObstacles int) {
 	var numCols int
 	var numRows int
-
-	numObstacles := 6
 
 	if value == "loop" {
 		numCols = 3 * numObstacles

@@ -1,6 +1,9 @@
 package main
 
 import (
+	"fmt"
+	"strconv"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
@@ -10,27 +13,40 @@ import (
 
 func HomeScreen() {
 	var courseType string
+	var numObstacles int
 
 	mainB := widget.NewButton("Instructions", func() {
 		showInstructions()
 	})
 
 	createB := widget.NewButton("create", func() {
-		Grid_Widget(courseType)
+		Grid_Widget(courseType, numObstacles)
 	})
 
-	options := []string{"loop", "linear"}
+	TypeOptions := []string{"loop", "linear"}
+	ObstaclesOption := []string{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"}
 
-	setGridsize := func(value string) {
+	setTypeOption := func(value string) {
 		courseType = value
 	}
 
-	radio := widget.NewRadioGroup(options, setGridsize)
-	radioBox := container.NewCenter(radio)
+	setObstacleOption := func(value string) {
+		ObstaclesInt, err := strconv.Atoi(value)
+		if err != nil {
+			fmt.Printf("error converting to integer: %v", err)
+		}
 
-	buttonBox := container.NewHBox(mainB, createB)                    //new horizontal box, making buttons side by side
-	centeredBox := container.NewCenter(buttonBox)                     // center the buttons and they will conform to standard size of text
-	borderBox := container.NewBorder(radioBox, centeredBox, nil, nil) // once they are centered, place them on the edge of the screen ( this order matters !)
+		numObstacles = ObstaclesInt
+	}
+
+	courseTypeSelect := widget.NewSelect(TypeOptions, setTypeOption)
+	numObstacleSelect := widget.NewSelect(ObstaclesOption, setObstacleOption)
+	selectBox := container.NewVBox(courseTypeSelect, numObstacleSelect)
+	centeredselectBox := container.NewCenter(selectBox)
+
+	buttonBox := container.NewHBox(mainB, createB)                             //new horizontal box, making buttons side by side
+	centeredBox := container.NewCenter(buttonBox)                              // center the buttons and they will conform to standard size of text
+	borderBox := container.NewBorder(nil, centeredBox, centeredselectBox, nil) // once they are centered, place them on the edge of the screen ( this order matters !)
 
 	logo := canvas.NewImageFromFile("/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rally_mapper_logo.png")
 	logo.FillMode = canvas.ImageFillContain
