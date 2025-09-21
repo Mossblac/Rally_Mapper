@@ -15,7 +15,7 @@ func main() {
 	Rally_Mapper := app.New()
 	mainWin = Rally_Mapper.NewWindow("Rally Mapper")
 	mainWin.Resize(fyne.NewSize(500, 400))
-	course = Rally_Mapper.NewWindow("Course")
+	mainWin.SetMaster()
 
 	HomeScreen()
 

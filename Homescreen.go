@@ -12,6 +12,7 @@ import (
 )
 
 func HomeScreen() {
+
 	var courseType string
 	var numObstacles int
 

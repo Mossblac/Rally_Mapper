@@ -7,6 +7,7 @@ import (
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/layout"
+	"fyne.io/fyne/v2/widget"
 )
 
 func Grid_Widget(value string, numObstacles int) {
@@ -36,9 +37,9 @@ func Grid_Widget(value string, numObstacles int) {
 			gridItems[r*numCols+c] = rect
 
 			// Add a tap gesture to change cell color on click
-
-			rect.SetMinSize(fyne.NewSize(36, 36)) // Set a minimum size for visibility
-			rect.Refresh()                        // Refresh to apply changes
+			twiceObSize := float32(numObstacles * 2)
+			rect.SetMinSize(fyne.NewSize((40 - twiceObSize), (40 - twiceObSize))) // Set a minimum size for visibility
+			rect.Refresh()                                                        // Refresh to apply changes
 
 			// Example of how to change a cell's color individually:
 			// You would typically have a function or event handler to trigger this
@@ -52,7 +53,13 @@ func Grid_Widget(value string, numObstacles int) {
 	}
 
 	grid := container.New(layout.NewGridLayoutWithColumns(numCols), gridItems...)
-	centeredGrid := container.NewCenter(grid)
+	cgrid := container.NewCenter(grid)
+	centeredGrid := container.New(layout.NewVBoxLayout(),
+		layout.NewSpacer(),
+		cgrid,
+		layout.NewSpacer(),
+	)
+	scrollingGrid := container.NewScroll(centeredGrid)
 
 	/* Example of changing a cell's color on interaction (e.g., button click)
 	changeColorButton := widget.NewButton("Change Cell (1,1) to Blue", func() {
@@ -66,13 +73,14 @@ func Grid_Widget(value string, numObstacles int) {
 		grid,
 		changeColorButton,
 	)*/
-	course.SetContent(container.NewScroll(centeredGrid))
-	if value == "linear" {
-		course.Resize(fyne.NewSize(float32(numRows)*50, 600)) //not quite right
-	}
-	if value == "loop" {
-		course.Resize(fyne.NewSize(float32(numRows)*50, float32(numCols)*50)) // pretty close but cutting off sides and bottom
-	}
+	homeButton := widget.NewButton("Home", func() {
+		HomeScreen()
+	})
 
-	course.Show()
+	gridWithHomeB := container.New(layout.NewBorderLayout(nil, homeButton, nil, nil),
+		homeButton,
+		scrollingGrid,
+	)
+
+	mainWin.SetContent(gridWithHomeB)
 }
