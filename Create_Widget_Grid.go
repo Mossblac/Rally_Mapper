@@ -30,7 +30,7 @@ func Grid_Widget(value string, numObstacles int) {
 	for r := 0; r < numRows; r++ {
 		cells[r] = make([]*canvas.Rectangle, numCols)
 		for c := 0; c < numCols; c++ {
-			rect := canvas.NewRectangle(color.Black) // Initial white color
+			rect := canvas.NewRectangle(color.Black)
 			rect.StrokeColor = color.White
 			rect.StrokeWidth = 1
 			cells[r][c] = rect

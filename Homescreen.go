@@ -1,9 +1,6 @@
 package main
 
 import (
-	"fmt"
-	"strconv"
-
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
@@ -14,40 +11,56 @@ import (
 func HomeScreen() {
 
 	var courseType string
-	var numObstacles int
+	var Obstacles []string
+	var selectedObstacle string
+	Oblist := ""
 
 	mainB := widget.NewButton("Instructions", func() {
 		showInstructions()
 	})
 
 	createB := widget.NewButton("create", func() {
-		Grid_Widget(courseType, numObstacles)
+		Grid_Widget(courseType, len(Obstacles))
 	})
 
+	TextWindow := widget.NewLabel("")
+	MaxObWindow := widget.NewLabel("")
+
 	TypeOptions := []string{"loop", "linear"}
-	ObstaclesOption := []string{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"}
+
+	ObstaclesOption := []string{"Curb", "Drop", "Platform", "Low-Bridge", "Slalom"}
 
 	setTypeOption := func(value string) {
 		courseType = value
 	}
 
-	setObstacleOption := func(value string) {
-		ObstaclesInt, err := strconv.Atoi(value)
-		if err != nil {
-			fmt.Printf("error converting to integer: %v", err)
-		}
-
-		numObstacles = ObstaclesInt
+	setObstacleOption := func(s string) {
+		selectedObstacle = s
 	}
 
+	addButton := widget.NewButton("Add", func() {
+		if len(Obstacles) < 10 {
+			Obstacles = append(Obstacles, selectedObstacle)
+			Oblist += selectedObstacle + "          " + "\n"
+			TextWindow.SetText(Oblist)
+		} else {
+			MaxObWindow.SetText("max number of obstacles added!")
+		}
+
+	})
+
 	courseTypeSelect := widget.NewSelect(TypeOptions, setTypeOption)
-	numObstacleSelect := widget.NewSelect(ObstaclesOption, setObstacleOption)
-	selectBox := container.NewVBox(widget.NewLabel("Course Type"), courseTypeSelect, widget.NewLabel("# Obstacles"), numObstacleSelect)
+	ObstacleSelect := widget.NewSelect(ObstaclesOption, setObstacleOption)
+	addObstacleBox := container.NewHBox(ObstacleSelect, addButton)
+	selectBox := container.NewVBox(widget.NewLabel("Course Type"), courseTypeSelect, widget.NewLabel("# Obstacles"), addObstacleBox)
 	centeredselectBox := container.NewCenter(selectBox)
 
-	buttonBox := container.NewHBox(mainB, createB)                             //new horizontal box, making buttons side by side
-	centeredBox := container.NewCenter(buttonBox)                              // center the buttons and they will conform to standard size of text
-	borderBox := container.NewBorder(nil, centeredBox, centeredselectBox, nil) // once they are centered, place them on the edge of the screen ( this order matters !)
+	VBoxTextWindow := container.NewVBox(TextWindow, MaxObWindow)
+	centeredTextWindow := container.NewCenter(VBoxTextWindow)
+
+	buttonBox := container.NewHBox(mainB, createB)                                            //new horizontal box, making buttons side by side
+	centeredBox := container.NewCenter(buttonBox)                                             // center the buttons and they will conform to standard size of text
+	borderBox := container.NewBorder(nil, centeredBox, centeredselectBox, centeredTextWindow) // once they are centered, place them on the edge of the screen ( this order matters !)
 
 	logo := canvas.NewImageFromFile("/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rally_mapper_logo.png")
 	logo.FillMode = canvas.ImageFillContain
