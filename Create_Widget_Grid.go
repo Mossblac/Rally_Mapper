@@ -10,9 +10,12 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
+//startRightImage := canvas.NewImageFromFile("/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/startRight.png")
+
 func Grid_Widget(value string, numObstacles int) {
 	var numCols int
 	var numRows int
+	twiceObSize := float32(numObstacles * 2)
 
 	if value == "loop" {
 		numCols = 3 * numObstacles
@@ -24,35 +27,21 @@ func Grid_Widget(value string, numObstacles int) {
 		numRows = 3 * numObstacles
 	}
 
-	gridItems := make([]fyne.CanvasObject, numCols*numRows)
-	cells := make([][]*canvas.Rectangle, numRows)
+	grid := container.New(layout.NewGridLayout(numCols)) // cols is your desired number of columns
 
+	// Store references to the cell containers
+	cellContainers := make([][]*fyne.Container, numRows)
 	for r := 0; r < numRows; r++ {
-		cells[r] = make([]*canvas.Rectangle, numCols)
+		cellContainers[r] = make([]*fyne.Container, numCols)
 		for c := 0; c < numCols; c++ {
-			rect := canvas.NewRectangle(color.Black)
-			rect.StrokeColor = color.White
-			rect.StrokeWidth = 1
-			cells[r][c] = rect
-			gridItems[r*numCols+c] = rect
-
-			// Add a tap gesture to change cell color on click
-			twiceObSize := float32(numObstacles * 2)
-			rect.SetMinSize(fyne.NewSize((40 - twiceObSize), (40 - twiceObSize))) // Set a minimum size for visibility
-			rect.Refresh()                                                        // Refresh to apply changes
-
-			// Example of how to change a cell's color individually:
-			// You would typically have a function or event handler to trigger this
-			// For demonstration, let's change the color of a specific cell after a delay
-			// go func(row, col int) {
-			// 	time.Sleep(2 * time.Second)
-			// 	cells[row][col].FillColor = color.RGBA{R: 255, A: 255} // Red
-			// 	cells[row][col].Refresh()
-			// }(r, c)
+			rect := canvas.NewRectangle(color.Black)                              // Or any initial color
+			rect.SetMinSize(fyne.NewSize((40 - twiceObSize), (40 - twiceObSize))) // Set a minimum size for the rectangle
+			cellContainer := container.NewStack(rect)                             // Use MaxLayout to make the rect fill the container
+			cellContainers[r][c] = cellContainer
+			grid.Add(cellContainer)
 		}
 	}
 
-	grid := container.New(layout.NewGridLayoutWithColumns(numCols), gridItems...)
 	cgrid := container.NewCenter(grid)
 	centeredGrid := container.New(layout.NewVBoxLayout(),
 		layout.NewSpacer(),
@@ -61,18 +50,6 @@ func Grid_Widget(value string, numObstacles int) {
 	)
 	scrollingGrid := container.NewScroll(centeredGrid)
 
-	/* Example of changing a cell's color on interaction (e.g., button click)
-	changeColorButton := widget.NewButton("Change Cell (1,1) to Blue", func() {
-		if cells[1][1] != nil {
-			cells[1][1].FillColor = color.RGBA{B: 255, A: 255} // Blue
-			cells[1][1].Refresh()
-		}
-	})
-
-	content := container.NewVBox(
-		grid,
-		changeColorButton,
-	)*/
 	homeButton := widget.NewButton("Home", func() {
 		HomeScreen()
 	})
@@ -83,4 +60,8 @@ func Grid_Widget(value string, numObstacles int) {
 	)
 
 	mainWin.SetContent(gridWithHomeB)
+}
+
+func SetImageInCell(row, col int, image *canvas.Image) {
+
 }

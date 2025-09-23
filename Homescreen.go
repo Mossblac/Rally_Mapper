@@ -67,8 +67,6 @@ func HomeScreen() {
 
 	centeredContent := container.NewStack(logo, borderBox)
 
-	mainWin.SetContent(logo)
-
 	mainWin.SetContent(centeredContent)
 
 }

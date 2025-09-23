@@ -1,12 +1,17 @@
 package main
 
 type Map struct {
-	cells []GridSquare `json:"cells"`
+	Cells []Track `json:"cells"`
 }
 
-type GridSquare struct {
-	Current      []int  `json:"current"`
-	Previous     []int  `json:"prevoius"`
-	Punch        string `json:"punch"`
-	ObstacleType string `json:"obstacleType"`
+type Track struct {
+	Position  []int  `json:"position"`
+	Previous  []int  `json:"previous"`
+	TrackIcon string `json:"trackicon"`
+	Items     Items  `json:"items"`
+}
+
+type Items struct {
+	Punch    string `json:"punch"`
+	Obstacle string `json:"obstacle"`
 }
