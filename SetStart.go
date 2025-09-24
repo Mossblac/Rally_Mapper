@@ -1,11 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+)
 
-var PossibleMoves [][]int
-
-func PickNext(numRows, numCols, I int) {
-	currentMap := Trk[I]
+func SetStart(numRows, numCols int) {
+	currentMap := Trk[0]
 	pos, ok := currentMap["Position"].([]int)
 	if !ok {
 		fmt.Println("unable to assert slice of integers")
@@ -31,24 +32,6 @@ func PickNext(numRows, numCols, I int) {
 		PossibleMoves = append(PossibleMoves, PosMoveDUL)
 	}
 
-	//Down
-	if CurrentRow+1 < numRows {
-		PosMoveDown := []int{CurrentRow + 1, CurrentCol}
-		PossibleMoves = append(PossibleMoves, PosMoveDown)
-	}
-
-	//DDownRight
-	if CurrentRow+1 < numRows && CurrentCol+1 < numCols {
-		PosMoveDDR := []int{CurrentRow + 1, CurrentCol + 1}
-		PossibleMoves = append(PossibleMoves, PosMoveDDR)
-	}
-
-	//DDownLeft
-	if CurrentRow+1 < numRows && CurrentCol-1 >= 0 {
-		PosMoveDDL := []int{CurrentRow + 1, CurrentCol - 1}
-		PossibleMoves = append(PossibleMoves, PosMoveDDL)
-	}
-
 	//Right - last option
 	if CurrentCol+1 < numCols {
 		PosMoveR := []int{CurrentRow, CurrentCol + 1}
@@ -60,5 +43,15 @@ func PickNext(numRows, numCols, I int) {
 		PosMoveL := []int{CurrentRow, CurrentCol - 1}
 		PossibleMoves = append(PossibleMoves, PosMoveL)
 	}
+
+	if len(PossibleMoves) == 0 {
+		fmt.Println("Possible moves not being added to list")
+	}
+
+	randomIndex := rand.Intn(len(PossibleMoves))
+
+	nextMove := PossibleMoves[randomIndex]
+
+	fmt.Printf("%v", nextMove)
 
 }

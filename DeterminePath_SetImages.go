@@ -29,21 +29,14 @@ func DeterminePath_setimages(TrackType string, CellGrid [][]*fyne.Container, num
 
 	Trk = append(Trk, start)
 
+	SetStart(numRows, numCols)
+
 	//how to add image
 
-	SetImageInCell(CellGrid, R, C, StartRight)
+	//SetImageInCell(CellGrid, R, C, StartRight)
 
-	start["image"] = "StartRightImage" // how to add image field
+	//start["image"] = "StartRightImage" // how to add image field
 
 	fmt.Printf("%+v\n", Trk)
-
-	/*if greater than 0, and less than numRows/Cols, and visited is false, add to list
-	then randomly pick from that list.
-
-	whichever is picked, create a new map named the picked coordinates AND set The "Position" value to the same.
-	in that new map set "previous" to the previous cell coordinates( the first will just be: R, C)
-
-	if previous == R+1, C-1 then previous image is set to face TopRightCorner and so on....
-	*/
 
 }
