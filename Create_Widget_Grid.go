@@ -10,8 +10,6 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-//startRightImage := canvas.NewImageFromFile("/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/startRight.png")
-
 func Grid_Widget(value string, numObstacles int) {
 	var numCols int
 	var numRows int
@@ -42,6 +40,9 @@ func Grid_Widget(value string, numObstacles int) {
 		}
 	}
 
+	startRightImage := canvas.NewImageFromFile("/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/startRight.png")
+	SetImageInCell(cellContainers, numRows-1, 0, startRightImage)
+
 	cgrid := container.NewCenter(grid)
 	centeredGrid := container.New(layout.NewVBoxLayout(),
 		layout.NewSpacer(),
@@ -62,6 +63,8 @@ func Grid_Widget(value string, numObstacles int) {
 	mainWin.SetContent(gridWithHomeB)
 }
 
-func SetImageInCell(row, col int, image *canvas.Image) {
-
+func SetImageInCell(CellGrid [][]*fyne.Container, row, col int, image *canvas.Image) {
+	image.FillMode = canvas.ImageFillContain
+	CellGrid[row][col].Objects = []fyne.CanvasObject{image}
+	CellGrid[row][col].Refresh()
 }
