@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"image/color"
 
 	"fyne.io/fyne/v2"
@@ -25,23 +26,21 @@ func Grid_Widget(value string, numObstacles int) {
 		numRows = 3 * numObstacles
 	}
 
-	grid := container.New(layout.NewGridLayout(numCols)) // cols is your desired number of columns
+	grid := container.New(layout.NewGridLayout(numCols))
 
-	// Store references to the cell containers
 	cellContainers := make([][]*fyne.Container, numRows)
 	for r := 0; r < numRows; r++ {
 		cellContainers[r] = make([]*fyne.Container, numCols)
 		for c := 0; c < numCols; c++ {
-			rect := canvas.NewRectangle(color.Black)                              // Or any initial color
-			rect.SetMinSize(fyne.NewSize((40 - twiceObSize), (40 - twiceObSize))) // Set a minimum size for the rectangle
-			cellContainer := container.NewStack(rect)                             // Use MaxLayout to make the rect fill the container
+			rect := canvas.NewRectangle(color.Black)
+			rect.SetMinSize(fyne.NewSize((40 - twiceObSize), (40 - twiceObSize)))
+			cellContainer := container.NewStack(rect)
 			cellContainers[r][c] = cellContainer
 			grid.Add(cellContainer)
 		}
 	}
 
-	startRightImage := canvas.NewImageFromFile("/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/startRight.png")
-	SetImageInCell(cellContainers, numRows-1, 0, startRightImage)
+	DeterminePath(cellContainers, numRows, numCols)
 
 	cgrid := container.NewCenter(grid)
 	centeredGrid := container.New(layout.NewVBoxLayout(),
@@ -67,4 +66,25 @@ func SetImageInCell(CellGrid [][]*fyne.Container, row, col int, image *canvas.Im
 	image.FillMode = canvas.ImageFillContain
 	CellGrid[row][col].Objects = []fyne.CanvasObject{image}
 	CellGrid[row][col].Refresh()
+}
+
+func DeterminePath(CellGrid [][]*fyne.Container, numRows, numCols int) {
+	R := numRows - 1
+	C := 0
+	var Trk []map[string]interface{}
+
+	start := map[string]interface{}{
+		"Position": []int{R, C},
+	}
+
+	Trk = append(Trk, start)
+
+	//how to add image
+	StartRightImage := canvas.NewImageFromFile("/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/startRight.png")
+	SetImageInCell(CellGrid, R, C, StartRightImage)
+
+	fmt.Printf("%+v\n", Trk)
+
+	//how to search your structs
+
 }
