@@ -4,6 +4,8 @@ import "fyne.io/fyne/v2/canvas"
 
 var ImagePaths = make(map[string]*canvas.Image)
 
+var RallyLogo = []string{"Rally_logo", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rally_mapper_logo.png"}
+
 var StartRight = []string{"StartRight", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/startRight.png"}
 var StartAngleUR = []string{"StartAngleUR", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/startAngleUR.png"}
 var StartAngleUL = []string{"StartAngleUL", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/startAngleUL.png"}
