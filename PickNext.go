@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 )
 
 var PossibleMoves []map[string][]int
 
-func PickNext(numRows, numCols, I int) {
+func PickNext_Loop(numRows, numCols, I int) {
 	currentMap := Trk[I]
 	pos, ok := currentMap["Position"].([]int)
 	if !ok {
@@ -20,9 +21,10 @@ func PickNext(numRows, numCols, I int) {
 
 	CurrentRow := pos[0]
 	CurrentCol := pos[1]
+	Op := DetermineOptions_loop(I)
 
-	//UP
-	if CurrentRow-1 >= 0 && !vis {
+	//UP - 1, 2, 3, 7, 8
+	if CurrentRow-1 >= 0 && !vis && (Op == 1 || Op == 2 || Op == 3 || Op == 7 || Op == 8) {
 		PosMoveUP := []int{CurrentRow - 1, CurrentCol}
 		UP := map[string][]int{
 			"UP": PosMoveUP,
@@ -31,7 +33,7 @@ func PickNext(numRows, numCols, I int) {
 	}
 
 	//DUPRight
-	if CurrentRow-1 >= 0 && CurrentCol+1 < numCols && !vis {
+	if CurrentRow-1 >= 0 && CurrentCol+1 < numCols && !vis && (Op == 1 || Op == 2 || Op == 3 || Op == 7) {
 		PosMoveDUR := []int{CurrentRow - 1, CurrentCol + 1}
 		DUPRight := map[string][]int{
 			"DUPRight": PosMoveDUR,
@@ -40,7 +42,7 @@ func PickNext(numRows, numCols, I int) {
 	}
 
 	//DUPleft
-	if CurrentRow-1 >= 0 && CurrentCol-1 >= 0 && !vis {
+	if CurrentRow-1 >= 0 && CurrentCol-1 >= 0 && !vis && (Op == 1 || Op == 2 || Op == 3 || Op == 8) {
 		PosMoveDUL := []int{CurrentRow - 1, CurrentCol - 1}
 		DUPLeft := map[string][]int{
 			"DUPLeft": PosMoveDUL,
@@ -49,7 +51,7 @@ func PickNext(numRows, numCols, I int) {
 	}
 
 	//Down
-	if CurrentRow+1 < numRows && !vis {
+	if CurrentRow+1 < numRows && !vis && (Op == 4 || Op == 5 || Op == 6 || Op == 7 || Op == 8) {
 		PosMoveDown := []int{CurrentRow + 1, CurrentCol}
 		Down := map[string][]int{
 			"Down": PosMoveDown,
@@ -58,7 +60,7 @@ func PickNext(numRows, numCols, I int) {
 	}
 
 	//DDownRight
-	if CurrentRow+1 < numRows && CurrentCol+1 < numCols && !vis {
+	if CurrentRow+1 < numRows && CurrentCol+1 < numCols && !vis && (Op == 4 || Op == 5 || Op == 6 || Op == 7) {
 		PosMoveDDR := []int{CurrentRow + 1, CurrentCol + 1}
 		DDownRight := map[string][]int{
 			"DDownRight": PosMoveDDR,
@@ -67,7 +69,7 @@ func PickNext(numRows, numCols, I int) {
 	}
 
 	//DDownLeft
-	if CurrentRow+1 < numRows && CurrentCol-1 >= 0 && !vis {
+	if CurrentRow+1 < numRows && CurrentCol-1 >= 0 && !vis && (Op == 4 || Op == 5 || Op == 6 || Op == 8) {
 		PosMoveDDL := []int{CurrentRow + 1, CurrentCol - 1}
 		DDownLeft := map[string][]int{
 			"DDownLeft": PosMoveDDL,
@@ -76,7 +78,7 @@ func PickNext(numRows, numCols, I int) {
 	}
 
 	//Right - last option
-	if CurrentCol+1 < numCols && !vis {
+	if CurrentCol+1 < numCols && !vis && (Op == 1 || Op == 6 || Op == 7) {
 		PosMoveR := []int{CurrentRow, CurrentCol + 1}
 		Right := map[string][]int{
 			"Right": PosMoveR,
@@ -85,7 +87,7 @@ func PickNext(numRows, numCols, I int) {
 	}
 
 	//Left - last option
-	if CurrentCol-1 >= 0 && !vis {
+	if CurrentCol-1 >= 0 && !vis && (Op == 2 || Op == 5 || Op == 8) {
 		PosMoveL := []int{CurrentRow, CurrentCol - 1}
 		Left := map[string][]int{
 			"Left": PosMoveL,
@@ -93,7 +95,7 @@ func PickNext(numRows, numCols, I int) {
 		PossibleMoves = append(PossibleMoves, Left)
 	}
 
-	/*if len(PossibleMoves) == 0 {
+	if len(PossibleMoves) == 0 {
 		fmt.Println("Possible moves not being added to list")
 	}
 
@@ -113,28 +115,35 @@ func PickNext(numRows, numCols, I int) {
 		"Position": []int{NewPosition[0], NewPosition[1]},
 		"Visited":  true,
 		"Previous": MoveKey,
-		"TrkIndex": I+1,
+		"TrkIndex": I + 1,
 	}
 
-	Trk = append(Trk, NextMove)*/
+	Trk = append(Trk, NextMove)
 
 }
 
-/*func DetermineStartImage(TrkIndex int) (imageToSet []string) {
-	Current := Trk[TrkIndex]
-	PrevMove := Current["Previous"]
-	switch PrevMove {
-	case "UP":
-		return StartUP
+func DetermineOptions_loop(I int) (option int) {
+	current := Trk[I]
+	Prev := current["Previous"]
+	switch Prev {
 	case "DUPRight":
-		return StartAngleUR
+		return 1 //DupL, Up, DUpR, R
 	case "DUPLeft":
-		return StartAngleUL
+		return 2 //L, DUpL, Up, DupR
+	case "UP":
+		return 3 //DUPL, UP, DUPR -- (L, R)
+	case "Down":
+		return 4 //DDL, DDR, Down -- (L, R)
+	case "DDownLeft":
+		return 5 // left, DDL, down, DDR
+	case "DDownRight":
+		return 6 // DDL, Down, DDR, Right
 	case "Right":
-		return StartRight
+		return 7 //Right, DUR, DDR, UP, Down
 	case "Left":
-		return StartLeft
+		return 8 //Left, DUL, DDL, UP, Down
 	default:
-		return nil
+		fmt.Print("Previous did not match movekey label\n")
+		return
 	}
-}*/
+}

@@ -36,7 +36,8 @@ func DeterminePath_setimages(TrackType string, CellGrid [][]*fyne.Container, num
 	//SetImageInCell(CellGrid, R, C, StartRight)
 
 	//start["image"] = "StartRightImage" // how to add image field
-
-	fmt.Printf("%+v\n", Trk)
+	for i := 0; i < len(Trk); i++ {
+		fmt.Printf("%+v\n", Trk[i])
+	}
 
 }
