@@ -1,13 +1,13 @@
 package main
 
 import (
-	"fmt"
 	"time"
 
 	"fyne.io/fyne/v2"
 )
 
 var Trk []map[string]interface{}
+var PossibleMoves []map[string][]int
 
 func DeterminePath_setimages(TrackType string, CellGrid [][]*fyne.Container, numRows, numCols int) {
 
@@ -25,7 +25,7 @@ func DeterminePath_setimages(TrackType string, CellGrid [][]*fyne.Container, num
 
 	start := map[string]interface{}{
 		"Position": []int{R, C},
-		"Visited":  true,
+		"TrkIndex": 0,
 	}
 
 	Trk = append(Trk, start)
@@ -37,14 +37,5 @@ func DeterminePath_setimages(TrackType string, CellGrid [][]*fyne.Container, num
 			PickNext_Loop(numRows, numCols, 1)
 		})
 	}()
-
-	//how to add image
-
-	//SetImageInCell(CellGrid, R, C, StartRight)
-
-	//start["image"] = "StartRightImage" // how to add image field
-	for i := 0; i < len(Trk); i++ {
-		fmt.Printf("%+v\n", Trk[i])
-	}
 
 }

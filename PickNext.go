@@ -8,26 +8,19 @@ import (
 	"fyne.io/fyne/v2"
 )
 
-var PossibleMoves []map[string][]int
-
 func PickNext_Loop(numRows, numCols, I int) {
 	currentMap := Trk[I]
 	pos, ok := currentMap["Position"].([]int)
 	if !ok {
 		fmt.Println("unable to assert slice of integers")
 	}
-	vis, ok := currentMap["Visited"].(bool)
-	if !ok {
-		fmt.Println("unable to assert Visited is boolean")
-		vis = false
-	}
 
 	CurrentRow := pos[0]
 	CurrentCol := pos[1]
 	Op := DetermineOptions_loop(I)
 
-	//UP - 1, 2, 3, 7, 8
-	if CurrentRow-1 >= 0 && !vis && (Op == 1 || Op == 2 || Op == 3 || Op == 7 || Op == 8) {
+	//UP -
+	if CurrentRow-1 >= 0 && (Op == 1 || Op == 2 || Op == 3 || Op == 7 || Op == 8) {
 		PosMoveUP := []int{CurrentRow - 1, CurrentCol}
 		UP := map[string][]int{
 			"UP": PosMoveUP,
@@ -35,8 +28,8 @@ func PickNext_Loop(numRows, numCols, I int) {
 		PossibleMoves = append(PossibleMoves, UP)
 	}
 
-	//DUPRight
-	if CurrentRow-1 >= 0 && CurrentCol+1 < numCols && !vis && (Op == 1 || Op == 2 || Op == 3 || Op == 7) {
+	//DUPRight -
+	if CurrentRow-1 >= 0 && CurrentCol+1 < numCols && (Op == 1 || Op == 2 || Op == 3 || Op == 7) {
 		PosMoveDUR := []int{CurrentRow - 1, CurrentCol + 1}
 		DUPRight := map[string][]int{
 			"DUPRight": PosMoveDUR,
@@ -44,8 +37,8 @@ func PickNext_Loop(numRows, numCols, I int) {
 		PossibleMoves = append(PossibleMoves, DUPRight)
 	}
 
-	//DUPleft
-	if CurrentRow-1 >= 0 && CurrentCol-1 >= 0 && !vis && (Op == 1 || Op == 2 || Op == 3 || Op == 8) {
+	//DUPleft -
+	if CurrentRow-1 >= 0 && CurrentCol-1 >= 0 && (Op == 1 || Op == 2 || Op == 3 || Op == 8) {
 		PosMoveDUL := []int{CurrentRow - 1, CurrentCol - 1}
 		DUPLeft := map[string][]int{
 			"DUPLeft": PosMoveDUL,
@@ -54,7 +47,7 @@ func PickNext_Loop(numRows, numCols, I int) {
 	}
 
 	//Down
-	if CurrentRow+1 < numRows && !vis && (Op == 4 || Op == 5 || Op == 6 || Op == 7 || Op == 8) {
+	if CurrentRow+1 < numRows && (Op == 4 || Op == 5 || Op == 6 || Op == 7 || Op == 8) {
 		PosMoveDown := []int{CurrentRow + 1, CurrentCol}
 		Down := map[string][]int{
 			"Down": PosMoveDown,
@@ -63,7 +56,7 @@ func PickNext_Loop(numRows, numCols, I int) {
 	}
 
 	//DDownRight
-	if CurrentRow+1 < numRows && CurrentCol+1 < numCols && !vis && (Op == 4 || Op == 5 || Op == 6 || Op == 7) {
+	if CurrentRow+1 < numRows && CurrentCol+1 < numCols && (Op == 4 || Op == 5 || Op == 6 || Op == 7) {
 		PosMoveDDR := []int{CurrentRow + 1, CurrentCol + 1}
 		DDownRight := map[string][]int{
 			"DDownRight": PosMoveDDR,
@@ -72,7 +65,7 @@ func PickNext_Loop(numRows, numCols, I int) {
 	}
 
 	//DDownLeft
-	if CurrentRow+1 < numRows && CurrentCol-1 >= 0 && !vis && (Op == 4 || Op == 5 || Op == 6 || Op == 8) {
+	if CurrentRow+1 < numRows && CurrentCol-1 >= 0 && (Op == 4 || Op == 5 || Op == 6 || Op == 8) {
 		PosMoveDDL := []int{CurrentRow + 1, CurrentCol - 1}
 		DDownLeft := map[string][]int{
 			"DDownLeft": PosMoveDDL,
@@ -81,7 +74,7 @@ func PickNext_Loop(numRows, numCols, I int) {
 	}
 
 	//Right
-	if CurrentCol+1 < numCols && !vis && (Op == 1 || Op == 6 || Op == 7) {
+	if CurrentCol+1 < numCols && (Op == 1 || Op == 6 || Op == 7) {
 		PosMoveR := []int{CurrentRow, CurrentCol + 1}
 		Right := map[string][]int{
 			"Right": PosMoveR,
@@ -90,7 +83,7 @@ func PickNext_Loop(numRows, numCols, I int) {
 	}
 
 	//Left
-	if CurrentCol-1 >= 0 && !vis && (Op == 2 || Op == 5 || Op == 8) {
+	if CurrentCol-1 >= 0 && (Op == 2 || Op == 5 || Op == 8) {
 		PosMoveL := []int{CurrentRow, CurrentCol - 1}
 		Left := map[string][]int{
 			"Left": PosMoveL,
@@ -100,7 +93,7 @@ func PickNext_Loop(numRows, numCols, I int) {
 
 	if len(PossibleMoves) == 0 {
 		//Right - last option
-		if CurrentCol+1 < numCols && !vis && (Op == 3 || Op == 4) {
+		if CurrentCol+1 < numCols && (Op == 3 || Op == 4) {
 			PosMoveR := []int{CurrentRow, CurrentCol + 1}
 			Right := map[string][]int{
 				"Right": PosMoveR,
@@ -109,7 +102,7 @@ func PickNext_Loop(numRows, numCols, I int) {
 		}
 
 		//Left - last option
-		if CurrentCol-1 >= 0 && !vis && (Op == 3 || Op == 4) {
+		if CurrentCol-1 >= 0 && (Op == 3 || Op == 4) {
 			PosMoveL := []int{CurrentRow, CurrentCol - 1}
 			Left := map[string][]int{
 				"Left": PosMoveL,
@@ -119,7 +112,7 @@ func PickNext_Loop(numRows, numCols, I int) {
 	}
 
 	if len(PossibleMoves) == 0 {
-		fmt.Println("Possible moves not being added to list")
+		fmt.Println("Possible moves not being added to list again")
 	}
 
 	randomIndex := rand.Intn(len(PossibleMoves))
@@ -132,11 +125,10 @@ func PickNext_Loop(numRows, numCols, I int) {
 		MoveKey = key
 	}
 
-	NewPosition := nextMove[MoveKey]
+	NPosition := nextMove[MoveKey]
 
 	NextMove := map[string]interface{}{
-		"Position": []int{NewPosition[0], NewPosition[1]},
-		"Visited":  true,
+		"Position": []int{NPosition[0], NPosition[1]},
 		"Previous": MoveKey,
 		"TrkIndex": I + 1,
 	}
@@ -145,13 +137,14 @@ func PickNext_Loop(numRows, numCols, I int) {
 
 	if len(Trk) < numRows*numCols {
 		go func() {
-			time.Sleep(1 * time.Second)
-			PossibleMoves = nil
+			time.Sleep(250 * time.Millisecond)
+			PossibleMoves = PossibleMoves[:0]
 			fyne.Do(func() {
 				PickNext_Loop(numRows, numCols, I+1)
 			})
 		}()
 	} else {
+		fmt.Printf("%v", Trk)
 		fmt.Print("map completed")
 		return
 	}
@@ -182,4 +175,22 @@ func DetermineOptions_loop(I int) (option int) {
 		fmt.Print("Previous did not match movekey label\n")
 		return
 	}
+}
+
+func IfVisted(List []map[string]interface{}, CurrentRow, CurrentCol int) bool {
+	for _, m := range List {
+		if posVal, ok := m["Position"].([]int); ok {
+			if posVal[0] == CurrentRow-1 && posVal[1] == CurrentCol ||
+				posVal[0] == CurrentRow-1 && posVal[1] == CurrentCol-1 ||
+				posVal[0] == CurrentRow+1 && posVal[1] == CurrentCol ||
+				posVal[0] == CurrentRow+1 && posVal[1] == CurrentCol+1 ||
+				posVal[0] == CurrentRow && posVal[1] == CurrentCol+1 ||
+				posVal[0] == CurrentRow && posVal[1] == CurrentCol-1 ||
+				posVal[0] == CurrentRow-1 && posVal[1] == CurrentCol+1 ||
+				posVal[0] == CurrentRow+1 && posVal[1] == CurrentCol-1 {
+				return true
+			}
+		}
+	}
+	return false
 }

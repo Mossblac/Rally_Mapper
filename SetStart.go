@@ -79,19 +79,17 @@ func SetStart(CellGrid [][]*fyne.Container, numRows, numCols int) {
 
 	FirstMove := map[string]interface{}{
 		"Position": []int{NewPosition[0], NewPosition[1]},
-		"Visited":  true,
 		"Previous": MoveKey,
 		"TrkIndex": 1,
 	}
 
 	Trk = append(Trk, FirstMove)
 
-	fmt.Printf("%v", MoveKey)
-
-	PossibleMoves = nil
+	PossibleMoves = PossibleMoves[:0]
 
 	imageToSet := DetermineStartImage(1)
-	FirstMove["Image"] = imageToSet
+	start := Trk[0]
+	start["Image"] = imageToSet
 	SetImageInCell(CellGrid, CurrentRow, CurrentCol, imageToSet)
 }
 
