@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 var PossibleMoves []map[string][]int
 
@@ -91,4 +93,48 @@ func PickNext(numRows, numCols, I int) {
 		PossibleMoves = append(PossibleMoves, Left)
 	}
 
+	/*if len(PossibleMoves) == 0 {
+		fmt.Println("Possible moves not being added to list")
+	}
+
+	randomIndex := rand.Intn(len(PossibleMoves))
+
+	nextMove := PossibleMoves[randomIndex]
+
+	var MoveKey string
+
+	for key := range nextMove {
+		MoveKey = key
+	}
+
+	NewPosition := nextMove[MoveKey]
+
+	NextMove := map[string]interface{}{
+		"Position": []int{NewPosition[0], NewPosition[1]},
+		"Visited":  true,
+		"Previous": MoveKey,
+		"TrkIndex": I+1,
+	}
+
+	Trk = append(Trk, NextMove)*/
+
 }
+
+/*func DetermineStartImage(TrkIndex int) (imageToSet []string) {
+	Current := Trk[TrkIndex]
+	PrevMove := Current["Previous"]
+	switch PrevMove {
+	case "UP":
+		return StartUP
+	case "DUPRight":
+		return StartAngleUR
+	case "DUPLeft":
+		return StartAngleUL
+	case "Right":
+		return StartRight
+	case "Left":
+		return StartLeft
+	default:
+		return nil
+	}
+}*/

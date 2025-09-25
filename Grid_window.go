@@ -59,6 +59,7 @@ func Grid_Widget(TrackType string, numObstacles int) {
 
 	mainWin.SetContent(gridWithHomeB)
 
+	// you have to put the sleep within a go function for it to separate properly
 	go func() {
 		time.Sleep(1 * time.Second)
 		DeterminePath_setimages(TrackType, cellContainers, numRows, numCols)
