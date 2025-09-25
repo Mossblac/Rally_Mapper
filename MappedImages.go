@@ -22,3 +22,5 @@ var TwoWayStraightDTR = []string{"TwoWayStraightDTR", "/home/mossblac/workspace/
 
 //DTR: diagonal Top Right
 //DBL: diagonal Bottom Left
+
+/*bad news, it is far easier to flip and rotate the images ouside of using fyne or go, best to just import them here and create a massive switch case.*/

@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-var PossibleMoves [][]int
+var PossibleMoves []map[string][]int
 
 func PickNext(numRows, numCols, I int) {
 	currentMap := Trk[I]
@@ -10,55 +10,85 @@ func PickNext(numRows, numCols, I int) {
 	if !ok {
 		fmt.Println("unable to assert slice of integers")
 	}
+	vis, ok := currentMap["Visited"].(bool)
+	if !ok {
+		fmt.Println("unable to assert Visited is boolean")
+		vis = false
+	}
+
 	CurrentRow := pos[0]
 	CurrentCol := pos[1]
 
 	//UP
-	if CurrentRow-1 >= 0 {
+	if CurrentRow-1 >= 0 && !vis {
 		PosMoveUP := []int{CurrentRow - 1, CurrentCol}
-		PossibleMoves = append(PossibleMoves, PosMoveUP)
+		UP := map[string][]int{
+			"UP": PosMoveUP,
+		}
+		PossibleMoves = append(PossibleMoves, UP)
 	}
 
 	//DUPRight
-	if CurrentRow-1 >= 0 && CurrentCol+1 < numCols {
+	if CurrentRow-1 >= 0 && CurrentCol+1 < numCols && !vis {
 		PosMoveDUR := []int{CurrentRow - 1, CurrentCol + 1}
-		PossibleMoves = append(PossibleMoves, PosMoveDUR)
+		DUPRight := map[string][]int{
+			"DUPRight": PosMoveDUR,
+		}
+		PossibleMoves = append(PossibleMoves, DUPRight)
 	}
 
 	//DUPleft
-	if CurrentRow-1 >= 0 && CurrentCol-1 >= 0 {
+	if CurrentRow-1 >= 0 && CurrentCol-1 >= 0 && !vis {
 		PosMoveDUL := []int{CurrentRow - 1, CurrentCol - 1}
-		PossibleMoves = append(PossibleMoves, PosMoveDUL)
+		DUPLeft := map[string][]int{
+			"DUPLeft": PosMoveDUL,
+		}
+		PossibleMoves = append(PossibleMoves, DUPLeft)
 	}
 
 	//Down
-	if CurrentRow+1 < numRows {
+	if CurrentRow+1 < numRows && !vis {
 		PosMoveDown := []int{CurrentRow + 1, CurrentCol}
-		PossibleMoves = append(PossibleMoves, PosMoveDown)
+		Down := map[string][]int{
+			"Down": PosMoveDown,
+		}
+		PossibleMoves = append(PossibleMoves, Down)
 	}
 
 	//DDownRight
-	if CurrentRow+1 < numRows && CurrentCol+1 < numCols {
+	if CurrentRow+1 < numRows && CurrentCol+1 < numCols && !vis {
 		PosMoveDDR := []int{CurrentRow + 1, CurrentCol + 1}
-		PossibleMoves = append(PossibleMoves, PosMoveDDR)
+		DDownRight := map[string][]int{
+			"DDownRight": PosMoveDDR,
+		}
+		PossibleMoves = append(PossibleMoves, DDownRight)
 	}
 
 	//DDownLeft
-	if CurrentRow+1 < numRows && CurrentCol-1 >= 0 {
+	if CurrentRow+1 < numRows && CurrentCol-1 >= 0 && !vis {
 		PosMoveDDL := []int{CurrentRow + 1, CurrentCol - 1}
-		PossibleMoves = append(PossibleMoves, PosMoveDDL)
+		DDownLeft := map[string][]int{
+			"DDownLeft": PosMoveDDL,
+		}
+		PossibleMoves = append(PossibleMoves, DDownLeft)
 	}
 
 	//Right - last option
-	if CurrentCol+1 < numCols {
+	if CurrentCol+1 < numCols && !vis {
 		PosMoveR := []int{CurrentRow, CurrentCol + 1}
-		PossibleMoves = append(PossibleMoves, PosMoveR)
+		Right := map[string][]int{
+			"Right": PosMoveR,
+		}
+		PossibleMoves = append(PossibleMoves, Right)
 	}
 
 	//Left - last option
-	if CurrentCol-1 >= 0 {
+	if CurrentCol-1 >= 0 && !vis {
 		PosMoveL := []int{CurrentRow, CurrentCol - 1}
-		PossibleMoves = append(PossibleMoves, PosMoveL)
+		Left := map[string][]int{
+			"Left": PosMoveL,
+		}
+		PossibleMoves = append(PossibleMoves, Left)
 	}
 
 }

@@ -3,11 +3,13 @@ package main
 import (
 	"fmt"
 	"math/rand"
+
+	"fyne.io/fyne/v2"
 )
 
-func SetStart(numRows, numCols int) {
+func SetStart(CellGrid [][]*fyne.Container, numRows, numCols int) {
 	currentMap := Trk[0]
-	pos, ok := currentMap["Position"].([]int)
+	pos, ok := currentMap["Position"].([]int) //you have to assert type when using interface{}
 	if !ok {
 		fmt.Println("unable to assert slice of integers")
 	}
@@ -17,31 +19,46 @@ func SetStart(numRows, numCols int) {
 	//UP
 	if CurrentRow-1 >= 0 {
 		PosMoveUP := []int{CurrentRow - 1, CurrentCol}
-		PossibleMoves = append(PossibleMoves, PosMoveUP)
+		UP := map[string][]int{
+			"UP": PosMoveUP,
+		}
+		PossibleMoves = append(PossibleMoves, UP)
 	}
 
 	//DUPRight
 	if CurrentRow-1 >= 0 && CurrentCol+1 < numCols {
 		PosMoveDUR := []int{CurrentRow - 1, CurrentCol + 1}
-		PossibleMoves = append(PossibleMoves, PosMoveDUR)
+		DUPRight := map[string][]int{
+			"DUPRight": PosMoveDUR,
+		}
+		PossibleMoves = append(PossibleMoves, DUPRight)
 	}
 
 	//DUPleft
 	if CurrentRow-1 >= 0 && CurrentCol-1 >= 0 {
 		PosMoveDUL := []int{CurrentRow - 1, CurrentCol - 1}
-		PossibleMoves = append(PossibleMoves, PosMoveDUL)
+		DUPLeft := map[string][]int{
+			"DUPLeft": PosMoveDUL,
+		}
+		PossibleMoves = append(PossibleMoves, DUPLeft)
 	}
 
 	//Right - last option
 	if CurrentCol+1 < numCols {
 		PosMoveR := []int{CurrentRow, CurrentCol + 1}
-		PossibleMoves = append(PossibleMoves, PosMoveR)
+		Right := map[string][]int{
+			"Right": PosMoveR,
+		}
+		PossibleMoves = append(PossibleMoves, Right)
 	}
 
 	//Left - last option
 	if CurrentCol-1 >= 0 {
 		PosMoveL := []int{CurrentRow, CurrentCol - 1}
-		PossibleMoves = append(PossibleMoves, PosMoveL)
+		Left := map[string][]int{
+			"Left": PosMoveL,
+		}
+		PossibleMoves = append(PossibleMoves, Left)
 	}
 
 	if len(PossibleMoves) == 0 {
@@ -52,6 +69,47 @@ func SetStart(numRows, numCols int) {
 
 	nextMove := PossibleMoves[randomIndex]
 
-	fmt.Printf("%v", nextMove)
+	var MoveKey string
 
+	for key := range nextMove {
+		MoveKey = key
+	}
+
+	NewPosition := nextMove[MoveKey]
+
+	FirstMove := map[string]interface{}{
+		"Position": []int{NewPosition[0], NewPosition[1]},
+		"Visited":  true,
+		"Previous": MoveKey,
+		"TrkIndex": 1,
+	}
+
+	Trk = append(Trk, FirstMove)
+
+	fmt.Printf("%v", MoveKey)
+
+	PossibleMoves = nil
+
+	imageToSet := DetermineStartImage(1)
+	FirstMove["Image"] = imageToSet
+	SetImageInCell(CellGrid, CurrentRow, CurrentCol, imageToSet)
+}
+
+func DetermineStartImage(TrkIndex int) (imageToSet []string) {
+	Current := Trk[TrkIndex]
+	PrevMove := Current["Previous"]
+	switch PrevMove {
+	case "UP":
+		return StartUP
+	case "DUPRight":
+		return StartAngleUR
+	case "DUPLeft":
+		return nil // needs to be made
+	case "Right":
+		return StartRight
+	case "Left":
+		return nil // needs to be made
+	default:
+		return nil
+	}
 }

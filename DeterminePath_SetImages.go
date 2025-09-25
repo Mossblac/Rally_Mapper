@@ -24,12 +24,12 @@ func DeterminePath_setimages(TrackType string, CellGrid [][]*fyne.Container, num
 
 	start := map[string]interface{}{
 		"Position": []int{R, C},
-		"visited":  true,
+		"Visited":  true,
 	}
 
 	Trk = append(Trk, start)
 
-	SetStart(numRows, numCols)
+	SetStart(CellGrid, numRows, numCols)
 
 	//how to add image
 
