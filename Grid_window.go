@@ -2,6 +2,7 @@ package main
 
 import (
 	"image/color"
+	"time"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
@@ -39,8 +40,6 @@ func Grid_Widget(TrackType string, numObstacles int) {
 		}
 	}
 
-	DeterminePath_setimages(TrackType, cellContainers, numRows, numCols)
-
 	cgrid := container.NewCenter(grid)
 	centeredGrid := container.New(layout.NewVBoxLayout(),
 		layout.NewSpacer(),
@@ -59,4 +58,10 @@ func Grid_Widget(TrackType string, numObstacles int) {
 	)
 
 	mainWin.SetContent(gridWithHomeB)
+
+	go func() {
+		time.Sleep(1 * time.Second)
+		DeterminePath_setimages(TrackType, cellContainers, numRows, numCols)
+	}()
+
 }

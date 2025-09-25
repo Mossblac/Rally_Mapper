@@ -18,3 +18,7 @@ func SetImageInCell(CellGrid [][]*fyne.Container, row, col int, imageName_Path [
 		CellGrid[row][col].Refresh()
 	}
 }
+
+func FadeInAnimate() {
+
+}

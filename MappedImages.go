@@ -6,7 +6,9 @@ var ImagePaths = make(map[string]*canvas.Image)
 
 var StartRight = []string{"StartRight", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/startRight.png"}
 var StartAngleUR = []string{"StartAngleUR", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/startAngleUR.png"}
+var StartAngleUL = []string{"StartAngleUL", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/startAngleUL.png"}
 var StartUP = []string{"StartUp", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/startUp.png"}
+var StartLeft = []string{"StartLeft", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/startLeft.png"}
 
 var StraightUP = []string{"StraightUP", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rallyicons/StraightUP.png"}
 var StraightDTR = []string{"StraightDTR", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rallyicons/StraightDTR.png"}

@@ -104,11 +104,11 @@ func DetermineStartImage(TrkIndex int) (imageToSet []string) {
 	case "DUPRight":
 		return StartAngleUR
 	case "DUPLeft":
-		return nil // needs to be made
+		return StartAngleUL
 	case "Right":
 		return StartRight
 	case "Left":
-		return nil // needs to be made
+		return StartLeft
 	default:
 		return nil
 	}
