@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"fyne.io/fyne/v2"
 )
@@ -30,6 +31,12 @@ func DeterminePath_setimages(TrackType string, CellGrid [][]*fyne.Container, num
 	Trk = append(Trk, start)
 
 	SetStart(CellGrid, numRows, numCols)
+	go func() {
+		time.Sleep(1 * time.Second)
+		fyne.Do(func() {
+			PickNext_Loop(numRows, numCols, 1)
+		})
+	}()
 
 	//how to add image
 

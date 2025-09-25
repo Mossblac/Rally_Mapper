@@ -3,6 +3,9 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"time"
+
+	"fyne.io/fyne/v2"
 )
 
 var PossibleMoves []map[string][]int
@@ -77,7 +80,7 @@ func PickNext_Loop(numRows, numCols, I int) {
 		PossibleMoves = append(PossibleMoves, DDownLeft)
 	}
 
-	//Right - last option
+	//Right
 	if CurrentCol+1 < numCols && !vis && (Op == 1 || Op == 6 || Op == 7) {
 		PosMoveR := []int{CurrentRow, CurrentCol + 1}
 		Right := map[string][]int{
@@ -86,13 +89,33 @@ func PickNext_Loop(numRows, numCols, I int) {
 		PossibleMoves = append(PossibleMoves, Right)
 	}
 
-	//Left - last option
+	//Left
 	if CurrentCol-1 >= 0 && !vis && (Op == 2 || Op == 5 || Op == 8) {
 		PosMoveL := []int{CurrentRow, CurrentCol - 1}
 		Left := map[string][]int{
 			"Left": PosMoveL,
 		}
 		PossibleMoves = append(PossibleMoves, Left)
+	}
+
+	if len(PossibleMoves) == 0 {
+		//Right - last option
+		if CurrentCol+1 < numCols && !vis && (Op == 3 || Op == 4) {
+			PosMoveR := []int{CurrentRow, CurrentCol + 1}
+			Right := map[string][]int{
+				"Right": PosMoveR,
+			}
+			PossibleMoves = append(PossibleMoves, Right)
+		}
+
+		//Left - last option
+		if CurrentCol-1 >= 0 && !vis && (Op == 3 || Op == 4) {
+			PosMoveL := []int{CurrentRow, CurrentCol - 1}
+			Left := map[string][]int{
+				"Left": PosMoveL,
+			}
+			PossibleMoves = append(PossibleMoves, Left)
+		}
 	}
 
 	if len(PossibleMoves) == 0 {
@@ -119,6 +142,19 @@ func PickNext_Loop(numRows, numCols, I int) {
 	}
 
 	Trk = append(Trk, NextMove)
+
+	if len(Trk) < numRows*numCols {
+		go func() {
+			time.Sleep(1 * time.Second)
+			PossibleMoves = nil
+			fyne.Do(func() {
+				PickNext_Loop(numRows, numCols, I+1)
+			})
+		}()
+	} else {
+		fmt.Print("map completed")
+		return
+	}
 
 }
 
