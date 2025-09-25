@@ -121,8 +121,9 @@ func PickNext_Loop(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 		}
 	}
 
-	if len(PossibleMoves) == 0 {
-		fmt.Println("Ran Out of Possible Moves")
+	if len(Trk) < numRows*numCols && len(PossibleMoves) == 0 {
+		SetImageInCell(CellGrid, CurrentRow, CurrentCol, RallyLogo)
+		fmt.Println("Ran Out of Possible Moves") // here is where you will run the reverse protocol
 		return
 	} else {
 		for _, m := range PossibleMoves {
@@ -152,6 +153,8 @@ func PickNext_Loop(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 
 	Trk = append(Trk, NextMove)
 
+	fmt.Printf("currentposition: %v %v\n", NPosition[0], NPosition[1])
+
 	SetImageInCell(CellGrid, CurrentRow, CurrentCol, RallyLogo)
 
 	if len(Trk) < numRows*numCols {
@@ -163,6 +166,7 @@ func PickNext_Loop(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 			})
 		}()
 	} else {
+		SetImageInCell(CellGrid, NPosition[0], NPosition[1], RallyLogo)
 		fmt.Printf("%v", Trk)
 		fmt.Print("map completed")
 		return
