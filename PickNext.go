@@ -123,6 +123,7 @@ func PickNext(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 	if len(Trk) < numRows*numCols && len(PossibleMoves) == 0 {
 		SetImageInCell(CellGrid, CurrentRow, CurrentCol, RallyLogo)
 		fmt.Println("Ran Out of Possible Moves") // here is where you will run the reverse protocol
+		fmt.Printf("%v", Trk)
 		return
 	}
 

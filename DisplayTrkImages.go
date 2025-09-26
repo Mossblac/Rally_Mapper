@@ -7,9 +7,12 @@ import (
 )
 
 func DisplayTrkImages(CellGrid [][]*fyne.Container) {
-	for _, m := range Trk {
-		for key, value := range m {
-			fmt.Printf("Trk list: %v  %v\n\n", key, value)
+	for i := 1; i < len(Trk); i++ {
+		m := Trk[i]
+		pos, ok := m["Position"].([]int)
+		if ok {
+			SetImageInCell(CellGrid, pos[0], pos[1], RallyLogo)
 		}
 	}
+	fmt.Println("all images set")
 }

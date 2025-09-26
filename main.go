@@ -5,10 +5,7 @@ import (
 	"fyne.io/fyne/v2/app"
 )
 
-// you are making the grid based on the inputs, so you need to create the widgets and collect the inputs first.
-
 var mainWin fyne.Window
-var course fyne.Window
 
 func main() {
 

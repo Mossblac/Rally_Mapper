@@ -1,7 +1,6 @@
 package main
 
 import (
-	"sync"
 	"time"
 
 	"fyne.io/fyne/v2"
@@ -9,7 +8,6 @@ import (
 
 var Trk []map[string]interface{}
 var PossibleMoves []map[string][]int
-var Wg sync.WaitGroup
 
 func DeterminePath_setStart(TrackType string, CellGrid [][]*fyne.Container, numRows, numCols int) {
 
@@ -32,13 +30,15 @@ func DeterminePath_setStart(TrackType string, CellGrid [][]*fyne.Container, numR
 
 	Trk = append(Trk, start)
 
-	SetStart(CellGrid, numRows, numCols) //DeterminePath is in a go routine inside a fyne.DoAndWait()
+	//DisplayTrkImages(CellGrid)
 
 	go func() {
-		time.Sleep(500 * time.Millisecond)
-		fyne.Do(func() { //Do allows for Picknext and anything within it, to change graphics
-			PickNext(CellGrid, numRows, numCols, 1)
-		})
+		time.Sleep(1000 * time.Millisecond)
+		SetStart(CellGrid, numRows, numCols)
+		time.Sleep(1000 * time.Millisecond)
+		PickNext(CellGrid, numRows, numCols, 1)
+		time.Sleep(1000 * time.Millisecond)
+		DisplayTrkImages(CellGrid)
 	}()
 
 }
