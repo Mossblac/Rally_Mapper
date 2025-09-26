@@ -31,10 +31,14 @@ func DeterminePath_setimages(TrackType string, CellGrid [][]*fyne.Container, num
 	Trk = append(Trk, start)
 
 	SetStart(CellGrid, numRows, numCols)
+
+	if TrackType == "loop" {
+
+	}
 	go func() {
 		time.Sleep(1 * time.Second)
 		fyne.Do(func() {
-			PickNext_Loop(CellGrid, numRows, numCols, 1)
+			PickNext(CellGrid, numRows, numCols, 1)
 		})
 	}()
 

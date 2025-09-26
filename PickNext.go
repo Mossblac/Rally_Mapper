@@ -8,7 +8,7 @@ import (
 	"fyne.io/fyne/v2"
 )
 
-func PickNext_Loop(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
+func PickNext(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 	currentMap := Trk[I]
 	pos, ok := currentMap["Position"].([]int)
 	if !ok {
@@ -17,7 +17,7 @@ func PickNext_Loop(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 
 	CurrentRow := pos[0]
 	CurrentCol := pos[1]
-	Op := DetermineOptions_loop(I)
+	Op := DetermineOptions(I)
 
 	//UP
 	vis := VistedCheck(Trk, CurrentRow-1, CurrentCol)
@@ -162,7 +162,7 @@ func PickNext_Loop(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 			time.Sleep(250 * time.Millisecond)
 			PossibleMoves = nil
 			fyne.Do(func() {
-				PickNext_Loop(CellGrid, numRows, numCols, I+1)
+				PickNext(CellGrid, numRows, numCols, I+1)
 			})
 		}()
 	} else {
@@ -174,7 +174,7 @@ func PickNext_Loop(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 
 }
 
-func DetermineOptions_loop(I int) (option int) {
+func DetermineOptions(I int) (option int) {
 	current := Trk[I]
 	Prev := current["Previous"]
 	switch Prev {
