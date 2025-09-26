@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"math/rand"
-	"time"
 
 	"fyne.io/fyne/v2"
 )
@@ -155,18 +154,17 @@ func PickNext(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 
 	fmt.Printf("currentposition: %v %v\n", NPosition[0], NPosition[1])
 
-	SetImageInCell(CellGrid, CurrentRow, CurrentCol, RallyLogo)
+	//SetImageInCell(CellGrid, CurrentRow, CurrentCol, RallyLogo)
 
 	if len(Trk) < numRows*numCols {
 		go func() {
-			time.Sleep(250 * time.Millisecond)
 			PossibleMoves = nil
 			fyne.Do(func() {
 				PickNext(CellGrid, numRows, numCols, I+1)
 			})
 		}()
 	} else {
-		SetImageInCell(CellGrid, NPosition[0], NPosition[1], RallyLogo)
+		//SetImageInCell(CellGrid, NPosition[0], NPosition[1], RallyLogo)
 		fmt.Printf("%v", Trk)
 		fmt.Print("map completed")
 		return
