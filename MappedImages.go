@@ -13,9 +13,24 @@ var StartUP = []string{"StartUp", "/home/mossblac/workspace/github.com/Mossblac/
 var StartLeft = []string{"StartLeft", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/startLeft.png"}
 
 var StraightUP = []string{"StraightUP", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rallyicons/StraightUP.png"}
-var StraightDTR = []string{"StraightDTR", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rallyicons/StraightDTR.png"}
+var StraightDown = []string{"StraightDown", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rallyicons/StraightDown.png"}
+var StraightRight = []string{"StrightRight", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rallyicons/StraightRight.png"}
+var StraightLeft = []string{"StraightLeft", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rallyicons/StraightLeft.png"}
 
+var StraightDTR = []string{"StraightDTR", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rallyicons/StraightDTR.png"}
+var StraightDTL = []string{"StraightDTL", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rallyicons/StraightDTL.png"}
+var StraightDBL = []string{"StraightDBL", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rallyicons/StraightDBL.png"}
+var StraightDBR = []string{"StraightDBR", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rallyicons/StraightDBR.png"}
+
+var CurveT_DBL = []string{"CurveT_DBL", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rallyicons/CurveT_DBL.png"}
+var CurveT_DBR = []string{"CurveT_DBR", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rallyicons/CurveT_DBR.png"}
 var CurveB_DTR = []string{"CurveB_DTR", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rallyicons/CurveB_DTR.png"}
+var CurveB_DTL = []string{"CurveB_DTL", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rallyicons/CurveB_DTL.png"}
+var CurveL_DTR = []string{"CurveL_DTR", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rallyicons/CurveL_DTR.png"}
+var CurveL_DBR = []string{"CurveL_DBR", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rallyicons/CurveL_DBR.png"}
+var CurveR_DTL = []string{"CurveR_DTL", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rallyicons/CurveR_DTL.png"}
+var CurveR_DBL = []string{"CurveR_DBL", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rallyicons/CurveR_DBL.png"}
+
 var Curve90B_R = []string{"Curve90B_R", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rallyicons/Curve90B_R.png"}
 
 var Cul_reversalUP = []string{"Cul_reversalUP", "/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rallyicons/Cul_reverseUP.png"}
