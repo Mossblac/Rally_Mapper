@@ -9,20 +9,14 @@ import (
 )
 
 func SetImageInCell(CellGrid [][]*fyne.Container, row, col int, imageName_Path []string) {
-	if path, ok := ImagePaths[imageName_Path[0]]; ok {
-		path.FillMode = canvas.ImageFillContain
-		CellGrid[row][col].Objects = []fyne.CanvasObject{path}
-		CellGrid[row][col].Refresh()
-		FadeInAnimate(path)
-	} else {
-		image := canvas.NewImageFromFile(imageName_Path[1])
-		ImagePaths[imageName_Path[0]] = image
-		image.FillMode = canvas.ImageFillContain
-		image.Translucency = 1.0
-		CellGrid[row][col].Objects = []fyne.CanvasObject{image}
-		CellGrid[row][col].Refresh()
-		FadeInAnimate(image)
-	}
+	image := canvas.NewImageFromFile(imageName_Path[1])
+	image.FillMode = canvas.ImageFillContain
+	image.Translucency = 1.0
+	CellGrid[row][col].Objects = []fyne.CanvasObject{image}
+	CellGrid[row][col].Refresh()
+	FadeInAnimate(image)
+	image = nil
+
 }
 
 func FadeInAnimate(image *canvas.Image) {
