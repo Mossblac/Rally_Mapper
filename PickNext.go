@@ -120,10 +120,9 @@ func PickNext(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 		}
 	}
 
-	if len(Trk) < numRows*numCols && RevCount < ((numRows*numCols)/3) && len(PossibleMoves) == 0 {
+	if len(Trk) < ((numRows*numCols)-RevCount) && RevCount < ((numRows*numCols)/3) && len(PossibleMoves) == 0 {
 		//ReverseProtocol(CellGrid, numRows, numCols, I)
-		fmt.Println("Ran Out of Possible Moves") // here is where you will run the reverse protocol
-		fmt.Printf("%v", Trk)
+		fmt.Println("Unable to complete track")
 		return
 	}
 
@@ -142,24 +141,23 @@ func PickNext(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 	NextMove := map[string]interface{}{
 		"Position": []int{NPosition[0], NPosition[1]},
 		"Previous": MoveKey,
-		"TrkIndex": I + 1,
+		"TrkIndex": TrkInt + 1,
 	}
 
 	Trk = append(Trk, NextMove)
 
 	fmt.Printf("currentposition: %v %v\n", NPosition[0], NPosition[1])
 
-	if len(Trk) < numRows*numCols {
+	if len(Trk) < ((numRows * numCols) - RevCount) {
 		go func() {
 			PossibleMoves = nil
 			fyne.Do(func() {
-				PickNext(CellGrid, numRows, numCols, I+1)
+				TrkInt += 1
+				PickNext(CellGrid, numRows, numCols, TrkInt)
 			})
 		}()
 	} else {
-		SetImageInCell(CellGrid, NPosition[0], NPosition[1], RallyLogo)
-		fmt.Printf("%v", Trk)
-		fmt.Print("map completed")
+		fmt.Println("map complete")
 		return
 	}
 }
@@ -191,11 +189,6 @@ func DetermineOptions(I int) (option int) {
 }
 
 func VistedCheck(Trk []map[string]interface{}, CurrentRow, CurrentCol, I int) bool {
-	revChk := Trk[I]
-	_, ok := revChk["Rev"].(bool)
-	if ok {
-		return false
-	}
 	for _, Vcheck := range Trk {
 		Vis, ok := Vcheck["Position"].([]int)
 		if ok {

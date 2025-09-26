@@ -13,7 +13,11 @@ func SetImageInCell(CellGrid [][]*fyne.Container, row, col int, imageName_Path [
 	image.FillMode = canvas.ImageFillContain
 	image.Translucency = 1.0
 	CellGrid[row][col].Objects = []fyne.CanvasObject{image}
-	CellGrid[row][col].Refresh() //this line needs to be within a fyne.DoAndWait() or fyne.Do() to work
+	go func() {
+		fyne.DoAndWait(func() {
+			CellGrid[row][col].Refresh()
+		})
+	}()
 	FadeInAnimate(image)
 	image = nil
 }

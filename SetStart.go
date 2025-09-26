@@ -84,6 +84,7 @@ func SetStart(CellGrid [][]*fyne.Container, numRows, numCols int) {
 	}
 
 	Trk = append(Trk, FirstMove)
+	TrkInt += 1
 
 	PossibleMoves = PossibleMoves[:0]
 

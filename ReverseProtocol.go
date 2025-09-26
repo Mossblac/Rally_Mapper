@@ -28,18 +28,13 @@ func ReverseProtocol(CellGrid [][]*fyne.Container, R, C, TrkI int) {
 		case "Down":
 			Ccell["Previous"] = "UP"
 		}
-
-		PickNext(CellGrid, R, C, TrkI+1)
+		TrkInt += 1
+		PickNext(CellGrid, R, C, TrkI)
 	}
 	if ok {
 		RevCount += 1
-		//PrevCell := Trk[TrkI-1]
-		//backtrack, ok := PrevCell["Position"].([]int)
-		if ok {
-			//BTR := backtrack[0]
-			//BTC := backtrack[1]
-		}
-		//PickNext()
+		TrkInt += 1
+		PickNext(CellGrid, R, C, TrkI-1)
 	}
 
 }
