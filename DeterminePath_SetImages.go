@@ -8,6 +8,7 @@ import (
 
 var Trk []map[string]interface{}
 var PossibleMoves []map[string][]int
+var RevCount int
 
 func DeterminePath_setStart(TrackType string, CellGrid [][]*fyne.Container, numRows, numCols int) {
 

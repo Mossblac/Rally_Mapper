@@ -11,7 +11,9 @@ func DisplayTrkImages(CellGrid [][]*fyne.Container) {
 		m := Trk[i]
 		pos, ok := m["Position"].([]int)
 		if ok {
-			SetImageInCell(CellGrid, pos[0], pos[1], RallyLogo)
+			fyne.DoAndWait(func() {
+				SetImageInCell(CellGrid, pos[0], pos[1], RallyLogo)
+			})
 		}
 	}
 	fmt.Println("all images set")
