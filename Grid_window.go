@@ -28,14 +28,14 @@ func Grid_Widget(TrackType string, numObstacles int) {
 
 	grid := container.New(layout.NewGridLayout(numCols))
 
-	cellContainers := make([][]*fyne.Container, numRows)
+	var CellGrid = make([][]*fyne.Container, numRows)
 	for r := 0; r < numRows; r++ {
-		cellContainers[r] = make([]*fyne.Container, numCols)
+		CellGrid[r] = make([]*fyne.Container, numCols)
 		for c := 0; c < numCols; c++ {
 			rect := canvas.NewRectangle(color.Black)
 			rect.SetMinSize(fyne.NewSize((40 - twiceObSize), (40 - twiceObSize))) // zoom in and out buttons will change this and refresh
 			cellContainer := container.NewStack(rect)
-			cellContainers[r][c] = cellContainer
+			CellGrid[r][c] = cellContainer
 			grid.Add(cellContainer)
 		}
 	}
@@ -62,9 +62,8 @@ func Grid_Widget(TrackType string, numObstacles int) {
 	// you have to put the sleep within a go function for it to separate properly
 	go func() {
 		time.Sleep(1 * time.Second)
-		fyne.Do(func() {
-			DeterminePath_setimages(TrackType, cellContainers, numRows, numCols)
+		fyne.DoAndWait(func() {
+			DeterminePath_setStart(TrackType, CellGrid, numRows, numCols)
 		})
 	}()
-
 }

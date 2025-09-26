@@ -124,12 +124,6 @@ func PickNext(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 		SetImageInCell(CellGrid, CurrentRow, CurrentCol, RallyLogo)
 		fmt.Println("Ran Out of Possible Moves") // here is where you will run the reverse protocol
 		return
-	} else {
-		for _, m := range PossibleMoves {
-			for key, value := range m {
-				fmt.Printf("possible moves list:%v  %v\n\n", key, value)
-			}
-		}
 	}
 
 	randomIndex := rand.Intn(len(PossibleMoves))
@@ -154,8 +148,6 @@ func PickNext(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 
 	fmt.Printf("currentposition: %v %v\n", NPosition[0], NPosition[1])
 
-	//SetImageInCell(CellGrid, CurrentRow, CurrentCol, RallyLogo)
-
 	if len(Trk) < numRows*numCols {
 		go func() {
 			PossibleMoves = nil
@@ -164,12 +156,11 @@ func PickNext(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 			})
 		}()
 	} else {
-		//SetImageInCell(CellGrid, NPosition[0], NPosition[1], RallyLogo)
+		SetImageInCell(CellGrid, NPosition[0], NPosition[1], RallyLogo)
 		fmt.Printf("%v", Trk)
 		fmt.Print("map completed")
 		return
 	}
-
 }
 
 func DetermineOptions(I int) (option int) {
@@ -207,13 +198,11 @@ func VistedCheck(Trk []map[string]interface{}, CurrentRow, CurrentCol int) bool 
 			visited := fmt.Sprintf("%v%v", x, y)
 			PosMove := fmt.Sprintf("%v%v", CurrentRow, CurrentCol)
 			if visited == PosMove {
-				fmt.Println("VisitedCheck returned True")
 				return true
 			}
 
 		}
 
 	}
-	fmt.Println("VistedCheck returned False")
 	return false
 }
