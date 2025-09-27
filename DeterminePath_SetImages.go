@@ -36,12 +36,26 @@ func DeterminePath_setStart(TrackType string, CellGrid [][]*fyne.Container, numR
 	//DisplayTrkImages(CellGrid)
 
 	go func() {
-		time.Sleep(1000 * time.Millisecond)
-		SetStart(CellGrid, numRows, numCols)
-		time.Sleep(1000 * time.Millisecond)
-		PickNext(CellGrid, numRows, numCols, TrkInt)
-		time.Sleep(1000 * time.Millisecond)
-		//DisplayTrkImages(CellGrid)
-	}()
+		done1 := make(chan bool)
+		done2 := make(chan bool)
 
+		fyne.Do(func() {
+			time.Sleep(1000 * time.Millisecond)
+			SetStart(CellGrid, numRows, numCols)
+			done1 <- true
+		})
+		<-done1
+
+		fyne.Do(func() {
+			time.Sleep(1000 * time.Millisecond)
+			PickNext(CellGrid, numRows, numCols, 1)
+			done2 <- true
+		})
+		<-done2
+
+		fyne.Do(func() {
+			time.Sleep(1000 * time.Millisecond)
+			DisplayTrkImages(CellGrid)
+		})
+	}()
 }
