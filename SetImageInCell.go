@@ -6,13 +6,16 @@ import (
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
+	"fyne.io/fyne/v2/theme"
 )
+
+var crossRes = theme.CancelIcon()
 
 func SetImageInCell(CellGrid [][]*fyne.Container, row, col int, imageName_Path []string, delay time.Duration) {
 	go func() {
 		time.Sleep(delay)
 		fyne.Do(func() {
-			image := canvas.NewImageFromFile(imageName_Path[1])
+			image := canvas.NewImageFromResource(crossRes)
 			image.FillMode = canvas.ImageFillContain
 			image.Translucency = 1.0 // Start invisible
 

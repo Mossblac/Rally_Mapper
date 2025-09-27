@@ -1,0 +1,38 @@
+package main
+
+/*
+// assets/icons.go
+package assets
+
+import _ "embed"
+
+//go:embed icons/startUP.svg
+var StartUPSVG []byte
+
+
+
+// ui/resources.go
+package ui
+
+import "fyne.io/fyne/v2"
+import "your/module/assets"
+
+var StartUPRes = fyne.NewStaticResource("startUP.svg", assets.StartUPSVG)
+
+
+
+// create an instance for a cell
+import "fyne.io/fyne/v2/canvas"
+import "fyne.io/fyne/v2/container"
+
+func NewStartUPIcon() *canvas.SVG {
+    s := canvas.NewSVGFromResource(StartUPRes)
+    // s.FillColor = someColor // optional
+    return s
+}
+
+// placing in a grid cell
+icon := NewStartUPIcon()
+cell := container.NewStack(icon)  // stack to allow layering later
+grid[row][col].Objects = cell.Objects
+grid[row][col].Refresh()
