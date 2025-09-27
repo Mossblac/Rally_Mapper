@@ -61,9 +61,9 @@ func Grid_Widget(TrackType string, numObstacles int) {
 
 	// you have to put the sleep within a go function for it to separate properly
 
-	time.Sleep(1 * time.Second)
 	go func() {
-		fyne.DoAndWait(func() {
+		time.Sleep(1 * time.Second)
+		fyne.Do(func() {
 			DeterminePath_setStart(TrackType, CellGrid, numRows, numCols)
 		})
 

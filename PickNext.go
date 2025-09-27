@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"time"
 
 	"fyne.io/fyne/v2"
 )
@@ -59,10 +60,9 @@ func PickNext(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 			})
 		}()
 	} else {
-		fmt.Println("map complete")
-		fmt.Printf("RevCount: %v\n", RevCount)
-		PrintTrack(Trk)
-		fmt.Printf("TrkInt: %v\n", TrkInt)
+		SetImageInCell(CellGrid, NPosition[0], NPosition[1], RallyLogo, time.Duration(200*(time.Millisecond)))
+		fmt.Printf("%v", Trk)
+		fmt.Print("map completed")
 		return
 	}
 }
