@@ -1,15 +1,21 @@
 package main
 
-import "fyne.io/fyne/v2"
+import (
+	"fmt"
 
-func ReverseProtocol(CellGrid [][]*fyne.Container, R, C, TrkI int) {
-	Ccell := Trk[TrkI]
+	"fyne.io/fyne/v2"
+)
+
+func ReverseProtocol(CellGrid [][]*fyne.Container, R, C, I int) {
+	Ccell := Trk[I]
 	_, ok := Ccell["Rev"].(bool)
 	if !ok {
-		RevCount += 1
+		fmt.Println("rev not found, adding rev")
+		RevCount++
 		Ccell["Rev"] = true
 
 		prev := Ccell["Previous"]
+		fmt.Printf("Original Previous value: %v", prev)
 		switch prev {
 		case "UP":
 			Ccell["Previous"] = "Down"
@@ -28,13 +34,15 @@ func ReverseProtocol(CellGrid [][]*fyne.Container, R, C, TrkI int) {
 		case "Down":
 			Ccell["Previous"] = "UP"
 		}
-		TrkInt += 1
-		PickNext(CellGrid, R, C, TrkI)
+		fmt.Printf("Previous swapped to: %v", Ccell["Previous"])
+
+		PickNext(CellGrid, R, C, I) // its all about the integer
 	}
 	if ok {
-		RevCount += 1
-		TrkInt += 1
-		PickNext(CellGrid, R, C, TrkI-1)
+		fmt.Println("rev found, backtracking")
+		RevCount++
+		TrkInt++
+		PickNext(CellGrid, R, C, I-1)
 	}
 
 }

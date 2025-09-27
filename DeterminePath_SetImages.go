@@ -41,7 +41,7 @@ func DeterminePath_setStart(TrackType string, CellGrid [][]*fyne.Container, numR
 		time.Sleep(1000 * time.Millisecond)
 		PickNext(CellGrid, numRows, numCols, TrkInt)
 		time.Sleep(1000 * time.Millisecond)
-		DisplayTrkImages(CellGrid)
+		//DisplayTrkImages(CellGrid)
 	}()
 
 }
