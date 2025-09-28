@@ -41,48 +41,19 @@ grid[row][col].Refresh()
 
 how to convert .png to .svg using inkscape:
 
-Import PNG
+1. open File
 
-File → Import… → choose your PNG (Embed is fine).
+2. trace bitmap, should be attached to side. 
 
-Trace as a single shape
+3. select .png, preview will appear
 
-Select the image.
-Path → Trace Bitmap…
-Choose “Single scan” → “Brightness cutoff”.
-Set Threshold around 0.45–0.65 (adjust if needed).
-Check “Remove background”.
-Click Apply, then close the dialog.
-A new vector sits directly on top of the PNG.
+4. under trace bitmap : single scan - autotrace
 
-Keep vector, delete PNG underneath
-With both still overlapping, click once to select (likely selects the top vector).
-Press Tab to cycle selection to the item underneath (the raster PNG).
-Press Delete to remove the PNG.
-If unsure which is which: move the selection slightly with arrow keys—Undo after—then Tab, Delete.
+5. select .png under the trace (you know you have it if the preview re-appears), delete
 
-Ensure transparency is truly removed
-The vector should be a single filled path with no background.
+6. click fill and stroke window (same side panel as trace bitmap)
 
-Open Fill and Stroke (Shift+Ctrl+F):
-Fill: set to your desired color.
-Stroke: set to “X” (none) unless you want an outline.
-Fit the SVG to content
-Select the vector (Ctrl+A if it’s the only thing).
-File → Document Properties → Resize page to content → Resize page to drawing or selection.
+7. click on the trace and the fill window will open options (if entire image not selected, path->union, then select again), select color
 
-Select the traced group.
-If it’s grouped: Object → Ungroup (Shift+Ctrl+G) until pieces are separate.
-Select all pieces:
-If only those are on canvas: Ctrl+A
-Otherwise: drag a selection box around them, or Shift+click to add.
-Fill them all at once:
-Open Fill and Stroke (Shift+Ctrl+F).
-In Fill tab, click flat color and set your color.
-In Stroke Paint, click X to remove stroke (if undesired).
-Optional: to make them a single shape so one click changes all later:
+8. save as .svg
 
-Path → Union. Now it’s one path; set fill once.
-
-Save
-File → Save As… → Plain SVG (*.svg).
