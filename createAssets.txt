@@ -36,3 +36,53 @@ icon := NewStartUPIcon()
 cell := container.NewStack(icon)  // stack to allow layering later
 grid[row][col].Objects = cell.Objects
 grid[row][col].Refresh()
+
+
+
+how to convert .png to .svg using inkscape:
+
+Import PNG
+
+File → Import… → choose your PNG (Embed is fine).
+
+Trace as a single shape
+
+Select the image.
+Path → Trace Bitmap…
+Choose “Single scan” → “Brightness cutoff”.
+Set Threshold around 0.45–0.65 (adjust if needed).
+Check “Remove background”.
+Click Apply, then close the dialog.
+A new vector sits directly on top of the PNG.
+
+Keep vector, delete PNG underneath
+With both still overlapping, click once to select (likely selects the top vector).
+Press Tab to cycle selection to the item underneath (the raster PNG).
+Press Delete to remove the PNG.
+If unsure which is which: move the selection slightly with arrow keys—Undo after—then Tab, Delete.
+
+Ensure transparency is truly removed
+The vector should be a single filled path with no background.
+
+Open Fill and Stroke (Shift+Ctrl+F):
+Fill: set to your desired color.
+Stroke: set to “X” (none) unless you want an outline.
+Fit the SVG to content
+Select the vector (Ctrl+A if it’s the only thing).
+File → Document Properties → Resize page to content → Resize page to drawing or selection.
+
+Select the traced group.
+If it’s grouped: Object → Ungroup (Shift+Ctrl+G) until pieces are separate.
+Select all pieces:
+If only those are on canvas: Ctrl+A
+Otherwise: drag a selection box around them, or Shift+click to add.
+Fill them all at once:
+Open Fill and Stroke (Shift+Ctrl+F).
+In Fill tab, click flat color and set your color.
+In Stroke Paint, click X to remove stroke (if undesired).
+Optional: to make them a single shape so one click changes all later:
+
+Path → Union. Now it’s one path; set fill once.
+
+Save
+File → Save As… → Plain SVG (*.svg).

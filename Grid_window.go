@@ -11,6 +11,8 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
+var CellGrid [][]*fyne.Container
+
 func Grid_Widget(TrackType string, numObstacles int) {
 	var numCols int
 	var numRows int
@@ -28,7 +30,7 @@ func Grid_Widget(TrackType string, numObstacles int) {
 
 	grid := container.New(layout.NewGridLayout(numCols))
 
-	var CellGrid = make([][]*fyne.Container, numRows)
+	CellGrid = make([][]*fyne.Container, numRows)
 	for r := 0; r < numRows; r++ {
 		CellGrid[r] = make([]*fyne.Container, numCols)
 		for c := 0; c < numCols; c++ {
@@ -64,7 +66,7 @@ func Grid_Widget(TrackType string, numObstacles int) {
 	go func() {
 		time.Sleep(1 * time.Second)
 		fyne.Do(func() {
-			DeterminePath_setStart(TrackType, CellGrid, numRows, numCols)
+			DeterminePath_setStart(TrackType, numRows, numCols)
 		})
 
 	}()

@@ -7,7 +7,7 @@ import (
 	"fyne.io/fyne/v2"
 )
 
-func DisplayTrkImages(CellGrid [][]*fyne.Container) {
+func DisplayTrkImages() {
 	go func() {
 		for i := 1; i < len(Trk); i++ {
 			m := Trk[i]
@@ -15,7 +15,7 @@ func DisplayTrkImages(CellGrid [][]*fyne.Container) {
 			if ok {
 				fyne.Do(func() {
 					// Remove the delay from SetImageInCell, handle timing here
-					SetImageInCell(CellGrid, pos[0], pos[1], RallyLogo, 0)
+					SetImageInCell(pos[0], pos[1], RallyLogo, 0)
 				})
 				time.Sleep(200 * time.Millisecond) // Wait between each image
 			}

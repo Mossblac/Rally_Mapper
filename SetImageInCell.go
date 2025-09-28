@@ -11,11 +11,11 @@ import (
 
 var crossRes = theme.CancelIcon()
 
-func SetImageInCell(CellGrid [][]*fyne.Container, row, col int, imageName_Path []string, delay time.Duration) {
+func SetImageInCell(row, col int, imageName_Path []string, delay time.Duration) {
 	go func() {
 		time.Sleep(delay)
 		fyne.Do(func() {
-			image := canvas.NewImageFromResource(crossRes)
+			image := canvas.NewImageFromResource(StraightUPicon)
 			image.FillMode = canvas.ImageFillContain
 			image.Translucency = 1.0 // Start invisible
 

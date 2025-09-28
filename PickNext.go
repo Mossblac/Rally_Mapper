@@ -157,7 +157,7 @@ func PickNext(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 			})
 		}()
 	} else {
-		SetImageInCell(CellGrid, NPosition[0], NPosition[1], RallyLogo, 0)
+		SetImageInCell(NPosition[0], NPosition[1], RallyLogo, 0)
 		fmt.Printf("%v", Trk)
 		fmt.Print("map completed")
 		return

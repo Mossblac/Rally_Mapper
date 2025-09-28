@@ -4,11 +4,9 @@ import (
 	"fmt"
 	"math/rand"
 	"time"
-
-	"fyne.io/fyne/v2"
 )
 
-func SetStart(CellGrid [][]*fyne.Container, numRows, numCols int) {
+func SetStart(numRows, numCols int) {
 	currentMap := Trk[0]
 	pos, ok := currentMap["Position"].([]int) //you have to assert type when using interface{}
 	if !ok {
@@ -49,7 +47,7 @@ func SetStart(CellGrid [][]*fyne.Container, numRows, numCols int) {
 	imageToSet := DetermineStartImage(1)
 	start := Trk[0]
 	start["Image"] = imageToSet
-	SetImageInCell(CellGrid, CurrentRow, CurrentCol, imageToSet, time.Duration(200*(time.Millisecond)))
+	SetImageInCell(CurrentRow, CurrentCol, imageToSet, time.Duration(200*(time.Millisecond)))
 }
 
 func DetermineStartImage(TrkIndex int) (imageToSet []string) {
