@@ -46,21 +46,21 @@ func FadeInAnimate(image *canvas.Image) {
 }
 
 /*func DropInAnimate(image *canvas.Image, container *fyne.Container) {
-    // Start above the container
-    originalPos := image.Position()
-    image.Move(fyne.NewPos(originalPos.X, originalPos.Y-100))
-    image.Translucency = 0.0 // Start visible
+	// Start above the container
+	originalPos := image.Position()
+	image.Move(fyne.NewPos(originalPos.X, originalPos.Y-100))
+	image.Translucency = 0.0 // Start visible
 
-    // Animate dropping down
-    dropAnimation := canvas.NewPositionAnimation(
-        fyne.NewPos(originalPos.X, originalPos.Y-100),
-        originalPos,
-        time.Millisecond*300,
-        func(pos fyne.Position) {
-            image.Move(pos)
-            image.Refresh()
-        },
-    )
+	// Animate dropping down
+	dropAnimation := canvas.NewPositionAnimation(
+		fyne.NewPos(originalPos.X, originalPos.Y-100),
+		originalPos,
+		time.Millisecond*300,
+		func(pos fyne.Position) {
+			image.Move(pos)
+			image.Refresh()
+		},
+	)
 
-    dropAnimation.Start()
+	dropAnimation.Start()
 }*/
