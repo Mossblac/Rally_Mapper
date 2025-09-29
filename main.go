@@ -19,3 +19,7 @@ func main() {
 	mainWin.ShowAndRun()
 
 }
+
+func init() {
+	//var crossRes = theme.CancelIcon() // from the standard theme libraryS
+}
