@@ -41,8 +41,21 @@ func (l *squareGridLayout) Layout(objs []fyne.CanvasObject, size fyne.Size) {
 			}
 			x := offX + float32(c)*cell
 			y := offY + float32(r)*cell
+
 			objs[i].Move(fyne.NewPos(x, y))
 			objs[i].Resize(fyne.NewSize(cell, cell))
+
+			if cont, ok := objs[i].(*fyne.Container); ok {
+				if len(cont.Objects) >= 2 {
+					border := cont.Objects[0] // rectangle
+					stack := cont.Objects[1]  // stack with your image(s)
+					border.Move(fyne.NewPos(0, 0))
+					border.Resize(fyne.NewSize(cell, cell))
+					const m float32 = 1
+					stack.Move(fyne.NewPos(m, m))
+					stack.Resize(fyne.NewSize(cell-2*m, cell-2*m))
+				}
+			}
 			i++
 		}
 	}
@@ -66,15 +79,23 @@ func Grid_Widget(TrackType string, numObstacles int) {
 		numRows = 3 * numObstacles
 	}
 
-	// Build cells once
 	CellGrid = make([][]*fyne.Container, numRows)
 	objs := make([]fyne.CanvasObject, 0, numRows*numCols)
 	for r := 0; r < numRows; r++ {
 		CellGrid[r] = make([]*fyne.Container, numCols)
 		for c := 0; c < numCols; c++ {
-			rect := canvas.NewRectangle(color.Black)
-			rect.SetMinSize(fyne.NewSize(40-twiceObSize, 40-twiceObSize))
-			cellContainer := container.NewStack(rect)
+			// border + content per cell
+			border := canvas.NewRectangle(color.White) // grid line color
+			content := canvas.NewRectangle(color.Black)
+			content.SetMinSize(fyne.NewSize(40-twiceObSize, 40-twiceObSize))
+
+			stack := container.NewStack() // where you will add your images later
+			// add a placeholder background so empty cells look black
+			bg := canvas.NewRectangle(color.Black)
+			stack.Add(bg)
+
+			cellContainer := container.NewWithoutLayout(border, stack)
+
 			CellGrid[r][c] = cellContainer
 			objs = append(objs, cellContainer)
 		}
@@ -92,7 +113,6 @@ func Grid_Widget(TrackType string, numObstacles int) {
 	gridWithHomeB := container.NewBorder(nil, homeButton, nil, nil, grid)
 	mainWin.SetContent(gridWithHomeB)
 
-	// async path setup
 	go func() {
 		time.Sleep(1 * time.Second)
 		fyne.Do(func() {
