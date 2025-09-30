@@ -8,27 +8,29 @@ import (
 	"fyne.io/fyne/v2/canvas"
 )
 
-// go
+// update this function to take a struct or map so the number of images are optional
+
 func SetImageInCell(row, col int, imageName_Path []string, delay time.Duration) {
 	go func() {
 		time.Sleep(delay)
 		fyne.Do(func() {
-			// build image (replace StartUPIcon with what you need from imageName_Path)
-			img := canvas.NewImageFromResource(StartUPIcon)
-			img.FillMode = canvas.ImageFillContain
-			img.Translucency = 1.0 // start invisible
+
+			img := canvas.NewImageFromResource(StartUPIcon) //all three
+			img.FillMode = canvas.ImageFillContain          //of these
+			img.Translucency = 1.0                          //for each image
 
 			cell := CellGrid[row][col]
 			if cell == nil || len(cell.Objects) < 2 {
 				return
 			}
 			// cell.Objects[0] = border, cell.Objects[1] = stack
+			border := cell.Objects[0]
 			stack, ok := cell.Objects[1].(*fyne.Container)
 			if !ok {
 				return
 			}
 
-			// optional: keep stack's background if present (index 0), clear others
+			// stack.objects are your images, stack.object[0] is on bottom, the next on top would be stack.object[1] and so on
 			if len(stack.Objects) > 0 {
 				bg := stack.Objects[0]
 				stack.Objects = []fyne.CanvasObject{bg}
@@ -36,8 +38,10 @@ func SetImageInCell(row, col int, imageName_Path []string, delay time.Duration) 
 				stack.Objects = nil
 			}
 
-			stack.Add(img)
-			stack.Refresh()
+			border.Hide() // this hides the square with border before placing new image.
+
+			stack.Add(img)  // you can add another image here with another stack.add(image) or to a specific layer by index: stack.object[index]
+			stack.Refresh() // call refresh after adding each new image to stack
 
 			FadeInAnimate(img)
 		})
@@ -56,14 +60,6 @@ func FadeInAnimate(img *canvas.Image) {
 	)
 	fadeIn.Start()
 }
-
-/*func AddImageAt(r, c int, img fyne.CanvasObject) {
-	cell := CellGrid[r][c]
-	// cell.Objects[1] is the stack
-	stack, _ := cell.Objects[1].(*fyne.Container)
-	stack.Add(img)
-	stack.Refresh()
-}*/
 
 /*func DropInAnimate(image *canvas.Image, container *fyne.Container) {
 	// Start above the container
