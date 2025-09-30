@@ -43,27 +43,29 @@ func SetStart(numRows, numCols int) {
 
 	PossibleMoves = PossibleMoves[:0]
 
-	imageToSet := DetermineStartImage(1)
-	start := Trk[0]
-	start["Image"] = imageToSet
-	//SetImageInCell(CurrentRow, CurrentCol, imageToSet)
-}
+	/*imageToSet := DetermineStartImage(1)
+		start := Trk[0]
+		start["Image"] = imageToSet
+		SetImageInCell(CurrentRow, CurrentCol, imageToSet)
+	}*/
 
-func DetermineStartImage(TrkIndex int) (imageToSet []string) {
-	Current := Trk[TrkIndex]
-	PrevMove := Current["Previous"]
-	switch PrevMove {
-	case "UP":
-		return StartUP
-	case "DUPRight":
-		return StartAngleUR
-	case "DUPLeft":
-		return StartAngleUL
-	case "Right":
-		return StartRight
-	case "Left":
-		return StartLeft
-	default:
-		return nil
-	}
+	/*
+		func DetermineStartImage(TrkIndex int) (imageToSet []string) {
+			Current := Trk[TrkIndex]
+			PrevMove := Current["Previous"]
+			switch PrevMove {
+			case "UP":
+				return StartUP
+			case "DUPRight":
+				return StartAngleUR
+			case "DUPLeft":
+				return StartAngleUL
+			case "Right":
+				return StartRight
+			case "Left":
+				return StartLeft
+			default:
+				return nil
+			}
+	*/
 }

@@ -6,11 +6,6 @@ import (
 	"fyne.io/fyne/v2"
 )
 
-var Trk []map[string]interface{}
-var PossibleMoves []map[string][]int
-var RevCount int
-var TrkInt int
-
 func DeterminePath_setStart(TrackType string, numRows, numCols int) {
 
 	var R int

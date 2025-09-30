@@ -10,12 +10,6 @@ import (
 )
 
 // update this function to take a struct or map so the number of images are optional- DisplayTrkImages, SetStart, PickNext
-type IconSet struct {
-	Ic1 *fyne.StaticResource
-	Ic2 *fyne.StaticResource
-	Ic3 *fyne.StaticResource
-	Ic4 *fyne.StaticResource
-}
 
 func SetImageInCell(row, col int, icons IconSet) {
 	go func() {
