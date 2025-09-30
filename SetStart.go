@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"math/rand"
-	"time"
 )
 
 func SetStart(numRows, numCols int) {
@@ -47,7 +46,7 @@ func SetStart(numRows, numCols int) {
 	imageToSet := DetermineStartImage(1)
 	start := Trk[0]
 	start["Image"] = imageToSet
-	SetImageInCell(CurrentRow, CurrentCol, imageToSet, time.Duration(200*(time.Millisecond)))
+	//SetImageInCell(CurrentRow, CurrentCol, imageToSet)
 }
 
 func DetermineStartImage(TrkIndex int) (imageToSet []string) {

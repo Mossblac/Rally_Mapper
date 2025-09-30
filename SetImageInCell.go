@@ -11,14 +11,13 @@ import (
 
 // update this function to take a struct or map so the number of images are optional
 
-func SetImageInCell(row, col int, imageName_Path []string, delay time.Duration) {
+func SetImageInCell(row, col int, imageName_Path []string) {
 	go func() {
-		time.Sleep(delay)
 		fyne.Do(func() {
 
-			img := canvas.NewImageFromResource(StartUPIcon) //all three
-			img.FillMode = canvas.ImageFillContain          //of these
-			img.Translucency = 1.0                          //for each image
+			img := canvas.NewImageFromResource(StraightUPicon) //all three
+			img.FillMode = canvas.ImageFillContain             //of these
+			img.Translucency = 1.0                             //for each image
 
 			//test for adding second image
 			var crossRes = theme.CancelIcon()

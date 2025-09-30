@@ -15,7 +15,7 @@ func DisplayTrkImages() {
 			if ok {
 				fyne.Do(func() {
 					// Remove the delay from SetImageInCell, handle timing here
-					SetImageInCell(pos[0], pos[1], RallyLogo, 0)
+					SetImageInCell(pos[0], pos[1], RallyLogo)
 				})
 				time.Sleep(200 * time.Millisecond) // Wait between each image
 			}
