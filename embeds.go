@@ -2,20 +2,20 @@ package main
 
 import _ "embed"
 
-//go:embed icons/StartAngleUL.svg
+//go:embed assets/icons/StartAngleUL.svg
 var StartAngleULSVG []byte
 
-//go:embed icons/StartAngleUR.svg
+//go:embed assets/icons/StartAngleUR.svg
 var StartAngleURSVG []byte
 
-//go:embed icons/StartLeft.svg
+//go:embed assets/icons/StartLeft.svg
 var StartLeftSVG []byte
 
-//go:embed icons/StartRight.svg
+//go:embed assets/icons/StartRight.svg
 var StartRightSVG []byte
 
-//go:embed icons/StartUP.svg
+//go:embed assets/icons/StartUP.svg
 var StartUPSVG []byte
 
-//go:embed icons/StraightUP.svg
+//go:embed assets/icons/StraightUP.svg
 var StraightUPSVG []byte

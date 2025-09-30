@@ -3,7 +3,7 @@
 # Check if directory argument is provided
 if [ $# -ne 1 ]; then
     echo "Usage: $0 <directory_path>"
-    echo "Example: $0 ./icons"
+    echo "Example: $0 ./assets/icons"
     exit 1
 fi
 
@@ -17,19 +17,19 @@ if [ ! -d "$DIRECTORY" ]; then
     exit 1
 fi
 
-# Initialize output files if they don't exist
+# Initialize embeds file if it doesn't exist
 if [ ! -f "$EMBEDS_FILE" ]; then
     echo "package main" > "$EMBEDS_FILE"
     echo "" >> "$EMBEDS_FILE"
+    echo "import _ \"embed\"" >> "$EMBEDS_FILE"
+    echo "" >> "$EMBEDS_FILE"
 fi
 
+# Initialize resources file if it doesn't exist
 if [ ! -f "$RESOURCES_FILE" ]; then
     echo "package main" > "$RESOURCES_FILE"
     echo "" >> "$RESOURCES_FILE"
-    echo "import (" >> "$RESOURCES_FILE"
-    echo "    \"fyne.io/fyne/v2/storage/repository\"" >> "$RESOURCES_FILE"
-    echo "    \"your-module/assets\"" >> "$RESOURCES_FILE"
-    echo ")" >> "$RESOURCES_FILE"
+    echo "import \"fyne.io/fyne/v2\"" >> "$RESOURCES_FILE"
     echo "" >> "$RESOURCES_FILE"
 fi
 
@@ -43,7 +43,7 @@ variable_exists() {
 resource_exists() {
     local var_name="$1"
     local file="$2"
-    grep -q "var ${var_name}icon = fyne.NewStaticResource" "$file" 2>/dev/null
+    grep -q "var ${var_name}icon = " "$file" 2>/dev/null
 }
 
 # Counter for new files processed
@@ -73,7 +73,7 @@ for filepath in "$DIRECTORY"/*.svg; do
     
     # Add to embeds file if not already there
     if ! variable_exists "$var_name" "$EMBEDS_FILE"; then
-        echo "//go:embed icons/$filename" >> "$EMBEDS_FILE"
+        echo "//go:embed assets/icons/$filename" >> "$EMBEDS_FILE"
         echo "var ${var_name}SVG []byte" >> "$EMBEDS_FILE"
         echo "" >> "$EMBEDS_FILE"
     fi
@@ -93,6 +93,3 @@ echo "Summary:"
 echo "  - New files processed: $new_count"
 echo "  - Files skipped (already exist): $skipped_count"
 echo "  - Output files: $EMBEDS_FILE, $RESOURCES_FILE"
-
-
-#./generate_go_files.sh /path/to/your/svg/directory
