@@ -6,6 +6,7 @@ import (
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
+	"fyne.io/fyne/v2/theme"
 )
 
 // update this function to take a struct or map so the number of images are optional
@@ -18,6 +19,12 @@ func SetImageInCell(row, col int, imageName_Path []string, delay time.Duration) 
 			img := canvas.NewImageFromResource(StartUPIcon) //all three
 			img.FillMode = canvas.ImageFillContain          //of these
 			img.Translucency = 1.0                          //for each image
+
+			//test for adding second image
+			var crossRes = theme.CancelIcon()
+			secondimg := canvas.NewImageFromResource(crossRes)
+			secondimg.FillMode = canvas.ImageFillContain
+			secondimg.Translucency = 1.0 // if you set this to 1.0 (invisible) you have to add FadeInAnimate after adding to stack.
 
 			cell := CellGrid[row][col]
 			if cell == nil || len(cell.Objects) < 2 {
@@ -44,11 +51,16 @@ func SetImageInCell(row, col int, imageName_Path []string, delay time.Duration) 
 			stack.Refresh() // call refresh after adding each new image to stack
 
 			FadeInAnimate(img)
+
+			stack.Add(secondimg) //test
+			stack.Refresh()      //test
+
+			FadeInAnimate(secondimg) //test, working
 		})
 	}()
 }
 
-func FadeInAnimate(img *canvas.Image) {
+func FadeInAnimate(img *canvas.Image) { //you can add the time as an input and have each image fade in one after another
 	fadeIn := canvas.NewColorRGBAAnimation(
 		color.RGBA{A: 0}, color.RGBA{A: 255},
 		500*time.Millisecond,
