@@ -93,3 +93,5 @@ echo "Summary:"
 echo "  - New files processed: $new_count"
 echo "  - Files skipped (already exist): $skipped_count"
 echo "  - Output files: $EMBEDS_FILE, $RESOURCES_FILE"
+
+#./generate_go_files.sh assets/icons

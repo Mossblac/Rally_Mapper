@@ -9,15 +9,19 @@ import (
 	"fyne.io/fyne/v2/theme"
 )
 
-// update this function to take a struct or map so the number of images are optional
+// update this function to take a struct or map so the number of images are optional- DisplayTrkImages, SetStart, PickNext
+type IconSet struct {
+	Ic1 *fyne.StaticResource
+	Ic2 *fyne.StaticResource
+	Ic3 *fyne.StaticResource
+	Ic4 *fyne.StaticResource
+}
 
-func SetImageInCell(row, col int, imageName_Path []string) {
+func SetImageInCell(row, col int, icons IconSet) {
 	go func() {
 		fyne.Do(func() {
 
-			img := canvas.NewImageFromResource(StraightUPicon) //all three
-			img.FillMode = canvas.ImageFillContain             //of these
-			img.Translucency = 1.0                             //for each image
+			img := ResourceToIcon(icons.Ic1)
 
 			//test for adding second image
 			var crossRes = theme.CancelIcon()
@@ -70,6 +74,14 @@ func FadeInAnimate(img *canvas.Image) { //you can add the time as an input and h
 		},
 	)
 	fadeIn.Start()
+}
+
+func ResourceToIcon(static *fyne.StaticResource) *canvas.Image {
+	img := canvas.NewImageFromResource(static)
+	img.FillMode = canvas.ImageFillContain
+	img.Translucency = 1.0
+
+	return img
 }
 
 /*func DropInAnimate(image *canvas.Image, container *fyne.Container) {
