@@ -26,7 +26,7 @@ func PickNext(numRows, numCols, I int) {
 
 	//DUPRight
 	vis = VistedCheck(CurrentRow-1, CurrentCol+1, I)
-	if !vis && CurrentRow-1 >= 0 && CurrentCol+1 < numCols && (Op == 1 || Op == 2 || Op == 3 || Op == 7) {
+	if !vis && CurrentRow-1 >= 0 && CurrentCol+1 < numCols && (Op == 1 || Op == 3 || Op == 7) {
 		PosMoveDUR := []int{CurrentRow - 1, CurrentCol + 1}
 		DUPRight := map[string][]int{
 			"DUPRight": PosMoveDUR,
@@ -36,7 +36,7 @@ func PickNext(numRows, numCols, I int) {
 
 	//DUPleft -
 	vis = VistedCheck(CurrentRow-1, CurrentCol-1, I)
-	if !vis && CurrentRow-1 >= 0 && CurrentCol-1 >= 0 && (Op == 1 || Op == 2 || Op == 3 || Op == 8) {
+	if !vis && CurrentRow-1 >= 0 && CurrentCol-1 >= 0 && (Op == 2 || Op == 3 || Op == 8) {
 		PosMoveDUL := []int{CurrentRow - 1, CurrentCol - 1}
 		DUPLeft := map[string][]int{
 			"DUPLeft": PosMoveDUL,
@@ -56,7 +56,7 @@ func PickNext(numRows, numCols, I int) {
 
 	//DDownRight
 	vis = VistedCheck(CurrentRow+1, CurrentCol+1, I)
-	if !vis && CurrentRow+1 < numRows && CurrentCol+1 < numCols && (Op == 4 || Op == 5 || Op == 6 || Op == 7) {
+	if !vis && CurrentRow+1 < numRows && CurrentCol+1 < numCols && (Op == 4 || Op == 6 || Op == 7) {
 		PosMoveDDR := []int{CurrentRow + 1, CurrentCol + 1}
 		DDownRight := map[string][]int{
 			"DDownRight": PosMoveDDR,
@@ -66,7 +66,7 @@ func PickNext(numRows, numCols, I int) {
 
 	//DDownLeft
 	vis = VistedCheck(CurrentRow+1, CurrentCol-1, I)
-	if !vis && CurrentRow+1 < numRows && CurrentCol-1 >= 0 && (Op == 4 || Op == 5 || Op == 6 || Op == 8) {
+	if !vis && CurrentRow+1 < numRows && CurrentCol-1 >= 0 && (Op == 4 || Op == 5 || Op == 8) {
 		PosMoveDDL := []int{CurrentRow + 1, CurrentCol - 1}
 		DDownLeft := map[string][]int{
 			"DDownLeft": PosMoveDDL,
@@ -164,17 +164,17 @@ func DetermineOptions(I int) (option int) {
 	Prev := current.PrevMov
 	switch Prev {
 	case "DUPRight":
-		return 1 //DupL, Up, DUpR, R
+		return 1 // Up, DUpR, R
 	case "DUPLeft":
-		return 2 //L, DUpL, Up, DupR
+		return 2 //L, DUpL, Up
 	case "UP":
 		return 3 //DUPL, UP, DUPR -- (L, R)
 	case "Down":
 		return 4 //DDL, DDR, Down -- (L, R)
 	case "DDownLeft":
-		return 5 // left, DDL, down, DDR
+		return 5 // left, DDL, down
 	case "DDownRight":
-		return 6 // DDL, Down, DDR, Right
+		return 6 // Down, DDR, Right
 	case "Right":
 		return 7 //Right, DUR, DDR, UP, Down
 	case "Left":
