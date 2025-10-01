@@ -8,6 +8,10 @@ import (
 )
 
 func PickNext(numRows, numCols, I int) {
+	if len(PossibleMoves) != 0 {
+		fmt.Printf("Possible moves not zero at PickNext, length: %v", len(PossibleMoves))
+	}
+
 	currentCell := Track[I]
 
 	CurrentRow := currentCell.CurPosR
@@ -147,7 +151,7 @@ func PickNext(numRows, numCols, I int) {
 
 	fmt.Printf("currentposition: %v %v\n", NPosition[0], NPosition[1])
 
-	if I+1 < numRows*numCols-1 {
+	if I+1 < numRows*numCols {
 		go func() {
 			PossibleMoves = PossibleMoves[:0]
 			fyne.Do(func() {
@@ -160,7 +164,7 @@ func PickNext(numRows, numCols, I int) {
 			fmt.Printf("%+v\n", Track[i])
 		}
 
-		fmt.Print("map completed")
+		fmt.Print("Track completed")
 		return
 	}
 }
@@ -192,7 +196,7 @@ func DetermineOptions(I int) (option int) {
 }
 
 func VistedCheck(CurrentRow, CurrentCol, I int) bool {
-	for i := 1; i < I; i++ {
+	for i := range I {
 		Ctrack := Track[i]
 		if CurrentRow == Ctrack.CurPosR && CurrentCol == Ctrack.CurPosC {
 			return true
