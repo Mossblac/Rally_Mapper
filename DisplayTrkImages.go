@@ -11,7 +11,7 @@ func DisplayTrkImages() {
 	go func() {
 		for i := 1; i < len(Track); i++ {
 			m := Track[i]
-			if m.CurPosX != -1 && m.CurPosY != -1 {
+			if m.CurPosX != -1 && m.CurPosY != -1 && !m.Start {
 
 				fyne.Do(func() {
 

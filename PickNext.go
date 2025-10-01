@@ -119,7 +119,7 @@ func PickNext(numRows, numCols, I int) {
 	if I+1 < numRows*numCols && RevCount < ((numRows*numCols)/3) && len(PossibleMoves) == 0 {
 		//ReverseProtocol(CellGrid, numRows, numCols, I)
 		fmt.Println("Ran Out of Possible Moves") // here is where you will run the reverse protocol
-		fmt.Printf("%v", Track)
+		fmt.Printf("%v", Track[:I+1])
 		return
 	}
 
@@ -153,7 +153,7 @@ func PickNext(numRows, numCols, I int) {
 		}()
 	} else {
 		//SetImageInCell(NPosition[0], NPosition[1], RallyLogo)
-		fmt.Printf("%v", Track)
+		fmt.Printf("%v", Track[:I+1])
 		fmt.Print("map completed")
 		return
 	}
