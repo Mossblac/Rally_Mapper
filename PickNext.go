@@ -122,11 +122,10 @@ func PickNext(numRows, numCols, I int) {
 
 	if I+1 < numRows*numCols && RevCount < ((numRows*numCols)/3) && len(PossibleMoves) == 0 {
 		//ReverseProtocol(CellGrid, numRows, numCols, I)
-		fmt.Println("Ran Out of Possible Moves") // here is where you will run the reverse protocol
+		fmt.Println("Out of Possible Moves, Run Reverse Protocol") // here is where you will run the reverse protocol
 		for i := range Track {
 			fmt.Printf("%+v\n", Track[i])
 		}
-
 		return
 	}
 
@@ -142,7 +141,7 @@ func PickNext(numRows, numCols, I int) {
 
 	NPosition := nextMove[MoveKey]
 
-	Track[I+1] = TrackCell{ // double check this
+	Track[I+1] = TrackCell{
 		CurPosR: NPosition[0],
 		CurPosC: NPosition[1],
 		PrevMov: MoveKey,
@@ -151,22 +150,34 @@ func PickNext(numRows, numCols, I int) {
 
 	fmt.Printf("currentposition: %v %v\n", NPosition[0], NPosition[1])
 
-	if I+1 < numRows*numCols {
+	if !FindFinish(I) && I+1 < numRows*numCols {
 		go func() {
 			PossibleMoves = PossibleMoves[:0]
 			fyne.Do(func() {
 				PickNext(numRows, numCols, I+1)
 			})
 		}()
-	} else {
-		//SetImageInCell(NPosition[0], NPosition[1], RallyLogo)
+	}
+	if FindFinish(I) {
+		//SetImageInCell(NPosition[0], NPosition[1], RallyLogo) - set finish line on top of start
 		for i := range Track {
 			fmt.Printf("%+v\n", Track[i])
 		}
 
-		fmt.Print("Track completed")
+		fmt.Println("Found Finish, Track completed")
 		return
 	}
+	if I+1 == len(Track) && !FindFinish(I) {
+
+		//reset and try again
+		for i := range Track {
+			fmt.Printf("%+v\n", Track[i])
+		}
+
+		fmt.Print("All spaces filled, No Finish found, re-run")
+		return
+	}
+
 }
 
 func DetermineOptions(I int) (option int) {
@@ -199,6 +210,28 @@ func VistedCheck(CurrentRow, CurrentCol, I int) bool {
 	for i := range I {
 		Ctrack := Track[i]
 		if CurrentRow == Ctrack.CurPosR && CurrentCol == Ctrack.CurPosC {
+			return true
+		}
+	}
+	return false
+}
+
+func FindFinish(I int) bool {
+	next := Track[I+1]
+	start := Track[0]
+	if TrackT {
+		if next.CurPosR == start.CurPosR-1 && next.CurPosC == start.CurPosC ||
+			next.CurPosR == start.CurPosR-1 && next.CurPosC == start.CurPosC+1 ||
+			next.CurPosR == start.CurPosR && next.CurPosC == start.CurPosC+1 {
+			return true
+		}
+	}
+	if !TrackT {
+		if next.CurPosR == start.CurPosR-1 && next.CurPosC == start.CurPosC ||
+			next.CurPosR == start.CurPosR-1 && next.CurPosC == start.CurPosC+1 ||
+			next.CurPosR == start.CurPosR && next.CurPosC == start.CurPosC+1 ||
+			next.CurPosR == start.CurPosR && next.CurPosC == start.CurPosC-1 ||
+			next.CurPosR == start.CurPosR-1 && next.CurPosC == start.CurPosC-1 {
 			return true
 		}
 	}

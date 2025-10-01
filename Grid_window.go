@@ -71,10 +71,12 @@ func Grid_Widget(TrackType string, numObstacles int) {
 	twiceObSize := float32(numObstacles * 2)
 
 	if TrackType == "loop" {
+		TrackT = true
 		numCols = 3 * numObstacles
 		numRows = 3 * numObstacles
 	}
 	if TrackType == "linear" {
+		TrackT = false
 		numCols = 3
 		numRows = 3 * numObstacles
 	}
