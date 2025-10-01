@@ -113,6 +113,15 @@ func Grid_Widget(TrackType string, numObstacles int) {
 	gridWithHomeB := container.NewBorder(nil, homeButton, nil, nil, grid)
 	mainWin.SetContent(gridWithHomeB)
 
+	for i := 0; i < numRows*numCols; i++ { //double check that you got this right....
+		cell := TrackCell{
+			CurPosX: -1,
+			CurPosY: -1,
+			Visited: false,
+		}
+		Track = append(Track, cell)
+	}
+
 	go func() {
 		time.Sleep(1 * time.Second)
 		fyne.Do(func() {

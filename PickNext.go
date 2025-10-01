@@ -7,20 +7,16 @@ import (
 	"fyne.io/fyne/v2"
 )
 
-func PickNext(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
-	currentMap := Trk[I]
-	pos, ok := currentMap["Position"].([]int)
-	if !ok {
-		fmt.Println("unable to assert slice of integers")
-	}
+func PickNext(numRows, numCols, I int) {
+	currentCell := Track[I]
 
-	CurrentRow := pos[0]
-	CurrentCol := pos[1]
+	CurrentRow := currentCell.CurPosX
+	CurrentCol := currentCell.CurPosY
 	Op := DetermineOptions(I)
 
 	//UP
-	vis := VistedCheck(Trk, CurrentRow-1, CurrentCol, I)
-	if CurrentRow-1 >= 0 && !vis && (Op == 1 || Op == 2 || Op == 3 || Op == 7 || Op == 8) {
+	vis := VistedCheck(CurrentRow-1, CurrentCol, I)
+	if !vis && CurrentRow-1 >= 0 && (Op == 1 || Op == 2 || Op == 3 || Op == 7 || Op == 8) {
 		PosMoveUP := []int{CurrentRow - 1, CurrentCol}
 		UP := map[string][]int{
 			"UP": PosMoveUP,
@@ -29,8 +25,8 @@ func PickNext(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 	}
 
 	//DUPRight
-	vis = VistedCheck(Trk, CurrentRow-1, CurrentCol+1, I)
-	if CurrentRow-1 >= 0 && CurrentCol+1 < numCols && !vis && (Op == 1 || Op == 2 || Op == 3 || Op == 7) {
+	vis = VistedCheck(CurrentRow-1, CurrentCol+1, I)
+	if !vis && CurrentRow-1 >= 0 && CurrentCol+1 < numCols && (Op == 1 || Op == 2 || Op == 3 || Op == 7) {
 		PosMoveDUR := []int{CurrentRow - 1, CurrentCol + 1}
 		DUPRight := map[string][]int{
 			"DUPRight": PosMoveDUR,
@@ -39,8 +35,8 @@ func PickNext(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 	}
 
 	//DUPleft -
-	vis = VistedCheck(Trk, CurrentRow-1, CurrentCol-1, I)
-	if CurrentRow-1 >= 0 && CurrentCol-1 >= 0 && !vis && (Op == 1 || Op == 2 || Op == 3 || Op == 8) {
+	vis = VistedCheck(CurrentRow-1, CurrentCol-1, I)
+	if !vis && CurrentRow-1 >= 0 && CurrentCol-1 >= 0 && (Op == 1 || Op == 2 || Op == 3 || Op == 8) {
 		PosMoveDUL := []int{CurrentRow - 1, CurrentCol - 1}
 		DUPLeft := map[string][]int{
 			"DUPLeft": PosMoveDUL,
@@ -49,8 +45,8 @@ func PickNext(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 	}
 
 	//Down
-	vis = VistedCheck(Trk, CurrentRow+1, CurrentCol, I)
-	if CurrentRow+1 < numRows && !vis && (Op == 4 || Op == 5 || Op == 6 || Op == 7 || Op == 8) {
+	vis = VistedCheck(CurrentRow+1, CurrentCol, I)
+	if !vis && CurrentRow+1 < numRows && (Op == 4 || Op == 5 || Op == 6 || Op == 7 || Op == 8) {
 		PosMoveDown := []int{CurrentRow + 1, CurrentCol}
 		Down := map[string][]int{
 			"Down": PosMoveDown,
@@ -59,8 +55,8 @@ func PickNext(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 	}
 
 	//DDownRight
-	vis = VistedCheck(Trk, CurrentRow+1, CurrentCol+1, I)
-	if CurrentRow+1 < numRows && CurrentCol+1 < numCols && !vis && (Op == 4 || Op == 5 || Op == 6 || Op == 7) {
+	vis = VistedCheck(CurrentRow+1, CurrentCol+1, I)
+	if !vis && CurrentRow+1 < numRows && CurrentCol+1 < numCols && (Op == 4 || Op == 5 || Op == 6 || Op == 7) {
 		PosMoveDDR := []int{CurrentRow + 1, CurrentCol + 1}
 		DDownRight := map[string][]int{
 			"DDownRight": PosMoveDDR,
@@ -69,8 +65,8 @@ func PickNext(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 	}
 
 	//DDownLeft
-	vis = VistedCheck(Trk, CurrentRow+1, CurrentCol-1, I)
-	if CurrentRow+1 < numRows && CurrentCol-1 >= 0 && !vis && (Op == 4 || Op == 5 || Op == 6 || Op == 8) {
+	vis = VistedCheck(CurrentRow+1, CurrentCol-1, I)
+	if !vis && CurrentRow+1 < numRows && CurrentCol-1 >= 0 && (Op == 4 || Op == 5 || Op == 6 || Op == 8) {
 		PosMoveDDL := []int{CurrentRow + 1, CurrentCol - 1}
 		DDownLeft := map[string][]int{
 			"DDownLeft": PosMoveDDL,
@@ -79,8 +75,8 @@ func PickNext(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 	}
 
 	//Right
-	vis = VistedCheck(Trk, CurrentRow, CurrentCol+1, I)
-	if CurrentCol+1 < numCols && !vis && (Op == 1 || Op == 6 || Op == 7) {
+	vis = VistedCheck(CurrentRow, CurrentCol+1, I)
+	if !vis && CurrentCol+1 < numCols && (Op == 1 || Op == 6 || Op == 7) {
 		PosMoveR := []int{CurrentRow, CurrentCol + 1}
 		Right := map[string][]int{
 			"Right": PosMoveR,
@@ -89,8 +85,8 @@ func PickNext(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 	}
 
 	//Left
-	vis = VistedCheck(Trk, CurrentRow, CurrentCol-1, I)
-	if CurrentCol-1 >= 0 && !vis && (Op == 2 || Op == 5 || Op == 8) {
+	vis = VistedCheck(CurrentRow, CurrentCol-1, I)
+	if !vis && CurrentCol-1 >= 0 && (Op == 2 || Op == 5 || Op == 8) {
 		PosMoveL := []int{CurrentRow, CurrentCol - 1}
 		Left := map[string][]int{
 			"Left": PosMoveL,
@@ -100,8 +96,8 @@ func PickNext(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 
 	if len(PossibleMoves) == 0 {
 		//Right - last option
-		vis = VistedCheck(Trk, CurrentRow, CurrentCol+1, I)
-		if CurrentCol+1 < numCols && !vis && (Op == 3 || Op == 4) {
+		vis = VistedCheck(CurrentRow, CurrentCol+1, I)
+		if !vis && CurrentCol+1 < numCols && (Op == 3 || Op == 4) {
 			PosMoveR := []int{CurrentRow, CurrentCol + 1}
 			Right := map[string][]int{
 				"Right": PosMoveR,
@@ -110,8 +106,8 @@ func PickNext(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 		}
 
 		//Left - last option
-		vis = VistedCheck(Trk, CurrentRow, CurrentCol-1, I)
-		if CurrentCol-1 >= 0 && !vis && (Op == 3 || Op == 4) {
+		vis = VistedCheck(CurrentRow, CurrentCol-1, I)
+		if !vis && CurrentCol-1 >= 0 && (Op == 3 || Op == 4) {
 			PosMoveL := []int{CurrentRow, CurrentCol - 1}
 			Left := map[string][]int{
 				"Left": PosMoveL,
@@ -120,10 +116,10 @@ func PickNext(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 		}
 	}
 
-	if len(Trk) < numRows*numCols && RevCount < ((numRows*numCols)/3) && len(PossibleMoves) == 0 {
+	if I+1 < numRows*numCols && RevCount < ((numRows*numCols)/3) && len(PossibleMoves) == 0 {
 		//ReverseProtocol(CellGrid, numRows, numCols, I)
 		fmt.Println("Ran Out of Possible Moves") // here is where you will run the reverse protocol
-		fmt.Printf("%v", Trk)
+		fmt.Printf("%v", Track)
 		return
 	}
 
@@ -139,34 +135,33 @@ func PickNext(CellGrid [][]*fyne.Container, numRows, numCols, I int) {
 
 	NPosition := nextMove[MoveKey]
 
-	NextMove := map[string]interface{}{
-		"Position": []int{NPosition[0], NPosition[1]},
-		"Previous": MoveKey,
-		"TrkIndex": I + 1,
+	Track[I+1] = TrackCell{ // double check this
+		CurPosX: NPosition[0],
+		CurPosY: NPosition[1],
+		PrevMov: MoveKey,
+		Visited: true,
 	}
-
-	Trk = append(Trk, NextMove)
 
 	fmt.Printf("currentposition: %v %v\n", NPosition[0], NPosition[1])
 
-	if len(Trk) < numRows*numCols {
+	if I+1 < numRows*numCols {
 		go func() {
-			PossibleMoves = nil
+			PossibleMoves = PossibleMoves[:0]
 			fyne.Do(func() {
-				PickNext(CellGrid, numRows, numCols, I+1)
+				PickNext(numRows, numCols, I+1)
 			})
 		}()
 	} else {
 		//SetImageInCell(NPosition[0], NPosition[1], RallyLogo)
-		fmt.Printf("%v", Trk)
+		fmt.Printf("%v", Track)
 		fmt.Print("map completed")
 		return
 	}
 }
 
 func DetermineOptions(I int) (option int) {
-	current := Trk[I]
-	Prev := current["Previous"]
+	current := Track[I]
+	Prev := current.PrevMov
 	switch Prev {
 	case "DUPRight":
 		return 1 //DupL, Up, DUpR, R
@@ -190,25 +185,12 @@ func DetermineOptions(I int) (option int) {
 	}
 }
 
-func VistedCheck(Trk []map[string]interface{}, CurrentRow, CurrentCol, I int) bool {
-	revChk := Trk[I]
-	_, ok := revChk["Rev"].(bool)
-	if ok {
-		return false
-	}
-	for _, Vcheck := range Trk {
-		Vis, ok := Vcheck["Position"].([]int)
-		if ok {
-			x := Vis[0]
-			y := Vis[1]
-			visited := fmt.Sprintf("%v%v", x, y)
-			PosMove := fmt.Sprintf("%v%v", CurrentRow, CurrentCol)
-			if visited == PosMove {
-				return true
-			}
-
+func VistedCheck(CurrentRow, CurrentCol, I int) bool {
+	for i := 1; i < I; i++ {
+		Ctrack := Track[i]
+		if CurrentRow == Ctrack.CurPosX && CurrentCol == Ctrack.CurPosY {
+			return true
 		}
-
 	}
 	return false
 }

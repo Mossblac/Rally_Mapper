@@ -9,23 +9,23 @@ import (
 
 func DisplayTrkImages() {
 	go func() {
-		for i := 1; i < len(Trk); i++ {
-			m := Trk[i]
-			pos, ok := m["Position"].([]int)
-			if ok {
+		for i := 1; i < len(Track); i++ {
+			m := Track[i]
+			if m.CurPosX != -1 && m.CurPosY != -1 {
+
 				fyne.Do(func() {
 
 					icons := IconSet{
-						Ic1: StartUPicon,
-						Ic2: StraightUPicon,
-						// Ic3, Ic4 can be nil
+						Ic1: StraightUPicon,
+						// Ic2, Ic3, Ic4 can be nil
 					}
 
-					SetImageInCell(pos[0], pos[1], icons)
+					SetImageInCell(m.CurPosX, m.CurPosY, icons)
 				})
-				time.Sleep(200 * time.Millisecond) // Wait between each image
 			}
+			time.Sleep(200 * time.Millisecond) // Wait between each image
 		}
+
 		fyne.Do(func() {
 			fmt.Println("all images set")
 		})

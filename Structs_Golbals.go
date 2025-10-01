@@ -2,9 +2,8 @@ package main
 
 import "fyne.io/fyne/v2"
 
-//var Trk []TrackCell
+var Track []TrackCell
 
-var Trk []map[string]interface{}
 var PossibleMoves []map[string][]int
 var RevCount int
 var TrkInt int
@@ -21,4 +20,6 @@ type TrackCell struct {
 	CurPosY int
 	PrevMov string
 	Visited bool
+	Image   *fyne.StaticResource
+	Start   bool
 }

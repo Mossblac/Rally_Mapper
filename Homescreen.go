@@ -14,8 +14,7 @@ func HomeScreen() {
 	var Obstacles []string
 	var selectedObstacle string
 	Oblist := ""
-	Trk = nil
-	TrkInt = 0
+	Track = Track[:0]
 	RevCount = 0
 
 	mainB := widget.NewButton("Instructions", func() {

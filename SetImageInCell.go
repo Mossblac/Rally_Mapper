@@ -14,14 +14,11 @@ import (
 func SetImageInCell(row, col int, icons IconSet) {
 	go func() {
 		fyne.Do(func() {
+			res := theme.CancelIcon() // "x" icon
+			ex := canvas.NewImageFromResource(res)
 
 			img := ResourceToIcon(icons.Ic1)
-
-			//test for adding second image
-			var crossRes = theme.CancelIcon()
-			secondimg := canvas.NewImageFromResource(crossRes)
-			secondimg.FillMode = canvas.ImageFillContain
-			secondimg.Translucency = 1.0 // if you set this to 1.0 (invisible) you have to add FadeInAnimate after adding to stack.
+			secondimg := ResourceToIcon(icons.Ic2)
 
 			cell := CellGrid[row][col]
 			if cell == nil || len(cell.Objects) < 2 {
@@ -44,15 +41,23 @@ func SetImageInCell(row, col int, icons IconSet) {
 
 			border.Hide() // this hides the square with border before placing new image.
 
-			stack.Add(img)  // you can add another image here with another stack.add(image) or to a specific layer by index: stack.object[index]
-			stack.Refresh() // call refresh after adding each new image to stack
+			if icons.Ic1 != nil {
+				stack.Add(img)  // you can add another image here with another stack.add(image) or to a specific layer by index: stack.object[index]
+				stack.Refresh() // call refresh after adding each new image to stack
 
-			FadeInAnimate(img)
+				FadeInAnimate(img)
+			} else {
+				stack.Add(ex)
+				stack.Refresh()
+			}
 
-			stack.Add(secondimg) //test
-			stack.Refresh()      //test
+			if icons.Ic2 != nil {
+				stack.Add(secondimg) //test
+				stack.Refresh()      //test
 
-			FadeInAnimate(secondimg) //test, working
+				FadeInAnimate(secondimg)
+			}
+
 		})
 	}()
 }

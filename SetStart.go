@@ -3,16 +3,15 @@ package main
 import (
 	"fmt"
 	"math/rand"
+
+	"fyne.io/fyne/v2"
 )
 
 func SetStart(numRows, numCols int) {
-	currentMap := Trk[0]
-	pos, ok := currentMap["Position"].([]int) //you have to assert type when using interface{}
-	if !ok {
-		fmt.Println("unable to assert slice of integers")
-	}
-	CurrentRow := pos[0]
-	CurrentCol := pos[1]
+	currentCell := Track[0]
+
+	CurrentRow := currentCell.CurPosX
+	CurrentCol := currentCell.CurPosY
 
 	PossibleMovesSS(CurrentRow, CurrentCol, numRows, numCols)
 
@@ -32,40 +31,44 @@ func SetStart(numRows, numCols int) {
 
 	NewPosition := nextMove[MoveKey]
 
-	FirstMove := map[string]interface{}{
-		"Position": []int{NewPosition[0], NewPosition[1]},
-		"Previous": MoveKey,
-		"TrkIndex": 1,
+	Track[1] = TrackCell{ //should assign track 1 (after start cell)
+		CurPosX: NewPosition[0],
+		CurPosY: NewPosition[1],
+		PrevMov: MoveKey,
+		Visited: true,
 	}
-
-	Trk = append(Trk, FirstMove)
-	TrkInt++
 
 	PossibleMoves = PossibleMoves[:0]
 
-	/*imageToSet := DetermineStartImage(1)
-		start := Trk[0]
-		start["Image"] = imageToSet
-		SetImageInCell(CurrentRow, CurrentCol, imageToSet)
-	}*/
+	iconToSet := DetermineStartImage(1)
 
-	/*
-		func DetermineStartImage(TrkIndex int) (imageToSet []string) {
-			Current := Trk[TrkIndex]
-			PrevMove := Current["Previous"]
-			switch PrevMove {
-			case "UP":
-				return StartUP
-			case "DUPRight":
-				return StartAngleUR
-			case "DUPLeft":
-				return StartAngleUL
-			case "Right":
-				return StartRight
-			case "Left":
-				return StartLeft
-			default:
-				return nil
-			}
-	*/
+	Track[0] = TrackCell{
+		Image: iconToSet,
+	}
+
+	IconStart := IconSet{
+		Ic1: iconToSet,
+	}
+
+	SetImageInCell(CurrentRow, CurrentCol, IconStart)
+}
+
+func DetermineStartImage(TrackIndex int) (imageToSet *fyne.StaticResource) {
+	Current := Track[TrackIndex]
+	PrevMove := Current.PrevMov
+	switch PrevMove {
+	case "UP":
+		return StartUPicon
+	case "DUPRight":
+		return StartAngleURicon
+	case "DUPLeft":
+		return StartAngleULicon
+	case "Right":
+		return StartRighticon
+	case "Left":
+		return StartLefticon
+	default:
+		return nil
+	}
+
 }

@@ -20,13 +20,12 @@ func DeterminePath_setStart(TrackType string, numRows, numCols int) {
 		C = 1
 	}
 
-	start := map[string]interface{}{
-		"Position": []int{R, C},
-		"TrkIndex": 0,
+	Track[0] = TrackCell{ //should assign first struct
+		CurPosX: R,
+		CurPosY: C,
+		Visited: true,
+		Start:   true,
 	}
-
-	Trk = append(Trk, start)
-	TrkInt = 0
 
 	go func() {
 		done1 := make(chan bool)
@@ -41,7 +40,7 @@ func DeterminePath_setStart(TrackType string, numRows, numCols int) {
 
 		fyne.Do(func() {
 			time.Sleep(1000 * time.Millisecond)
-			PickNext(CellGrid, numRows, numCols, 1)
+			PickNext(numRows, numCols, 1)
 			done2 <- true
 		})
 		<-done2
