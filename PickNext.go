@@ -218,20 +218,18 @@ func VistedCheck(CurrentRow, CurrentCol, I int) bool {
 
 func FindFinish(I int) bool {
 	next := Track[I+1]
-	start := Track[0]
 	if TrackT {
-		if next.CurPosR == start.CurPosR-1 && next.CurPosC == start.CurPosC ||
-			next.CurPosR == start.CurPosR-1 && next.CurPosC == start.CurPosC+1 ||
-			next.CurPosR == start.CurPosR && next.CurPosC == start.CurPosC+1 {
+		finish := Track[0]
+		if next.CurPosR == finish.CurPosR-1 && next.CurPosC == finish.CurPosC ||
+			next.CurPosR == finish.CurPosR-1 && next.CurPosC == finish.CurPosC+1 ||
+			next.CurPosR == finish.CurPosR && next.CurPosC == finish.CurPosC+1 {
 			return true
 		}
 	}
 	if !TrackT {
-		if next.CurPosR == start.CurPosR-1 && next.CurPosC == start.CurPosC ||
-			next.CurPosR == start.CurPosR-1 && next.CurPosC == start.CurPosC+1 ||
-			next.CurPosR == start.CurPosR && next.CurPosC == start.CurPosC+1 ||
-			next.CurPosR == start.CurPosR && next.CurPosC == start.CurPosC-1 ||
-			next.CurPosR == start.CurPosR-1 && next.CurPosC == start.CurPosC-1 {
+		if next.CurPosR == 0 && next.CurPosC == 0 ||
+			next.CurPosR == 0 && next.CurPosC == 1 ||
+			next.CurPosR == 0 && next.CurPosC == 2 {
 			return true
 		}
 	}
