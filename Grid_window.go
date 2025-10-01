@@ -85,7 +85,7 @@ func Grid_Widget(TrackType string, numObstacles int) {
 		CellGrid[r] = make([]*fyne.Container, numCols)
 		for c := 0; c < numCols; c++ {
 			// border + content per cell
-			border := canvas.NewRectangle(color.White) // grid line color
+			border := canvas.NewRectangle(color.Gray16{Y: 0x4000}) // grid line color
 			content := canvas.NewRectangle(color.Black)
 			content.SetMinSize(fyne.NewSize(40-twiceObSize, 40-twiceObSize))
 
@@ -115,12 +115,18 @@ func Grid_Widget(TrackType string, numObstacles int) {
 
 	for i := 0; i < numRows*numCols; i++ { //double check that you got this right....
 		cell := TrackCell{
-			CurPosX: -1,
-			CurPosY: -1,
+			CurPosR: -1,
+			CurPosC: -1,
+			PrevMov: "",
 			Visited: false,
+			Start:   false,
 		}
 		Track = append(Track, cell)
 	}
+
+	/*for i := range Track {
+		fmt.Printf("%+v\n", Track[i])
+	}*/
 
 	go func() {
 		time.Sleep(1 * time.Second)

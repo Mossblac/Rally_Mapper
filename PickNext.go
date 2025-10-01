@@ -10,8 +10,8 @@ import (
 func PickNext(numRows, numCols, I int) {
 	currentCell := Track[I]
 
-	CurrentRow := currentCell.CurPosX
-	CurrentCol := currentCell.CurPosY
+	CurrentRow := currentCell.CurPosR
+	CurrentCol := currentCell.CurPosC
 	Op := DetermineOptions(I)
 
 	//UP
@@ -119,7 +119,10 @@ func PickNext(numRows, numCols, I int) {
 	if I+1 < numRows*numCols && RevCount < ((numRows*numCols)/3) && len(PossibleMoves) == 0 {
 		//ReverseProtocol(CellGrid, numRows, numCols, I)
 		fmt.Println("Ran Out of Possible Moves") // here is where you will run the reverse protocol
-		fmt.Printf("%v", Track[:I+1])
+		for i := range Track {
+			fmt.Printf("%+v\n", Track[i])
+		}
+
 		return
 	}
 
@@ -136,15 +139,15 @@ func PickNext(numRows, numCols, I int) {
 	NPosition := nextMove[MoveKey]
 
 	Track[I+1] = TrackCell{ // double check this
-		CurPosX: NPosition[0],
-		CurPosY: NPosition[1],
+		CurPosR: NPosition[0],
+		CurPosC: NPosition[1],
 		PrevMov: MoveKey,
 		Visited: true,
 	}
 
 	fmt.Printf("currentposition: %v %v\n", NPosition[0], NPosition[1])
 
-	if I+1 < numRows*numCols {
+	if I+1 < numRows*numCols-1 {
 		go func() {
 			PossibleMoves = PossibleMoves[:0]
 			fyne.Do(func() {
@@ -153,7 +156,10 @@ func PickNext(numRows, numCols, I int) {
 		}()
 	} else {
 		//SetImageInCell(NPosition[0], NPosition[1], RallyLogo)
-		fmt.Printf("%v", Track[:I+1])
+		for i := range Track {
+			fmt.Printf("%+v\n", Track[i])
+		}
+
 		fmt.Print("map completed")
 		return
 	}
@@ -188,7 +194,7 @@ func DetermineOptions(I int) (option int) {
 func VistedCheck(CurrentRow, CurrentCol, I int) bool {
 	for i := 1; i < I; i++ {
 		Ctrack := Track[i]
-		if CurrentRow == Ctrack.CurPosX && CurrentCol == Ctrack.CurPosY {
+		if CurrentRow == Ctrack.CurPosR && CurrentCol == Ctrack.CurPosC {
 			return true
 		}
 	}

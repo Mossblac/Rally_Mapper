@@ -16,8 +16,8 @@ type IconSet struct {
 }
 
 type TrackCell struct {
-	CurPosX int
-	CurPosY int
+	CurPosR int
+	CurPosC int
 	PrevMov string
 	Visited bool
 	Image   *fyne.StaticResource

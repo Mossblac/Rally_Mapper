@@ -10,8 +10,8 @@ import (
 func SetStart(numRows, numCols int) {
 	currentCell := Track[0]
 
-	CurrentRow := currentCell.CurPosX
-	CurrentCol := currentCell.CurPosY
+	CurrentRow := currentCell.CurPosR
+	CurrentCol := currentCell.CurPosC
 
 	PossibleMovesSS(CurrentRow, CurrentCol, numRows, numCols)
 
@@ -32,8 +32,8 @@ func SetStart(numRows, numCols int) {
 	NewPosition := nextMove[MoveKey]
 
 	Track[1] = TrackCell{ //should assign track 1 (after start cell)
-		CurPosX: NewPosition[0],
-		CurPosY: NewPosition[1],
+		CurPosR: NewPosition[0],
+		CurPosC: NewPosition[1],
 		PrevMov: MoveKey,
 		Visited: true,
 	}
@@ -43,7 +43,11 @@ func SetStart(numRows, numCols int) {
 	iconToSet := DetermineStartImage(1)
 
 	Track[0] = TrackCell{
-		Image: iconToSet,
+		CurPosR: Track[0].CurPosR,
+		CurPosC: Track[0].CurPosC,
+		Image:   iconToSet,
+		Visited: Track[0].Visited,
+		Start:   Track[0].Start,
 	}
 
 	IconStart := IconSet{
@@ -51,6 +55,11 @@ func SetStart(numRows, numCols int) {
 	}
 
 	SetImageInCell(CurrentRow, CurrentCol, IconStart)
+
+	/*for i := range Track {
+		fmt.Printf("%+v\n", Track[i])
+	}*/
+
 }
 
 func DetermineStartImage(TrackIndex int) (imageToSet *fyne.StaticResource) {

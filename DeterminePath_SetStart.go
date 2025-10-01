@@ -21,11 +21,15 @@ func DeterminePath_setStart(TrackType string, numRows, numCols int) {
 	}
 
 	Track[0] = TrackCell{ //should assign first struct
-		CurPosX: R,
-		CurPosY: C,
+		CurPosR: R,
+		CurPosC: C,
 		Visited: true,
 		Start:   true,
 	}
+
+	/*for i := range Track {
+		fmt.Printf("%+v\n", Track[i])
+	}*/
 
 	go func() {
 		done1 := make(chan bool)
