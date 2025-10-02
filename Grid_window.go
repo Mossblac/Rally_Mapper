@@ -14,7 +14,6 @@ import (
 
 var CellGrid [][]*fyne.Container
 
-// minimal custom layout: square cells, centered, fills available space
 type squareGridLayout struct{ rows, cols int }
 
 func (l *squareGridLayout) Layout(objs []fyne.CanvasObject, size fyne.Size) {
@@ -47,8 +46,8 @@ func (l *squareGridLayout) Layout(objs []fyne.CanvasObject, size fyne.Size) {
 
 			if cont, ok := objs[i].(*fyne.Container); ok {
 				if len(cont.Objects) >= 2 {
-					border := cont.Objects[0] // rectangle
-					stack := cont.Objects[1]  // stack with your image(s)
+					border := cont.Objects[0]
+					stack := cont.Objects[1]
 					border.Move(fyne.NewPos(0, 0))
 					border.Resize(fyne.NewSize(cell, cell))
 					const m float32 = 1
@@ -62,7 +61,7 @@ func (l *squareGridLayout) Layout(objs []fyne.CanvasObject, size fyne.Size) {
 }
 
 func (l *squareGridLayout) MinSize([]fyne.CanvasObject) fyne.Size {
-	// minimal footprint (one pixel per cell)
+
 	return fyne.NewSize(float32(l.cols), float32(l.rows))
 }
 
@@ -86,13 +85,13 @@ func Grid_Widget(TrackType string, numObstacles int) {
 	for r := 0; r < numRows; r++ {
 		CellGrid[r] = make([]*fyne.Container, numCols)
 		for c := 0; c < numCols; c++ {
-			// border + content per cell
-			border := canvas.NewRectangle(color.Gray16{Y: 0x4000}) // grid line color
+
+			border := canvas.NewRectangle(color.Gray16{Y: 0x4000})
 			content := canvas.NewRectangle(color.Black)
 			content.SetMinSize(fyne.NewSize(40-twiceObSize, 40-twiceObSize))
 
-			stack := container.NewStack() // where you will add your images later
-			// add a placeholder background so empty cells look black
+			stack := container.NewStack()
+
 			bg := canvas.NewRectangle(color.Black)
 			stack.Add(bg)
 
@@ -115,7 +114,7 @@ func Grid_Widget(TrackType string, numObstacles int) {
 	gridWithHomeB := container.NewBorder(nil, homeButton, nil, nil, grid)
 	mainWin.SetContent(gridWithHomeB)
 
-	for i := 0; i < numRows*numCols; i++ { //double check that you got this right....
+	for i := 0; i < numRows*numCols; i++ {
 		cell := TrackCell{
 			CurPosR: -1,
 			CurPosC: -1,
@@ -125,10 +124,6 @@ func Grid_Widget(TrackType string, numObstacles int) {
 		}
 		Track = append(Track, cell)
 	}
-
-	/*for i := range Track {
-		fmt.Printf("%+v\n", Track[i])
-	}*/
 
 	go func() {
 		time.Sleep(1 * time.Second)
