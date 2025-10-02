@@ -10,7 +10,7 @@ import (
 func PickNext(numRows, numCols, I int) {
 	if I+1 == len(Track) && !FindFinish(I) {
 
-		//reset and try again
+		ResetAndTryAgain(numRows, numCols)
 		for i := range Track {
 			fmt.Printf("%+v\n", Track[i])
 		}
@@ -21,7 +21,7 @@ func PickNext(numRows, numCols, I int) {
 
 	if RevCount > len(Track)/4 {
 
-		//reset and try again
+		ResetAndTryAgain(numRows, numCols)
 		for i := range Track {
 			fmt.Printf("%+v\n", Track[i])
 		}
