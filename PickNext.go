@@ -8,6 +8,27 @@ import (
 )
 
 func PickNext(numRows, numCols, I int) {
+	if I+1 == len(Track) && !FindFinish(I) {
+
+		//reset and try again
+		for i := range Track {
+			fmt.Printf("%+v\n", Track[i])
+		}
+
+		fmt.Println("All spaces filled, No Finish found, re-run")
+		return
+	}
+
+	if RevCount > len(Track)/2 {
+
+		//reset and try again
+		for i := range Track {
+			fmt.Printf("%+v\n", Track[i])
+		}
+		fmt.Println("Too many reverse, re-run")
+		return
+	}
+
 	var PossibleMoves []map[string][]int
 	if len(PossibleMoves) != 0 {
 		fmt.Printf("Possible moves not zero at PickNext, length: %v", len(PossibleMoves))
@@ -143,11 +164,6 @@ func PickNext(numRows, numCols, I int) {
 
 	if len(PossibleMoves) == 0 {
 		ReverseProtocol(numRows, numCols, I)
-		fmt.Println("Out of Possible Moves, Run Reverse Protocol") // here is where you will run the reverse protocol
-
-		for i := range I + 1 {
-			fmt.Printf("%+v\n", Track[i])
-		}
 		return
 	}
 
@@ -187,16 +203,6 @@ func PickNext(numRows, numCols, I int) {
 		}
 
 		fmt.Println("Found Finish, Track completed")
-		return
-	}
-	if I+1 == len(Track) && !FindFinish(I) {
-
-		//reset and try again
-		for i := range Track {
-			fmt.Printf("%+v\n", Track[i])
-		}
-
-		fmt.Print("All spaces filled, No Finish found, re-run")
 		return
 	}
 

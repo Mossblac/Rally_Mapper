@@ -41,7 +41,7 @@ func ReverseProtocol(numRows, numCols, I int) {
 			CurPosR: RevCandidate.CurPosR,
 			CurPosC: RevCandidate.CurPosC,
 			PrevMov: NewPrev,
-			Visited: RevCandidate.Visited,
+			Visited: true,
 			Image:   RevCandidate.Image,
 			Start:   RevCandidate.Start,
 			Cul:     true,
@@ -93,7 +93,19 @@ func ReverseProtocol(numRows, numCols, I int) {
 			Rev:     true,
 		}
 
+		cell := TrackCell{
+			CurPosR: -1,
+			CurPosC: -1,
+			PrevMov: "",
+			Visited: false,
+			Start:   false,
+		}
+		Track = append(Track, cell)
+
+		fmt.Printf("Previous swapped to: %v\n", NPrev)
+
 		RevCount++
+		fmt.Printf("RevCount: %v\n", RevCount)
 
 		go func() {
 			fyne.Do(func() {
