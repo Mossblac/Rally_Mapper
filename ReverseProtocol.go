@@ -1,10 +1,19 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"fyne.io/fyne/v2"
+)
+
+var RevInt int
 
 func ReverseProtocol(numRows, numCols, I int) {
+
 	RevCandidate := Track[I]
-	if !RevCandidate.Cul || !RevCandidate.Rev {
+	if !RevCandidate.Cul && !RevCandidate.Rev {
+		RevInt = I - 1
+		fmt.Printf("RevInt: %v\n", RevInt)
 		fmt.Printf("creating Cul @: %v, %v\n", RevCandidate.CurPosR, RevCandidate.CurPosC)
 		prev := RevCandidate.PrevMov
 		var NewPrev = ""
@@ -40,8 +49,12 @@ func ReverseProtocol(numRows, numCols, I int) {
 		}
 		fmt.Printf("Previous swapped to: %v\n", NewPrev)
 
-		//PickNext(numRows, numCols, I) // it is creating cul, but it is just looping, reversing the prev value back and forth
-
+		go func() {
+			fyne.Do(func() {
+				PickNext(numRows, numCols, I)
+			})
+		}()
+		return
 	}
 
 	if RevCandidate.Cul || RevCandidate.Rev {
@@ -73,16 +86,22 @@ func ReverseProtocol(numRows, numCols, I int) {
 			CurPosR: reverser.CurPosR,
 			CurPosC: reverser.CurPosC,
 			PrevMov: NPrev,
-			Visited: true,
-			Image:   nil,
-			Start:   false,
+			Visited: reverser.Visited,
+			Image:   reverser.Image,
+			Start:   reverser.Start,
 			Cul:     false,
 			Rev:     true,
 		}
 
 		RevCount++
 
-		//PickNext(numRows, numCols, I+1)
+		go func() {
+			fyne.Do(func() {
+				RevInt--
+				PickNext(numRows, numCols, I+1)
+			})
+		}()
+		return
 	}
 
 }

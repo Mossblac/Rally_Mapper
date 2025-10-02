@@ -6,7 +6,6 @@ var Track []TrackCell
 
 var RevCount int
 var TrackT bool
-var RevInt int
 
 type IconSet struct {
 	Ic1 *fyne.StaticResource

@@ -8,16 +8,21 @@ import (
 )
 
 func DisplayTrkImages() {
+	var icons IconSet
+
 	go func() {
 		for i := 0; i < len(Track); i++ {
 			m := Track[i]
 			if m.CurPosR != -1 && m.CurPosC != -1 && !m.Start {
 
 				fyne.Do(func() {
-
-					icons := IconSet{
-						Ic1: StraightUPicon,
-						// Ic2, Ic3, Ic4 can be nil
+					if !m.Cul && !m.Rev {
+						icons = IconSet{
+							Ic1: StraightUPicon,
+							// Ic2, Ic3, Ic4 can be nil
+						}
+					} else {
+						icons = IconSet{}
 					}
 
 					SetImageInCell(m.CurPosR, m.CurPosC, icons)

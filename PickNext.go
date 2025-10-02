@@ -141,12 +141,11 @@ func PickNext(numRows, numCols, I int) {
 		}
 	}
 
-	if I+1 < numRows*numCols && RevCount < ((numRows*numCols)/3) && len(PossibleMoves) == 0 {
-		RevInt = I - 1
+	if len(PossibleMoves) == 0 {
 		ReverseProtocol(numRows, numCols, I)
 		fmt.Println("Out of Possible Moves, Run Reverse Protocol") // here is where you will run the reverse protocol
-		fmt.Printf("RevInt: %v\n", RevInt)
-		for i := range Track {
+
+		for i := range I + 1 {
 			fmt.Printf("%+v\n", Track[i])
 		}
 		return
@@ -175,7 +174,6 @@ func PickNext(numRows, numCols, I int) {
 
 	if !FindFinish(I) && I+1 < numRows*numCols {
 		go func() {
-			RevInt = I
 			PossibleMoves = PossibleMoves[:0]
 			fyne.Do(func() {
 				PickNext(numRows, numCols, I+1)
@@ -184,7 +182,7 @@ func PickNext(numRows, numCols, I int) {
 	}
 	if FindFinish(I) {
 		//SetImageInCell(NPosition[0], NPosition[1], RallyLogo) - set finish line on top of start
-		for i := range Track {
+		for i := range I + 1 {
 			fmt.Printf("%+v\n", Track[i])
 		}
 
