@@ -5,6 +5,7 @@ import "fmt"
 func ReverseProtocol(numRows, numCols, I int) {
 	RevCandidate := Track[I]
 	if !RevCandidate.Cul || !RevCandidate.Rev {
+		fmt.Printf("creating Cul @: %v, %v\n", RevCandidate.CurPosR, RevCandidate.CurPosC)
 		prev := RevCandidate.PrevMov
 		var NewPrev = ""
 		fmt.Printf("Original Previous value: %v", prev)
@@ -45,6 +46,7 @@ func ReverseProtocol(numRows, numCols, I int) {
 
 	if RevCandidate.Cul || RevCandidate.Rev {
 		reverser := Track[RevInt]
+		fmt.Printf("creating reverser @: %v, %v\n", reverser.CurPosR, reverser.CurPosC)
 		prev := reverser.PrevMov
 		var NewPrev = ""
 		fmt.Printf("Original Previous value: %v", prev)
