@@ -13,3 +13,5 @@ var StartRighticon = fyne.NewStaticResource("StartRight.svg", StartRightSVG)
 var StartUPicon = fyne.NewStaticResource("StartUP.svg", StartUPSVG)
 
 var StraightUPicon = fyne.NewStaticResource("StraightUP.svg", StraightUPSVG)
+var UnsetPlaceholdericon = fyne.NewStaticResource("UnsetPlaceholder.svg", UnsetPlaceholderSVG)
+

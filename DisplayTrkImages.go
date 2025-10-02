@@ -17,8 +17,10 @@ func DisplayTrkImages() {
 
 				fyne.Do(func() {
 					if !m.Cul && !m.Rev {
+						iconToset := DetermineTrackIconToSet(i)
+
 						icons = IconSet{
-							Ic1: StraightUPicon,
+							Ic1: iconToset,
 							// Ic2, Ic3, Ic4 can be nil
 						}
 					} else {
@@ -35,4 +37,18 @@ func DisplayTrkImages() {
 			fmt.Println("all images set")
 		})
 	}()
+}
+
+func DetermineTrackIconToSet(I int) (icon *fyne.StaticResource) {
+	enter := Track[I].PrevMov
+	exit := Track[I+1].PrevMov
+	celldirect := fmt.Sprintf("%v, %v", enter, exit)
+
+	switch celldirect {
+	case "UP, UP":
+		return StraightUPicon
+	default:
+		return UnsetPlaceholdericon
+
+	}
 }

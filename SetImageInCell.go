@@ -19,6 +19,8 @@ func SetImageInCell(row, col int, icons IconSet) {
 
 			img := ResourceToIcon(icons.Ic1)
 			secondimg := ResourceToIcon(icons.Ic2)
+			thirdimg := ResourceToIcon(icons.Ic3)
+			fourthimg := ResourceToIcon(icons.Ic4)
 
 			cell := CellGrid[row][col]
 			if cell == nil || len(cell.Objects) < 2 {
@@ -52,10 +54,24 @@ func SetImageInCell(row, col int, icons IconSet) {
 			}
 
 			if icons.Ic2 != nil {
-				stack.Add(secondimg) //test
-				stack.Refresh()      //test
+				stack.Add(secondimg)
+				stack.Refresh()
 
 				FadeInAnimate(secondimg)
+			}
+
+			if icons.Ic3 != nil {
+				stack.Add(secondimg)
+				stack.Refresh()
+
+				FadeInAnimate(thirdimg)
+			}
+
+			if icons.Ic4 != nil {
+				stack.Add(secondimg)
+				stack.Refresh()
+
+				FadeInAnimate(fourthimg)
 			}
 
 		})

@@ -19,3 +19,6 @@ var StartUPSVG []byte
 
 //go:embed assets/icons/StraightUP.svg
 var StraightUPSVG []byte
+//go:embed assets/icons/UnsetPlaceholder.svg
+var UnsetPlaceholderSVG []byte
+
