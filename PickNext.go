@@ -19,7 +19,7 @@ func PickNext(numRows, numCols, I int) {
 		return
 	}
 
-	if RevCount > len(Track)/2 {
+	if RevCount > len(Track)/4 {
 
 		//reset and try again
 		for i := range Track {
@@ -163,6 +163,7 @@ func PickNext(numRows, numCols, I int) {
 	}
 
 	if len(PossibleMoves) == 0 {
+		fmt.Println("ReverseProtocol engaged")
 		ReverseProtocol(numRows, numCols, I)
 		return
 	}
@@ -188,7 +189,7 @@ func PickNext(numRows, numCols, I int) {
 
 	fmt.Printf("currentposition: %v %v\n", NPosition[0], NPosition[1])
 
-	if !FindFinish(I) && I+1 < numRows*numCols {
+	if !FindFinish(I) && I+1 < len(Track) {
 		go func() {
 			PossibleMoves = PossibleMoves[:0]
 			fyne.Do(func() {
