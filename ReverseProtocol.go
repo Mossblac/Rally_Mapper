@@ -1,42 +1,86 @@
 package main
 
-/*func ReverseProtocol(CellGrid [][]*fyne.Container, R, C, I int) {
-	Ccell := Trk[I]
-	_, ok := Ccell["Rev"].(bool)
-	if !ok {
-		fmt.Println("rev not found, adding rev")
-		RevCount++
-		Ccell["Rev"] = true
+import "fmt"
 
-		prev := Ccell["Previous"]
+func ReverseProtocol(numRows, numCols, I int) {
+	RevCandidate := Track[I]
+	if !RevCandidate.Cul || !RevCandidate.Rev {
+		prev := RevCandidate.PrevMov
+		var NewPrev = ""
 		fmt.Printf("Original Previous value: %v", prev)
 		switch prev {
 		case "UP":
-			Ccell["Previous"] = "Down"
+			NewPrev = "Down"
 		case "DUPLeft":
-			Ccell["Previous"] = "DDownRight"
+			NewPrev = "DDownRight"
 		case "DUPRight":
-			Ccell["Previous"] = "DDownLeft"
+			NewPrev = "DDownLeft"
 		case "Right":
-			Ccell["Previous"] = "Left"
+			NewPrev = "Left"
 		case "Left":
-			Ccell["Previous"] = "Right"
+			NewPrev = "Right"
 		case "DDownRight":
-			Ccell["Previous"] = "DUPLeft"
+			NewPrev = "DUPLeft"
 		case "DDownLeft":
-			Ccell["Previous"] = "DUPRight"
+			NewPrev = "DUPRight"
 		case "Down":
-			Ccell["Previous"] = "UP"
+			NewPrev = "UP"
 		}
-		fmt.Printf("Previous swapped to: %v", Ccell["Previous"])
 
-		PickNext( R, C, I) // its all about the integer
+		Track[I] = TrackCell{
+			CurPosR: RevCandidate.CurPosR,
+			CurPosC: RevCandidate.CurPosC,
+			PrevMov: NewPrev,
+			Visited: RevCandidate.Visited,
+			Image:   RevCandidate.Image,
+			Start:   RevCandidate.Start,
+			Cul:     true,
+			Rev:     false,
+		}
+		fmt.Printf("Previous swapped to: %v", NewPrev)
+
+		PickNext(numRows, numCols, I)
+
 	}
-	if ok {
-		fmt.Println("rev found, backtracking")
+
+	if RevCandidate.Cul || RevCandidate.Rev {
+		reverser := Track[RevInt]
+		prev := reverser.PrevMov
+		var NewPrev = ""
+		fmt.Printf("Original Previous value: %v", prev)
+		switch prev {
+		case "UP":
+			NewPrev = "Down"
+		case "DUPLeft":
+			NewPrev = "DDownRight"
+		case "DUPRight":
+			NewPrev = "DDownLeft"
+		case "Right":
+			NewPrev = "Left"
+		case "Left":
+			NewPrev = "Right"
+		case "DDownRight":
+			NewPrev = "DUPLeft"
+		case "DDownLeft":
+			NewPrev = "DUPRight"
+		case "Down":
+			NewPrev = "UP"
+		}
+
+		Track[I+1] = TrackCell{
+			CurPosR: reverser.CurPosR,
+			CurPosC: reverser.CurPosC,
+			PrevMov: NewPrev,
+			Visited: true,
+			Image:   nil,
+			Start:   false,
+			Cul:     false,
+			Rev:     true,
+		}
+
 		RevCount++
-		TrkInt++
-		PickNext( R, C, I-1)
+
+		PickNext(numRows, numCols, I+1)
 	}
 
-}*/
+}

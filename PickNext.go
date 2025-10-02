@@ -20,7 +20,7 @@ func PickNext(numRows, numCols, I int) {
 
 	//UP
 	vis := VistedCheck(CurrentRow-1, CurrentCol, I)
-	if !vis && CurrentRow-1 >= 0 && (Op == 1 || Op == 2 || Op == 3 || Op == 7 || Op == 8) {
+	if !vis && CurrentRow-1 >= 0 && (Op == 1 || Op == 2 || Op == 3) {
 		PosMoveUP := []int{CurrentRow - 1, CurrentCol}
 		UP := map[string][]int{
 			"UP": PosMoveUP,
@@ -50,7 +50,7 @@ func PickNext(numRows, numCols, I int) {
 
 	//Down
 	vis = VistedCheck(CurrentRow+1, CurrentCol, I)
-	if !vis && CurrentRow+1 < numRows && (Op == 4 || Op == 5 || Op == 6 || Op == 7 || Op == 8) {
+	if !vis && CurrentRow+1 < numRows && (Op == 4 || Op == 5 || Op == 6) {
 		PosMoveDown := []int{CurrentRow + 1, CurrentCol}
 		Down := map[string][]int{
 			"Down": PosMoveDown,
@@ -118,11 +118,33 @@ func PickNext(numRows, numCols, I int) {
 			}
 			PossibleMoves = append(PossibleMoves, Left)
 		}
+
+		//Up - last option
+		vis := VistedCheck(CurrentRow-1, CurrentCol, I)
+		if !vis && CurrentRow-1 >= 0 && (Op == 7 || Op == 8) {
+			PosMoveUP := []int{CurrentRow - 1, CurrentCol}
+			UP := map[string][]int{
+				"UP": PosMoveUP,
+			}
+			PossibleMoves = append(PossibleMoves, UP)
+		}
+
+		//Down - last option
+		vis = VistedCheck(CurrentRow+1, CurrentCol, I)
+		if !vis && CurrentRow+1 < numRows && (Op == 7 || Op == 8) {
+			PosMoveDown := []int{CurrentRow + 1, CurrentCol}
+			Down := map[string][]int{
+				"Down": PosMoveDown,
+			}
+			PossibleMoves = append(PossibleMoves, Down)
+		}
 	}
 
 	if I+1 < numRows*numCols && RevCount < ((numRows*numCols)/3) && len(PossibleMoves) == 0 {
-		//ReverseProtocol(CellGrid, numRows, numCols, I)
+		RevInt = I - 1
+		ReverseProtocol(numRows, numCols, I)
 		fmt.Println("Out of Possible Moves, Run Reverse Protocol") // here is where you will run the reverse protocol
+		fmt.Printf("RevInt: %v\n", RevInt)
 		for i := range Track {
 			fmt.Printf("%+v\n", Track[i])
 		}
@@ -152,6 +174,7 @@ func PickNext(numRows, numCols, I int) {
 
 	if !FindFinish(I) && I+1 < numRows*numCols {
 		go func() {
+			RevInt = I
 			PossibleMoves = PossibleMoves[:0]
 			fyne.Do(func() {
 				PickNext(numRows, numCols, I+1)
@@ -197,9 +220,9 @@ func DetermineOptions(I int) (option int) {
 	case "DDownRight":
 		return 6 // Down, DDR, Right
 	case "Right":
-		return 7 //Right, DUR, DDR, UP, Down
+		return 7 //Right, DUR, DDR, -- (UP, Down)
 	case "Left":
-		return 8 //Left, DUL, DDL, UP, Down
+		return 8 //Left, DUL, DDL,-- (UP, Down)
 	default:
 		fmt.Print("Previous did not match movekey label\n")
 		return
@@ -218,15 +241,15 @@ func VistedCheck(CurrentRow, CurrentCol, I int) bool {
 
 func FindFinish(I int) bool {
 	next := Track[I+1]
-	if TrackT {
+	if TrackT && I > 3 {
 		finish := Track[0]
 		if next.CurPosR == finish.CurPosR-1 && next.CurPosC == finish.CurPosC ||
-			next.CurPosR == finish.CurPosR-1 && next.CurPosC == finish.CurPosC+1 ||
+			next.CurPosR == finish.CurPosR-1 && next.CurPosC == finish.CurPosC+1 && next.PrevMov != "DDownRight" && next.PrevMov != "DUPLeft" ||
 			next.CurPosR == finish.CurPosR && next.CurPosC == finish.CurPosC+1 {
 			return true
 		}
 	}
-	if !TrackT {
+	if !TrackT && I > 3 {
 		if next.CurPosR == 0 && next.CurPosC == 0 ||
 			next.CurPosR == 0 && next.CurPosC == 1 ||
 			next.CurPosR == 0 && next.CurPosC == 2 {

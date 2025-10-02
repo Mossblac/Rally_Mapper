@@ -7,6 +7,7 @@ var Track []TrackCell
 var PossibleMoves []map[string][]int
 var RevCount int
 var TrackT bool
+var RevInt int
 
 type IconSet struct {
 	Ic1 *fyne.StaticResource
@@ -22,4 +23,6 @@ type TrackCell struct {
 	Visited bool
 	Image   *fyne.StaticResource
 	Start   bool
+	Cul     bool
+	Rev     bool
 }

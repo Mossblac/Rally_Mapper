@@ -20,7 +20,7 @@ func PossibleMovesSS(CurrentRow, CurrentCol, numRows, numCols int) {
 	}
 
 	//DUPleft
-	if CurrentRow-1 >= 0 && CurrentCol-1 >= 0 {
+	if CurrentRow-1 >= 0 && CurrentCol-1 >= 0 && !TrackT {
 		PosMoveDUL := []int{CurrentRow - 1, CurrentCol - 1}
 		DUPLeft := map[string][]int{
 			"DUPLeft": PosMoveDUL,
@@ -38,7 +38,7 @@ func PossibleMovesSS(CurrentRow, CurrentCol, numRows, numCols int) {
 	}
 
 	//Left - last option
-	if CurrentCol-1 >= 0 {
+	if CurrentCol-1 >= 0 && !TrackT {
 		PosMoveL := []int{CurrentRow, CurrentCol - 1}
 		Left := map[string][]int{
 			"Left": PosMoveL,
