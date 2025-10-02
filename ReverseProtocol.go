@@ -8,7 +8,7 @@ func ReverseProtocol(numRows, numCols, I int) {
 		fmt.Printf("creating Cul @: %v, %v\n", RevCandidate.CurPosR, RevCandidate.CurPosC)
 		prev := RevCandidate.PrevMov
 		var NewPrev = ""
-		fmt.Printf("Original Previous value: %v", prev)
+		fmt.Printf("Original Previous value: %v\n", prev)
 		switch prev {
 		case "UP":
 			NewPrev = "Down"
@@ -38,9 +38,9 @@ func ReverseProtocol(numRows, numCols, I int) {
 			Cul:     true,
 			Rev:     false,
 		}
-		fmt.Printf("Previous swapped to: %v", NewPrev)
+		fmt.Printf("Previous swapped to: %v\n", NewPrev)
 
-		PickNext(numRows, numCols, I)
+		//PickNext(numRows, numCols, I) // it is creating cul, but it is just looping, reversing the prev value back and forth
 
 	}
 
@@ -48,31 +48,31 @@ func ReverseProtocol(numRows, numCols, I int) {
 		reverser := Track[RevInt]
 		fmt.Printf("creating reverser @: %v, %v\n", reverser.CurPosR, reverser.CurPosC)
 		prev := reverser.PrevMov
-		var NewPrev = ""
-		fmt.Printf("Original Previous value: %v", prev)
+		var NPrev = ""
+		fmt.Printf("Original Previous value: %v\n", prev)
 		switch prev {
 		case "UP":
-			NewPrev = "Down"
+			NPrev = "Down"
 		case "DUPLeft":
-			NewPrev = "DDownRight"
+			NPrev = "DDownRight"
 		case "DUPRight":
-			NewPrev = "DDownLeft"
+			NPrev = "DDownLeft"
 		case "Right":
-			NewPrev = "Left"
+			NPrev = "Left"
 		case "Left":
-			NewPrev = "Right"
+			NPrev = "Right"
 		case "DDownRight":
-			NewPrev = "DUPLeft"
+			NPrev = "DUPLeft"
 		case "DDownLeft":
-			NewPrev = "DUPRight"
+			NPrev = "DUPRight"
 		case "Down":
-			NewPrev = "UP"
+			NPrev = "UP"
 		}
 
 		Track[I+1] = TrackCell{
 			CurPosR: reverser.CurPosR,
 			CurPosC: reverser.CurPosC,
-			PrevMov: NewPrev,
+			PrevMov: NPrev,
 			Visited: true,
 			Image:   nil,
 			Start:   false,
@@ -82,7 +82,7 @@ func ReverseProtocol(numRows, numCols, I int) {
 
 		RevCount++
 
-		PickNext(numRows, numCols, I+1)
+		//PickNext(numRows, numCols, I+1)
 	}
 
 }

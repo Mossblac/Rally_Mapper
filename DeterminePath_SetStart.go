@@ -11,11 +11,13 @@ func DeterminePath_setStart(TrackType string, numRows, numCols int) {
 	var R int
 	var C int
 	if TrackType == "loop" {
+		TrackT = true
 		R = numRows - 1
 		C = 0
 	}
 
 	if TrackType == "linear" {
+		TrackT = false
 		R = numRows - 1
 		C = 1
 	}

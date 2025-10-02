@@ -1,13 +1,14 @@
 package main
 
-func PossibleMovesSS(CurrentRow, CurrentCol, numRows, numCols int) {
+func PossibleMovesSS(CurrentRow, CurrentCol, numRows, numCols int) (PMSS []map[string][]int) {
+	var PossibleMovesSS []map[string][]int
 	//UP
 	if CurrentRow-1 >= 0 {
 		PosMoveUP := []int{CurrentRow - 1, CurrentCol}
 		UP := map[string][]int{
 			"UP": PosMoveUP,
 		}
-		PossibleMoves = append(PossibleMoves, UP)
+		PossibleMovesSS = append(PossibleMovesSS, UP)
 	}
 
 	//DUPRight
@@ -16,7 +17,7 @@ func PossibleMovesSS(CurrentRow, CurrentCol, numRows, numCols int) {
 		DUPRight := map[string][]int{
 			"DUPRight": PosMoveDUR,
 		}
-		PossibleMoves = append(PossibleMoves, DUPRight)
+		PossibleMovesSS = append(PossibleMovesSS, DUPRight)
 	}
 
 	//DUPleft
@@ -25,7 +26,7 @@ func PossibleMovesSS(CurrentRow, CurrentCol, numRows, numCols int) {
 		DUPLeft := map[string][]int{
 			"DUPLeft": PosMoveDUL,
 		}
-		PossibleMoves = append(PossibleMoves, DUPLeft)
+		PossibleMovesSS = append(PossibleMovesSS, DUPLeft)
 	}
 
 	//Right - last option
@@ -34,7 +35,7 @@ func PossibleMovesSS(CurrentRow, CurrentCol, numRows, numCols int) {
 		Right := map[string][]int{
 			"Right": PosMoveR,
 		}
-		PossibleMoves = append(PossibleMoves, Right)
+		PossibleMovesSS = append(PossibleMovesSS, Right)
 	}
 
 	//Left - last option
@@ -43,6 +44,8 @@ func PossibleMovesSS(CurrentRow, CurrentCol, numRows, numCols int) {
 		Left := map[string][]int{
 			"Left": PosMoveL,
 		}
-		PossibleMoves = append(PossibleMoves, Left)
+		PossibleMovesSS = append(PossibleMovesSS, Left)
 	}
+
+	return PossibleMovesSS
 }

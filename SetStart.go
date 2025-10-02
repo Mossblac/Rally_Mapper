@@ -13,15 +13,15 @@ func SetStart(numRows, numCols int) {
 	CurrentRow := currentCell.CurPosR
 	CurrentCol := currentCell.CurPosC
 
-	PossibleMovesSS(CurrentRow, CurrentCol, numRows, numCols)
+	PMSS := PossibleMovesSS(CurrentRow, CurrentCol, numRows, numCols)
 
-	if len(PossibleMoves) == 0 {
+	if len(PMSS) == 0 {
 		fmt.Println("Possible moves not being added to list")
 	}
 
-	randomIndex := rand.Intn(len(PossibleMoves))
+	randomIndex := rand.Intn(len(PMSS))
 
-	nextMove := PossibleMoves[randomIndex]
+	nextMove := PMSS[randomIndex]
 
 	var MoveKey string
 
@@ -37,8 +37,6 @@ func SetStart(numRows, numCols int) {
 		PrevMov: MoveKey,
 		Visited: true,
 	}
-
-	PossibleMoves = PossibleMoves[:0]
 
 	iconToSet := DetermineStartImage(1)
 

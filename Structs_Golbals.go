@@ -4,7 +4,6 @@ import "fyne.io/fyne/v2"
 
 var Track []TrackCell
 
-var PossibleMoves []map[string][]int
 var RevCount int
 var TrackT bool
 var RevInt int

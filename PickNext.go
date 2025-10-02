@@ -8,6 +8,7 @@ import (
 )
 
 func PickNext(numRows, numCols, I int) {
+	var PossibleMoves []map[string][]int
 	if len(PossibleMoves) != 0 {
 		fmt.Printf("Possible moves not zero at PickNext, length: %v", len(PossibleMoves))
 	}
