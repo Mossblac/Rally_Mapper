@@ -37,3 +37,7 @@ var CurveR_DTLicon = fyne.NewStaticResource("CurveR_DTL.svg", CurveR_DTLSVG)
 
 var CurveR_DBLicon = fyne.NewStaticResource("CurveR_DBL.svg", CurveR_DBLSVG)
 
+var CurveL_DTRicon = fyne.NewStaticResource("CurveL_DTR.svg", CurveL_DTRSVG)
+
+var CurveL_DBRicon = fyne.NewStaticResource("CurveL_DBR.svg", CurveL_DBRSVG)
+

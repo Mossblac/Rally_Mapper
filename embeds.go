@@ -55,3 +55,9 @@ var CurveR_DTLSVG []byte
 //go:embed assets/icons/CurveR_DBL.svg
 var CurveR_DBLSVG []byte
 
+//go:embed assets/icons/CurveL_DTR.svg
+var CurveL_DTRSVG []byte
+
+//go:embed assets/icons/CurveL_DBR.svg
+var CurveL_DBRSVG []byte
+
