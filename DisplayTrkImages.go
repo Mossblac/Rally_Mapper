@@ -79,7 +79,7 @@ func DetermineTrackIconToSet(I int) (icon *fyne.StaticResource) {
 		return StraightUPicon
 	case "Right, Right":
 		return StraightRighticon
-	case "Left,Left":
+	case "Left, Left":
 		return StraightLefticon
 	case "Down, Down":
 		return StraightDownicon
@@ -113,6 +113,16 @@ func DetermineTrackIconToSet(I int) (icon *fyne.StaticResource) {
 		return CurveDTL_Bicon
 	case "DUPLeft, UP":
 		return CurveDBR_Ticon
+	case "DUPRight, UP":
+		return CurveDBL_Ticon
+	case "UP, DUPRight":
+		return CurveB_DTRicon
+	case "UP, DUPLeft":
+		return CurveB_DTLicon
+	case "DUPLeft, Left":
+		return CurveDBR_Licon
+	case "DUPRight, Right":
+		return CurveDBL_Ricon
 	default:
 		return UnsetPlaceholdericon
 
