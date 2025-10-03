@@ -16,7 +16,9 @@ func ResetAndTryAgain(numRows, numCols int) {
 
 	if TrackT {
 		DeterminePath_setStart("loop", numRows, numCols)
+		return
 	} else {
 		DeterminePath_setStart("linear", numRows, numCols)
+		return
 	}
 }
