@@ -26,7 +26,7 @@ func DisplayTrkImages() {
 
 						Track[i] = TrackCell{
 							CurPosR: Track[i].CurPosR,
-							CurPosC: Track[i].CurPosR,
+							CurPosC: Track[i].CurPosC,
 							PrevMov: Track[i].PrevMov,
 							Visited: Track[i].Visited,
 							Image:   iconToset,
@@ -143,6 +143,10 @@ func DetermineTrackIconToSet(I int) (icon *fyne.StaticResource) {
 		return UnsetPlaceholdericon
 
 	}
+}
+
+func DetermineLastAndFinishIcon() {
+
 }
 
 /*

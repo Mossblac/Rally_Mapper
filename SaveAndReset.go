@@ -1,6 +1,8 @@
 package main
 
-import "fyne.io/fyne/v2"
+import (
+	"fyne.io/fyne/v2"
+)
 
 func ResetAndTryAgain(numRows, numCols int) {
 	RevCount = 0

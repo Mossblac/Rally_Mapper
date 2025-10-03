@@ -1,8 +1,6 @@
 package main
 
 import (
-	"time"
-
 	"fyne.io/fyne/v2"
 )
 
@@ -38,21 +36,18 @@ func DeterminePath_setStart(TrackType string, numRows, numCols int) {
 		done2 := make(chan bool)
 
 		fyne.Do(func() {
-			time.Sleep(1000 * time.Millisecond)
 			SetStart(numRows, numCols)
 			done1 <- true
 		})
 		<-done1
 
 		fyne.Do(func() {
-			time.Sleep(1000 * time.Millisecond)
 			PickNext(numRows, numCols, 1)
 			done2 <- true
 		})
 		<-done2
 
 		fyne.Do(func() {
-			time.Sleep(1000 * time.Millisecond)
 			DisplayTrkImages()
 		})
 	}()

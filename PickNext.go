@@ -196,7 +196,6 @@ func PickNext(numRows, numCols, I int) {
 		fmt.Println("Found Finish, Track completed")
 		return
 	}
-
 }
 
 func DetermineOptions(I int) (option int) {
