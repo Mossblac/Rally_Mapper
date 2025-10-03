@@ -43,3 +43,15 @@ var StraightDTLSVG []byte
 //go:embed assets/icons/StraightDTR.svg
 var StraightDTRSVG []byte
 
+//go:embed assets/icons/CurveT_DBR.svg
+var CurveT_DBRSVG []byte
+
+//go:embed assets/icons/CurveT_DBL.svg
+var CurveT_DBLSVG []byte
+
+//go:embed assets/icons/CurveR_DTL.svg
+var CurveR_DTLSVG []byte
+
+//go:embed assets/icons/CurveR_DBL.svg
+var CurveR_DBLSVG []byte
+

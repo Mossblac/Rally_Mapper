@@ -29,3 +29,11 @@ var StraightDTLicon = fyne.NewStaticResource("StraightDTL.svg", StraightDTLSVG)
 
 var StraightDTRicon = fyne.NewStaticResource("StraightDTR.svg", StraightDTRSVG)
 
+var CurveT_DBRicon = fyne.NewStaticResource("CurveT_DBR.svg", CurveT_DBRSVG)
+
+var CurveT_DBLicon = fyne.NewStaticResource("CurveT_DBL.svg", CurveT_DBLSVG)
+
+var CurveR_DTLicon = fyne.NewStaticResource("CurveR_DTL.svg", CurveR_DTLSVG)
+
+var CurveR_DBLicon = fyne.NewStaticResource("CurveR_DBL.svg", CurveR_DBLSVG)
+
