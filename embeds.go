@@ -70,3 +70,9 @@ var CurveDTR_BSVG []byte
 //go:embed assets/icons/CurveDTL_R.svg
 var CurveDTL_RSVG []byte
 
+//go:embed assets/icons/CurveDTL_B.svg
+var CurveDTL_BSVG []byte
+
+//go:embed assets/icons/CurveDBR_T.svg
+var CurveDBR_TSVG []byte
+
