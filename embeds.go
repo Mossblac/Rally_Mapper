@@ -103,3 +103,15 @@ var Curve90R_TSVG []byte
 //go:embed assets/icons/Curve90R_B.svg
 var Curve90R_BSVG []byte
 
+//go:embed assets/icons/Curve90L_T.svg
+var Curve90L_TSVG []byte
+
+//go:embed assets/icons/Curve90L_B.svg
+var Curve90L_BSVG []byte
+
+//go:embed assets/icons/Curve90B_R.svg
+var Curve90B_RSVG []byte
+
+//go:embed assets/icons/Curve90B_L.svg
+var Curve90B_LSVG []byte
+
