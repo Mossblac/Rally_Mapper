@@ -1,7 +1,9 @@
 package main
 
+import "fyne.io/fyne/v2"
+
 func ResetAndTryAgain(numRows, numCols int) {
-	Track = Track[:0]
+	Track = nil
 
 	for i := 0; i < numRows*numCols; i++ {
 		cell := TrackCell{
@@ -15,10 +17,18 @@ func ResetAndTryAgain(numRows, numCols int) {
 	}
 
 	if TrackT {
-		DeterminePath_setStart("loop", numRows, numCols)
+		go func() {
+			fyne.Do(func() {
+				DeterminePath_setStart("loop", numRows, numCols)
+			})
+		}()
 		return
 	} else {
-		DeterminePath_setStart("linear", numRows, numCols)
+		go func() {
+			fyne.Do(func() {
+				DeterminePath_setStart("linear", numRows, numCols)
+			})
+		}()
 		return
 	}
 }

@@ -22,7 +22,7 @@ func DeterminePath_setStart(TrackType string, numRows, numCols int) {
 		C = 1
 	}
 
-	Track[0] = TrackCell{ //should assign first struct
+	Track[0] = TrackCell{
 		CurPosR: R,
 		CurPosC: C,
 		Visited: true,
