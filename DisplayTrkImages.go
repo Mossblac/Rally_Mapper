@@ -24,19 +24,34 @@ func DisplayTrkImages() {
 							// Ic2, Ic3, Ic4 can be nil
 						}
 
-						/*m = TrackCell{
-							CurPosR: m.CurPosR,
-							CurPosC: m.CurPosR,
-							PrevMov: m.PrevMov,
-							Visited: m.Visited,
+						Track[i] = TrackCell{
+							CurPosR: Track[i].CurPosR,
+							CurPosC: Track[i].CurPosR,
+							PrevMov: Track[i].PrevMov,
+							Visited: Track[i].Visited,
 							Image:   iconToset,
-							Start:   m.Start,
-							Cul:     m.Cul,
-							Rev:     m.Rev,
-						}*/
+							Start:   Track[i].Start,
+							Cul:     Track[i].Cul,
+							Rev:     Track[i].Rev,
+						}
 
 					} else {
 						icons = IconSet{}
+						/*
+							CulorRevToSeT := DetermineCullorRevTrackIconToSet(i)
+
+								Track[i] = TrackCell{
+								CurPosR: Track[i].CurPosR,
+								CurPosC: Track[i].CurPosR,
+								PrevMov: Track[i].PrevMov,
+								Visited: Track[i].Visited,
+								Image:   CulorRevToSet,
+								Start:   Track[i].Start,
+								Cul:     Track[i].Cul,
+								Rev:     Track[i].Rev,
+							}
+
+						*/
 					}
 
 					SetImageInCell(m.CurPosR, m.CurPosC, icons)
