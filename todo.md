@@ -1,23 +1,16 @@
 # Rally Map Maker:
 
-1. Learn Fyne for visualization and animation 
-2. real world research, need a time vs distance ratio
-3. define obstacles relations and estimate added time for each
-4. define punch types and relations to obstacles
+1. finish adding base icons
+2. set finish, set obstacles, set punches
+3. calculate estimated time to complete, calculate punch reductions
+4. create window has only progress bar (infinite or based on images being set)
+5. once created,  create image.Image of full track (code saved at end of DeterminePathSetStart, where it should be called)
+6. create new window with completed buttons. (drop in animation for track image maybe)
+7. presenting window, displays Time to complete, and punch reductions. new buttons: home (moved from current create window), save, and zoom feature. 
+8. saving to database and recall. 
+9. readme.md - upcoming features: manual editing
 
-## collect equipment variables
-
-- number of punches and variety 
-- number of obstacles and all types available
-- difficulty of course : rookie = no required obstacles to complete course, primary = 25% required, league = 50%, semi-pro = 75%  pro = 100% obstacles required
+# submit as complete
 
 
-## visualize
 
-1. define area in square feet, create grid. 
-2. create course outline using all space available, option for loop or setting start and finish location
-3. apply all obstacles while maintaining difficulty level
-4. apply punches and calculate time reductions 
-
-## store in database 
-### create search function to access pregenerated maps based on variables. 
