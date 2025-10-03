@@ -11,9 +11,6 @@ func PickNext(numRows, numCols, I int) {
 	if I+1 == len(Track) && !FindFinish(I) {
 
 		ResetAndTryAgain(numRows, numCols)
-		for i := range Track {
-			fmt.Printf("%+v\n", Track[i])
-		}
 
 		fmt.Println("All spaces filled, No Finish found, re-run")
 		return
@@ -22,9 +19,7 @@ func PickNext(numRows, numCols, I int) {
 	if RevCount > len(Track)/4 {
 
 		ResetAndTryAgain(numRows, numCols)
-		for i := range Track {
-			fmt.Printf("%+v\n", Track[i])
-		}
+
 		fmt.Println("Too many reverse, re-run")
 		return
 	}
@@ -187,8 +182,6 @@ func PickNext(numRows, numCols, I int) {
 		Visited: true,
 	}
 
-	fmt.Printf("currentposition: %v %v\n", NPosition[0], NPosition[1])
-
 	if !FindFinish(I) && I+1 < len(Track) {
 		go func() {
 			PossibleMoves = PossibleMoves[:0]
@@ -199,9 +192,6 @@ func PickNext(numRows, numCols, I int) {
 	}
 	if FindFinish(I) {
 		//SetImageInCell(NPosition[0], NPosition[1], RallyLogo) - set finish line on top of start
-		for i := range I + 1 {
-			fmt.Printf("%+v\n", Track[i])
-		}
 
 		fmt.Println("Found Finish, Track completed")
 		return

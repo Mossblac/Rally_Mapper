@@ -23,6 +23,18 @@ func DisplayTrkImages() {
 							Ic1: iconToset,
 							// Ic2, Ic3, Ic4 can be nil
 						}
+
+						/*m = TrackCell{
+							CurPosR: m.CurPosR,
+							CurPosC: m.CurPosR,
+							PrevMov: m.PrevMov,
+							Visited: m.Visited,
+							Image:   iconToset,
+							Start:   m.Start,
+							Cul:     m.Cul,
+							Rev:     m.Rev,
+						}*/
+
 					} else {
 						icons = IconSet{}
 					}
@@ -34,6 +46,9 @@ func DisplayTrkImages() {
 		}
 
 		fyne.Do(func() {
+			for i := range Track {
+				fmt.Printf("%+v\n", Track[i])
+			}
 			fmt.Println("all images set")
 		})
 	}()
