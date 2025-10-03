@@ -96,4 +96,5 @@ func showInstructions() {
 	)
 
 	mainWin.SetContent(centeredTextContent)
+
 }

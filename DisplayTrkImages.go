@@ -47,8 +47,35 @@ func DetermineTrackIconToSet(I int) (icon *fyne.StaticResource) {
 	switch celldirect {
 	case "UP, UP":
 		return StraightUPicon
+	case "Right, Right":
+		return StraightRighticon
+	case "Left,Left":
+		return StraightLefticon
+	case "Down, Down":
+		return StraightDownicon
+	case "DUPRight, DUPRight":
+		return StraightDTRicon
+	case "DUPLeft, DUPLeft":
+		return StraightDTLicon
+	case "DDownRight, DDownRight":
+		return StraightDBRicon
+	case "DDownLeft, DDownLeft":
+		return StraightDBLicon
 	default:
 		return UnsetPlaceholdericon
 
 	}
 }
+
+/*
+
+UP
+DUPRight
+DUPLeft
+Down
+DDownRight
+DDownLeft
+Right
+Left
+
+*/

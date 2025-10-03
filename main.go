@@ -21,5 +21,5 @@ func main() {
 }
 
 func init() {
-	//var crossRes = theme.CancelIcon() // from the standard theme libraryS
+
 }
