@@ -73,6 +73,10 @@ func DetermineTrackIconToSet(I int) (icon *fyne.StaticResource) {
 		return CurveL_DTRicon
 	case "Right, DDownRight":
 		return CurveL_DBRicon
+	case "DDownLeft, Left":
+		return CurveDTR_Licon
+	case "DDownLeft, Down":
+		return CurveDTR_Bicon
 	default:
 		return UnsetPlaceholdericon
 

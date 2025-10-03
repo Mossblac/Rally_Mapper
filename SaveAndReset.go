@@ -3,6 +3,7 @@ package main
 import "fyne.io/fyne/v2"
 
 func ResetAndTryAgain(numRows, numCols int) {
+	RevCount = 0
 	Track = nil
 
 	for i := 0; i < numRows*numCols; i++ {
