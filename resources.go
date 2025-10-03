@@ -61,3 +61,11 @@ var CurveDBL_Ricon = fyne.NewStaticResource("CurveDBL_R.svg", CurveDBL_RSVG)
 
 var CurveDBR_Licon = fyne.NewStaticResource("CurveDBR_L.svg", CurveDBR_LSVG)
 
+var Curve90T_Ricon = fyne.NewStaticResource("Curve90T_R.svg", Curve90T_RSVG)
+
+var Curve90T_Licon = fyne.NewStaticResource("Curve90T_L.svg", Curve90T_LSVG)
+
+var Curve90R_Ticon = fyne.NewStaticResource("Curve90R_T.svg", Curve90R_TSVG)
+
+var Curve90R_Bicon = fyne.NewStaticResource("Curve90R_B.svg", Curve90R_BSVG)
+
