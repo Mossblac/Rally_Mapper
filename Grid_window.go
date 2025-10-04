@@ -4,7 +4,6 @@ package main
 import (
 	"image/color"
 	"math"
-	"time"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
@@ -124,11 +123,5 @@ func Grid_Widget(TrackType string, numObstacles int) {
 		}
 		Track = append(Track, cell)
 	}
-
-	go func() {
-		time.Sleep(1 * time.Second)
-		fyne.Do(func() {
-			DeterminePath_setStart(TrackType, numRows, numCols)
-		})
-	}()
+	DeterminePath_setStart(TrackType, numRows, numCols)
 }

@@ -11,6 +11,16 @@ func DisplayTrkImages() {
 	var icons IconSet
 
 	go func() {
+		StarticonToSet := DetermineStartImage(1)
+
+		IconStart := IconSet{
+			Ic1: StarticonToSet,
+		}
+
+		SetImageInCell(Track[0].CurPosR, Track[0].CurPosC, IconStart)
+
+		time.Sleep(500 * time.Millisecond)
+
 		for i := 0; i < len(Track); i++ {
 			m := Track[i]
 			if m.CurPosR != -1 && m.CurPosC != -1 && !m.Start {
@@ -57,15 +67,14 @@ func DisplayTrkImages() {
 					SetImageInCell(m.CurPosR, m.CurPosC, icons)
 				})
 			}
-			time.Sleep(200 * time.Millisecond) // Wait between each image
+			time.Sleep(50 * time.Millisecond) // Wait between each image
 		}
 
-		fyne.Do(func() {
-			for i := range Track {
-				fmt.Printf("%+v\n", Track[i])
-			}
-			fmt.Println("all images set")
-		})
+		for i := range Track {
+			fmt.Printf("%+v\n", Track[i])
+		}
+		fmt.Println("all images set")
+
 	}()
 }
 

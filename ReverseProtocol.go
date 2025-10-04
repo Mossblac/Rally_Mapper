@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-
-	"fyne.io/fyne/v2"
 )
 
 var RevInt int
@@ -49,11 +47,7 @@ func ReverseProtocol(numRows, numCols, I int) {
 		}
 		fmt.Printf("Previous swapped to: %v\n", NewPrev)
 
-		go func() {
-			fyne.Do(func() {
-				PickNext(numRows, numCols, I)
-			})
-		}()
+		PickNext(numRows, numCols, I)
 		return
 	}
 
@@ -107,12 +101,8 @@ func ReverseProtocol(numRows, numCols, I int) {
 		RevCount++
 		fmt.Printf("RevCount: %v\n", RevCount)
 
-		go func() {
-			fyne.Do(func() {
-				RevInt--
-				PickNext(numRows, numCols, I+1)
-			})
-		}()
+		RevInt--
+		PickNext(numRows, numCols, I+1)
 		return
 	}
 

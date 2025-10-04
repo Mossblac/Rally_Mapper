@@ -27,30 +27,12 @@ func DeterminePath_setStart(TrackType string, numRows, numCols int) {
 		Start:   true,
 	}
 
-	/*for i := range Track {
-		fmt.Printf("%+v\n", Track[i])
-	}*/
+	SetStart(numRows, numCols)
+	PickNext(numRows, numCols, 1)
 
-	go func() {
-		done1 := make(chan bool)
-		done2 := make(chan bool)
-
-		fyne.Do(func() {
-			SetStart(numRows, numCols)
-			done1 <- true
-		})
-		<-done1
-
-		fyne.Do(func() {
-			PickNext(numRows, numCols, 1)
-			done2 <- true
-		})
-		<-done2
-
-		fyne.Do(func() {
-			DisplayTrkImages()
-		})
-	}()
+	fyne.Do(func() {
+		DisplayTrkImages()
+	})
 
 	//screenShot := mainWin.Canvas().Capture() - this creates an image.Image of the completed map to use later.
 }

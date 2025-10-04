@@ -3,17 +3,15 @@ package main
 import (
 	"fmt"
 	"math/rand"
-
-	"fyne.io/fyne/v2"
 )
 
-func PickNext(numRows, numCols, I int) {
+func PickNext(numRows, numCols, I int) bool {
 	if I+1 == len(Track) && !FindFinish(I) {
 
 		ResetAndTryAgain(numRows, numCols)
 
 		fmt.Println("All spaces filled, No Finish found, re-run")
-		return
+		return false
 	}
 
 	if RevCount > len(Track)/4 {
@@ -21,7 +19,7 @@ func PickNext(numRows, numCols, I int) {
 		ResetAndTryAgain(numRows, numCols)
 
 		fmt.Println("Too many reverse, re-run")
-		return
+		return false
 	}
 
 	var PossibleMoves []map[string][]int
@@ -160,7 +158,7 @@ func PickNext(numRows, numCols, I int) {
 	if len(PossibleMoves) == 0 {
 		fmt.Println("ReverseProtocol engaged")
 		ReverseProtocol(numRows, numCols, I)
-		return
+		return true
 	}
 
 	randomIndex := rand.Intn(len(PossibleMoves))
@@ -183,19 +181,17 @@ func PickNext(numRows, numCols, I int) {
 	}
 
 	if !FindFinish(I) && I+1 < len(Track) {
-		go func() {
-			PossibleMoves = PossibleMoves[:0]
-			fyne.Do(func() {
-				PickNext(numRows, numCols, I+1)
-			})
-		}()
+		PossibleMoves = nil
+		PickNext(numRows, numCols, I+1)
+
 	}
 	if FindFinish(I) {
 		//SetImageInCell(NPosition[0], NPosition[1], RallyLogo) - set finish line on top of start
 
 		fmt.Println("Found Finish, Track completed")
-		return
+		return true
 	}
+	return false
 }
 
 func DetermineOptions(I int) (option int) {

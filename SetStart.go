@@ -38,25 +38,15 @@ func SetStart(numRows, numCols int) {
 		Visited: true,
 	}
 
-	iconToSet := DetermineStartImage(1)
+	StarticonToSet := DetermineStartImage(1)
 
 	Track[0] = TrackCell{
 		CurPosR: Track[0].CurPosR,
 		CurPosC: Track[0].CurPosC,
-		Image:   iconToSet,
+		Image:   StarticonToSet,
 		Visited: Track[0].Visited,
 		Start:   Track[0].Start,
 	}
-
-	IconStart := IconSet{
-		Ic1: iconToSet,
-	}
-
-	SetImageInCell(CurrentRow, CurrentCol, IconStart)
-
-	/*for i := range Track {
-		fmt.Printf("%+v\n", Track[i])
-	}*/
 
 }
 
