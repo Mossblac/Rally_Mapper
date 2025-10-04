@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"fyne.io/fyne/v2"
 )
 
@@ -26,13 +28,21 @@ func DeterminePath_setStart(TrackType string, numRows, numCols int) {
 		Visited: true,
 		Start:   true,
 	}
+	resultCh := make(chan bool, 1)
 
-	SetStart(numRows, numCols)
-	PickNext(numRows, numCols, 1)
+	go func() {
+		SetStart(numRows, numCols)
+		ok := PickNext(numRows, numCols, 1)
+		resultCh <- ok
+	}()
 
-	fyne.Do(func() {
-		DisplayTrkImages()
-	})
+	ok := <-resultCh
+	fmt.Printf("ok = : %v\n", ok)
 
+	if ok {
+		fyne.Do(func() {
+			DisplayTrkImages()
+		})
+	}
 	//screenShot := mainWin.Canvas().Capture() - this creates an image.Image of the completed map to use later.
 }
