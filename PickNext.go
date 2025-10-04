@@ -186,19 +186,19 @@ func PickNext(numRows, numCols, I int) bool {
 
 	}
 	if FindFinish(I) {
-		Track[I] = TrackCell{
-			CurPosR: Track[I].CurPosR,
-			CurPosC: Track[I].CurPosC,
-			PrevMov: Track[I].PrevMov,
-			Visited: Track[I].Visited,
-			Image:   Track[I].Image,
-			Start:   Track[I].Start,
+		Track[I+1] = TrackCell{
+			CurPosR: Track[I+1].CurPosR,
+			CurPosC: Track[I+1].CurPosC,
+			PrevMov: Track[I+1].PrevMov,
+			Visited: Track[I+1].Visited,
+			Image:   Track[I+1].Image,
+			Start:   Track[I+1].Start,
 			Finish:  true,
-			Cul:     Track[I].Cul,
-			Rev:     Track[I].Rev,
+			Cul:     Track[I+1].Cul,
+			Rev:     Track[I+1].Rev,
 		}
 
-		for i := 0; i < I; i++ {
+		for i := 0; i < I+1; i++ {
 			if !Track[i].Cul && !Track[i].Rev {
 				iconToset := DetermineTrackIconToSet(i)
 				Track[i] = TrackCell{
