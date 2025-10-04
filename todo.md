@@ -1,6 +1,6 @@
 # Rally Map Maker:
 
-1. finish adding base icons
+1. ~~finish adding base icons~~
 2. set finish, set obstacles, set punches
 3. calculate estimated time to complete, calculate punch reductions
 4. create window has only progress bar (infinite or based on images being set)

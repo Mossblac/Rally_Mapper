@@ -49,7 +49,7 @@ func HomeScreen() {
 			Oblist += selectedObstacle + "          " + "\n"
 			TextWindow.SetText(Oblist)
 		} else {
-			MaxObWindow.SetText("max number of obstacles added!")
+			MaxObWindow.SetText("max number\n of obstacles\n added!")
 		}
 
 	})
@@ -70,14 +70,14 @@ func HomeScreen() {
 	logo := canvas.NewImageFromFile("/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rally_mapper_logo.png")
 	logo.FillMode = canvas.ImageFillContain
 
-	centeredContent := container.NewStack(logo, borderBox)
+	FullContent := container.NewStack(logo, borderBox)
 
-	mainWin.SetContent(centeredContent)
+	mainWin.SetContent(FullContent)
 
 }
 
 func showInstructions() {
-	textLabel := widget.NewLabel("Enter number of punches\nEnter physical equipment avalable\nEnter number of desired obstacles\nEnter 0-4 to reprisent percentage of required obstacles (0 = 0%, 2 = 50%, 4 = 100%)\nEnter maximum size of area in square feet - default is unlimited\nverify info and confirm")
+	textLabel := widget.NewLabel("Enter number of punches\n\nEnter physical equipment avalable\n\nEnter number of desired obstacles\n\nEnter 0-4 to reprisent percentage\n of required obstacles\n (0 = 0%, 2 = 50%, 4 = 100%)\n\nEnter maximum size of\n area in square feet\n - default is unlimited\n\nverify info and confirm")
 	textLabel.Alignment = fyne.TextAlignCenter
 
 	homeButton := widget.NewButton("Home", func() {
