@@ -27,22 +27,10 @@ func DisplayTrkImages() {
 
 				fyne.Do(func() {
 					if !m.Cul && !m.Rev {
-						iconToset := DetermineTrackIconToSet(i)
 
 						icons = IconSet{
-							Ic1: iconToset,
+							Ic1: m.Image,
 							// Ic2, Ic3, Ic4 can be nil
-						}
-
-						Track[i] = TrackCell{
-							CurPosR: Track[i].CurPosR,
-							CurPosC: Track[i].CurPosC,
-							PrevMov: Track[i].PrevMov,
-							Visited: Track[i].Visited,
-							Image:   iconToset,
-							Start:   Track[i].Start,
-							Cul:     Track[i].Cul,
-							Rev:     Track[i].Rev,
 						}
 
 					} else {

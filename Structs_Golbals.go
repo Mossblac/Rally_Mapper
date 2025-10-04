@@ -21,6 +21,7 @@ type TrackCell struct {
 	Visited bool
 	Image   *fyne.StaticResource
 	Start   bool
+	Finish  bool
 	Cul     bool
 	Rev     bool
 }

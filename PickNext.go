@@ -186,7 +186,34 @@ func PickNext(numRows, numCols, I int) bool {
 
 	}
 	if FindFinish(I) {
-		//SetImageInCell(NPosition[0], NPosition[1], RallyLogo) - set finish line on top of start
+		Track[I] = TrackCell{
+			CurPosR: Track[I].CurPosR,
+			CurPosC: Track[I].CurPosC,
+			PrevMov: Track[I].PrevMov,
+			Visited: Track[I].Visited,
+			Image:   Track[I].Image,
+			Start:   Track[I].Start,
+			Finish:  true,
+			Cul:     Track[I].Cul,
+			Rev:     Track[I].Rev,
+		}
+
+		for i := 0; i < I; i++ {
+			if !Track[i].Cul && !Track[i].Rev {
+				iconToset := DetermineTrackIconToSet(i)
+				Track[i] = TrackCell{
+					CurPosR: Track[i].CurPosR,
+					CurPosC: Track[i].CurPosC,
+					PrevMov: Track[i].PrevMov,
+					Visited: Track[i].Visited,
+					Image:   iconToset,
+					Start:   Track[i].Start,
+					Finish:  Track[i].Finish,
+					Cul:     Track[i].Cul,
+					Rev:     Track[i].Rev,
+				}
+			}
+		}
 
 		fmt.Println("Found Finish, Track completed")
 		return true
