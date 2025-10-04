@@ -25,35 +25,29 @@ func DisplayTrkImages() {
 			m := Track[i]
 			if m.CurPosR != -1 && m.CurPosC != -1 && !m.Start {
 
-				fyne.Do(func() {
-					if !m.Cul && !m.Rev {
+				if !m.Cul && !m.Rev && !m.Finish {
 
-						icons = IconSet{
-							Ic1: m.Image,
-							// Ic2, Ic3, Ic4 can be nil
-						}
-
-					} else {
-						icons = IconSet{}
-						/*
-							CulorRevToSeT := DetermineCullorRevTrackIconToSet(i)
-
-								Track[i] = TrackCell{
-								CurPosR: Track[i].CurPosR,
-								CurPosC: Track[i].CurPosR,
-								PrevMov: Track[i].PrevMov,
-								Visited: Track[i].Visited,
-								Image:   CulorRevToSet,
-								Start:   Track[i].Start,
-								Cul:     Track[i].Cul,
-								Rev:     Track[i].Rev,
-							}
-
-						*/
+					icons = IconSet{
+						Ic1: m.Image,
+						// Ic2, Ic3, Ic4 can be nil
 					}
+					SetImageInCell(m.CurPosR, m.CurPosC, icons)
+				}
+
+				if m.Cul || m.Rev {
+					icons = IconSet{}
 
 					SetImageInCell(m.CurPosR, m.CurPosC, icons)
-				})
+				}
+				if m.Finish {
+					finishline, lastIcon := DetermineLastAndFinishIcon(i)
+					icons = IconSet{
+						Ic1: lastIcon,
+						Ic2: finishline,
+					}
+					SetImageInCell(m.CurPosR, m.CurPosC, icons)
+				}
+
 			}
 			time.Sleep(50 * time.Millisecond) // Wait between each image
 		}
@@ -142,8 +136,96 @@ func DetermineTrackIconToSet(I int) (icon *fyne.StaticResource) {
 	}
 }
 
-func DetermineLastAndFinishIcon() {
+func DetermineLastAndFinishIcon(finishInt int) (finishicon, trackicon *fyne.StaticResource) {
+	SIcon := Track[0].Image
+	finishPrev := Track[finishInt].PrevMov
 
+	if SIcon == StartUPicon {
+		if Track[finishInt].CurPosR > Track[0].CurPosR {
+			switch finishPrev {
+			case "DUPLeft":
+				return finishlineDicon, UnsetPlaceholdericon //unset needs to be cul
+			case "Left":
+				return finishlineDicon, CurveR_DBLicon
+			case "DDownLeft":
+				return finishlineDicon, StraightDBLicon
+			case "Down":
+				return finishlineDicon, CurveT_DBLicon
+
+			}
+		}
+		if Track[finishInt].CurPosR == Track[0].CurPosR {
+			switch finishPrev {
+			case "Left":
+				return finishlineLicon, StraightLefticon
+			case "DDownLeft":
+				return finishlineLicon, CurveDTR_Licon
+			}
+		}
+	}
+
+	if SIcon == StartAngleURicon {
+		if Track[finishInt].CurPosC == Track[0].CurPosC {
+			switch finishPrev {
+			case "Down":
+				return finishlineDicon, StraightDownicon
+			case "DDownLeft":
+				return finishlineDicon, CurveDTR_Bicon
+			}
+		}
+
+		if Track[finishInt].CurPosR > Track[0].CurPosR {
+			switch finishPrev {
+			case "DDownLeft":
+				return finishlineLicon, CurveDTR_Licon
+			case "Left":
+				return finishlineLicon, StraightLefticon
+			}
+		}
+	}
+
+	if SIcon == StartRighticon {
+		if Track[finishInt].CurPosC > Track[0].CurPosC {
+			switch finishPrev {
+			case "DDownRight":
+				return finishlineDicon, UnsetPlaceholdericon //unset needs to be cul
+			case "Left":
+				return finishlineDicon, CurveR_DBLicon
+			case "DDownLeft":
+				return finishlineDicon, StraightDBLicon
+			case "Down":
+				return finishlineDicon, CurveT_DBLicon
+
+			}
+		}
+		if Track[finishInt].CurPosR > Track[0].CurPosR {
+			switch finishPrev {
+			case "DDownLeft":
+				return finishlineLicon, CurveDTR_Bicon
+			case "Down":
+				return finishlineLicon, StraightDownicon
+			}
+		}
+
+	}
+	return nil, nil
+}
+
+func DetermineCulAndRevIcons() {
+	/*
+			CulorRevToSeT := DetermineCullorRevTrackIconToSet(i)
+
+				Track[i] = TrackCell{
+				CurPosR: Track[i].CurPosR,
+				CurPosC: Track[i].CurPosR,
+				PrevMov: Track[i].PrevMov,
+				Visited: Track[i].Visited,
+				Image:   CulorRevToSet,
+				Start:   Track[i].Start,
+				Cul:     Track[i].Cul,
+				Rev:     Track[i].Rev,
+			}
+	}*/
 }
 
 /*

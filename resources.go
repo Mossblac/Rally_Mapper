@@ -77,3 +77,9 @@ var Curve90B_Ricon = fyne.NewStaticResource("Curve90B_R.svg", Curve90B_RSVG)
 
 var Curve90B_Licon = fyne.NewStaticResource("Curve90B_L.svg", Curve90B_LSVG)
 
+var finishlineDicon = fyne.NewStaticResource("finishlineD.svg", finishlineDSVG)
+
+var finishlineBicon = fyne.NewStaticResource("finishlineB.svg", finishlineBSVG)
+
+var finishlineLicon = fyne.NewStaticResource("finishlineL.svg", finishlineLSVG)
+

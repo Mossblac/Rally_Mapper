@@ -115,3 +115,12 @@ var Curve90B_RSVG []byte
 //go:embed assets/icons/Curve90B_L.svg
 var Curve90B_LSVG []byte
 
+//go:embed assets/icons/finishlineD.svg
+var finishlineDSVG []byte
+
+//go:embed assets/icons/finishlineB.svg
+var finishlineBSVG []byte
+
+//go:embed assets/icons/finishlineL.svg
+var finishlineLSVG []byte
+
