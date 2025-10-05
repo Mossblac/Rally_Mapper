@@ -106,3 +106,23 @@ var Cul_DTRicon = fyne.NewStaticResource("Cul_DTR.svg", Cul_DTRSVG)
 
 var Cul_DBRicon = fyne.NewStaticResource("Cul_DBR.svg", Cul_DBRSVG)
 
+var CornerBLicon = fyne.NewStaticResource("CornerBL.svg", CornerBLSVG)
+
+var CornerBRicon = fyne.NewStaticResource("CornerBR.svg", CornerBRSVG)
+
+var CornersTL_BRicon = fyne.NewStaticResource("CornersTL_BR.svg", CornersTL_BRSVG)
+
+var CornersTR_BLicon = fyne.NewStaticResource("CornersTR_BL.svg", CornersTR_BLSVG)
+
+var CornerTLicon = fyne.NewStaticResource("CornerTL.svg", CornerTLSVG)
+
+var CornerTRicon = fyne.NewStaticResource("CornerTR.svg", CornerTRSVG)
+
+var Rev_Diag_TL_BRicon = fyne.NewStaticResource("Rev_Diag_TL_BR.svg", Rev_Diag_TL_BRSVG)
+
+var Rev_Diag_TR_BLicon = fyne.NewStaticResource("Rev_Diag_TR_BL.svg", Rev_Diag_TR_BLSVG)
+
+var Rev_Horizontalicon = fyne.NewStaticResource("Rev_Horizontal.svg", Rev_HorizontalSVG)
+
+var Rev_Verticalicon = fyne.NewStaticResource("Rev_Vertical.svg", Rev_VerticalSVG)
+

@@ -160,3 +160,33 @@ var Cul_DTRSVG []byte
 //go:embed assets/icons/Cul_DBR.svg
 var Cul_DBRSVG []byte
 
+//go:embed assets/icons/CornerBL.svg
+var CornerBLSVG []byte
+
+//go:embed assets/icons/CornerBR.svg
+var CornerBRSVG []byte
+
+//go:embed assets/icons/CornersTL_BR.svg
+var CornersTL_BRSVG []byte
+
+//go:embed assets/icons/CornersTR_BL.svg
+var CornersTR_BLSVG []byte
+
+//go:embed assets/icons/CornerTL.svg
+var CornerTLSVG []byte
+
+//go:embed assets/icons/CornerTR.svg
+var CornerTRSVG []byte
+
+//go:embed assets/icons/Rev_Diag_TL_BR.svg
+var Rev_Diag_TL_BRSVG []byte
+
+//go:embed assets/icons/Rev_Diag_TR_BL.svg
+var Rev_Diag_TR_BLSVG []byte
+
+//go:embed assets/icons/Rev_Horizontal.svg
+var Rev_HorizontalSVG []byte
+
+//go:embed assets/icons/Rev_Vertical.svg
+var Rev_VerticalSVG []byte
+

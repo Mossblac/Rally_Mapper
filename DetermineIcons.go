@@ -294,12 +294,10 @@ func DetermineSecondCul(I int) (iconset IconSet) {
 		}
 		return doubleCulicons
 	}
-	if Track[I].Rev {
+	return IconSet{}
+}
 
-	}
-	if Track[I].Cul && Track[I].Rev {
-
-	}
+func DetermineRev(I int) (iconset IconSet) {
 	return IconSet{}
 }
 
