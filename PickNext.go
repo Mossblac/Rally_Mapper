@@ -9,6 +9,7 @@ import (
 
 func PickNext(numRows, numCols, I int) bool {
 	if I+1 == len(Track) && !FindFinish(I) {
+		RevCount = 0
 		if TrackT {
 			fyne.Do(func() {
 				Grid_Widget("loop", NumObstacles)
@@ -26,6 +27,7 @@ func PickNext(numRows, numCols, I int) bool {
 	}
 
 	if RevCount > len(Track)/4 {
+		RevCount = 0
 		if TrackT {
 			fyne.Do(func() {
 				Grid_Widget("loop", NumObstacles)
