@@ -65,6 +65,8 @@ func (l *squareGridLayout) MinSize([]fyne.CanvasObject) fyne.Size {
 }
 
 func Grid_Widget(TrackType string, numObstacles int) {
+	NumObstacles = numObstacles
+	Track = nil
 	var numCols, numRows int
 	twiceObSize := float32(numObstacles * 2)
 
@@ -107,10 +109,11 @@ func Grid_Widget(TrackType string, numObstacles int) {
 	// Centering wrappers no longer needed; grid self-centers via layout.
 	// Keep your Home button and border layout.
 	homeButton := widget.NewButton("Home", func() { HomeScreen() })
+	RunAgainButton := widget.NewButton("Re-Generate", func() { Grid_Widget(TrackType, numObstacles) })
 
-	// If you want future zoom+scroll, wrap 'grid' in a scroll later.
-	// For now, place grid directly.
-	gridWithHomeB := container.NewBorder(nil, homeButton, nil, nil, grid)
+	buttonbox := container.NewVBox(homeButton, RunAgainButton)
+
+	gridWithHomeB := container.NewBorder(nil, buttonbox, nil, nil, grid)
 	mainWin.SetContent(gridWithHomeB)
 
 	for i := 0; i < numRows*numCols; i++ {

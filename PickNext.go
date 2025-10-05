@@ -3,20 +3,40 @@ package main
 import (
 	"fmt"
 	"math/rand"
+
+	"fyne.io/fyne/v2"
 )
 
 func PickNext(numRows, numCols, I int) bool {
 	if I+1 == len(Track) && !FindFinish(I) {
+		if TrackT {
+			fyne.Do(func() {
+				Grid_Widget("loop", NumObstacles)
+			})
+		} else {
+			fyne.Do(func() {
+				Grid_Widget("loop", NumObstacles)
+			})
+		}
 
-		ResetAndTryAgain(numRows, numCols)
+		//ResetAndTryAgain(numRows, numCols)
 
 		fmt.Println("All spaces filled, No Finish found, re-run")
 		return false
 	}
 
 	if RevCount > len(Track)/4 {
+		if TrackT {
+			fyne.Do(func() {
+				Grid_Widget("loop", NumObstacles)
+			})
+		} else {
+			fyne.Do(func() {
+				Grid_Widget("loop", NumObstacles)
+			})
+		}
 
-		ResetAndTryAgain(numRows, numCols)
+		//ResetAndTryAgain(numRows, numCols)
 
 		fmt.Println("Too many reverse, re-run")
 		return false

@@ -25,7 +25,9 @@ func HomeScreen() {
 
 	createB := widget.NewButton("create", func() {
 		fmt.Print("Creating New Track\n\n")
-		Grid_Widget(courseType, len(Obstacles))
+		fyne.Do(func() {
+			Grid_Widget(courseType, len(Obstacles))
+		})
 	})
 
 	TextWindow := widget.NewLabel("")

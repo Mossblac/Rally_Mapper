@@ -298,7 +298,36 @@ func DetermineSecondCul(I int) (iconset IconSet) {
 }
 
 func DetermineRev(I int) (iconset IconSet) {
-	return IconSet{}
+	var ic1 *fyne.StaticResource
+	var ic2 *fyne.StaticResource
+	enter := Track[I].PrevMov
+	exit := Track[I+1].PrevMov
+	celldirect := fmt.Sprintf("%v, %v", enter, exit)
+	switch celldirect {
+	case "UP, UP":
+		ic1 = Rev_Verticalicon
+	case "Down, Down":
+		ic1 = Rev_Verticalicon
+	case "DUPRight, DUPRight":
+		ic1 = Rev_Diag_TR_BLicon
+	case "DDownLeft, DDownLeft":
+		ic1 = Rev_Diag_TR_BLicon
+	case "DUPLeft, DUPLeft":
+		ic1 = Rev_Diag_TL_BRicon
+	case "DDownRight, DDownRight":
+		ic1 = Rev_Diag_TL_BRicon
+	case "Left, Left":
+		ic1 = Rev_Horizontalicon
+	case "Right, Right":
+		ic1 = Rev_Horizontalicon
+		// it is the curves next....
+	}
+
+	return IconSet{Ic1: ic1, Ic2: ic2}
+}
+
+func DetermineCorners(I int) {
+
 }
 
 /*
