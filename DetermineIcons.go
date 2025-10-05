@@ -84,79 +84,95 @@ func DetermineTrackIconToSet(I int) (icon *fyne.StaticResource) {
 }
 
 func DetermineLastAndFinishIcon(finishInt int) (finishicon, trackicon *fyne.StaticResource) {
-
-	//you now have to change all of this......
+	//return FinishDDLefticon, StraightDBLicon
 
 	SIcon := Track[0].Image.Ic1
 	finishPrev := Track[finishInt].PrevMov
-
-	if SIcon == StartUPicon {
-		if Track[finishInt].CurPosR > Track[0].CurPosR {
-			switch finishPrev {
-			case "DUPLeft":
-				return FinishDDLefticon, UnsetPlaceholdericon //unset needs to be cul
-			case "Left":
-				return FinishDDLefticon, CurveR_DBLicon
-			case "DDownLeft":
-				return FinishDDLefticon, StraightDBLicon
-			case "Down":
-				return FinishDDLefticon, CurveT_DBLicon
-
+	//loop
+	if TrackT {
+		//Start Up
+		if SIcon == StartUPicon {
+			//above start - diag
+			if Track[finishInt].CurPosR < Track[0].CurPosR && Track[finishInt].CurPosC > Track[0].CurPosC {
+				switch finishPrev {
+				case "DUPLeft":
+					return FinishDDLefticon, UnsetPlaceholdericon //unset needs to be cul
+				case "Left":
+					return FinishDDLefticon, CurveR_DBLicon
+				case "DDownLeft":
+					return FinishDDLefticon, StraightDBLicon
+				case "Down":
+					return FinishDDLefticon, CurveT_DBLicon
+				}
+			}
+			// right of start
+			if Track[finishInt].CurPosR == Track[0].CurPosR && Track[finishInt].CurPosC > Track[0].CurPosC {
+				switch finishPrev {
+				case "Left":
+					return FinishLefticon, StraightLefticon
+				case "DDownLeft":
+					return FinishLefticon, CurveDTR_Licon
+				case "Down":
+					return FinishDownicon, StraightDownicon
+				}
 			}
 		}
-		if Track[finishInt].CurPosR == Track[0].CurPosR {
-			switch finishPrev {
-			case "Left":
-				return FinishLefticon, StraightLefticon
-			case "DDownLeft":
-				return FinishLefticon, CurveDTR_Licon
+		// Start diag
+		if SIcon == StartAngleURicon {
+			// right of start
+			if Track[finishInt].CurPosC > Track[0].CurPosC && Track[finishInt].CurPosR == Track[0].CurPosR {
+				switch finishPrev {
+				case "Down":
+					return FinishDDLefticon, StraightDownicon
+				case "DDownLeft":
+					return FinishLefticon, CurveDTR_Licon
+				case "DDownRight":
+					return FinishDownicon, CurveDTL_Bicon
+				case "Left":
+					return FinishLefticon, StraightLefticon
+				}
+			}
+			//above start
+			if Track[finishInt].CurPosR < Track[0].CurPosR && Track[finishInt].CurPosC == Track[0].CurPosC {
+				switch finishPrev {
+				case "DDownLeft":
+					return FinishDownicon, CurveDTR_Bicon
+				case "Down":
+					return FinishDownicon, StraightDownicon
+				}
 			}
 		}
-	}
+		// start right
+		if SIcon == StartRighticon {
+			// above diag
+			if Track[finishInt].CurPosC > Track[0].CurPosC && Track[finishInt].CurPosR < Track[0].CurPosR {
+				switch finishPrev {
+				case "DDownRight":
+					return FinishDDLefticon, UnsetPlaceholdericon //unset needs to be cul
+				case "Left":
+					return FinishDDLefticon, CurveR_DBLicon
+				case "DDownLeft":
+					return FinishDDLefticon, StraightDBLicon
+				case "Down":
+					return FinishDDLefticon, CurveT_DBLicon
+				case "DUPLeft":
+					return FinishDDLefticon, UnsetPlaceholdericon // also needs to be cul
 
-	if SIcon == StartAngleURicon {
-		if Track[finishInt].CurPosC == Track[0].CurPosC {
-			switch finishPrev {
-			case "Down":
-				return FinishDDLefticon, StraightDownicon
-			case "DDownLeft":
-				return FinishDDLefticon, CurveDTR_Bicon
+				}
 			}
-		}
-
-		if Track[finishInt].CurPosR > Track[0].CurPosR {
-			switch finishPrev {
-			case "DDownLeft":
-				return FinishLefticon, CurveDTR_Licon
-			case "Left":
-				return FinishLefticon, StraightLefticon
+			//above
+			if Track[finishInt].CurPosR < Track[0].CurPosR && Track[finishInt].CurPosC == Track[0].CurPosC {
+				switch finishPrev {
+				case "DDownLeft":
+					return FinishDownicon, CurveDTR_Bicon
+				case "Down":
+					return FinishDownicon, StraightDownicon
+				case "Left":
+					return FinishDownicon, Curve90R_Bicon
+				}
 			}
-		}
-	}
 
-	if SIcon == StartRighticon {
-		if Track[finishInt].CurPosC > Track[0].CurPosC {
-			switch finishPrev {
-			case "DDownRight":
-				return FinishDDLefticon, UnsetPlaceholdericon //unset needs to be cul
-			case "Left":
-				return FinishDDLefticon, CurveR_DBLicon
-			case "DDownLeft":
-				return FinishDDLefticon, StraightDBLicon
-			case "Down":
-				return FinishDDLefticon, CurveT_DBLicon
-
-			}
 		}
-		if Track[finishInt].CurPosR > Track[0].CurPosR {
-			switch finishPrev {
-			case "DDownLeft":
-				return FinishLefticon, CurveDTR_Bicon
-			case "Down":
-				return FinishLefticon, StraightDownicon
-			}
-		}
-
 	}
 	return nil, nil
 }

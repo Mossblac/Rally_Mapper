@@ -25,7 +25,7 @@ func DisplayTrkImages() {
 		}
 
 		for i := range Track {
-			fmt.Printf("%+v\n", Track[i])
+			fmt.Printf("%+v\n\n", Track[i])
 		}
 		fmt.Println("all images set")
 
