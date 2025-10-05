@@ -201,9 +201,14 @@ func PickNext(numRows, numCols, I int) bool {
 		}
 
 		for i := 0; i < I+1; i++ {
-			if !Track[i].Cul && !Track[i].Rev && !Track[i].Start && !Track[i].Finish {
-				iconToset := DetermineTrackIconToSet(i)
-				ticon := IconSet{Ic1: iconToset}
+			var ticon IconSet
+			if !Track[i].Rev && !Track[i].Start && !Track[i].Finish {
+				if Track[i].Cul {
+					ticon = DetermineSecondCulAndRevIcon(i)
+				} else {
+					iconToset := DetermineTrackIconToSet(i)
+					ticon = IconSet{Ic1: iconToset}
+				}
 				Track[i] = TrackCell{
 					CurPosR: Track[i].CurPosR,
 					CurPosC: Track[i].CurPosC,

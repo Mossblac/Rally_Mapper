@@ -241,34 +241,66 @@ func DetermineLastAndFinishIcon(finishInt int) (finishicon, trackicon *fyne.Stat
 }
 
 func DetermineFirstCulIcons(I int) (Ic1 *fyne.StaticResource) {
-	if !Track[I].Cul && !Track[I].Rev {
-		preCulpreMove := Track[I].PrevMov
-		switch preCulpreMove {
-		case "Left":
-			return Cul_Lefticon
-		case "Right":
-			return Cul_Righticon
-		case "UP":
-			return Cul_UPicon
-		case "Down":
-			return Cul_Downicon
-		case "DUPLeft":
-			return Cul_DBRicon
-		case "DUPRight":
-			return Cul_DBLicon
-		case "DDownRight":
-			return Cul_DTLicon
-		case "DDownLeft":
-			return Cul_DTRicon
-		}
+	preCulpreMove := Track[I].PrevMov
+	switch preCulpreMove {
+	case "Left":
+		return Cul_Lefticon
+	case "Right":
+		return Cul_Righticon
+	case "UP":
+		return Cul_UPicon
+	case "Down":
+		return Cul_Downicon
+	case "DUPLeft":
+		return Cul_DBRicon
+	case "DUPRight":
+		return Cul_DBLicon
+	case "DDownRight":
+		return Cul_DTLicon
+	case "DDownLeft":
+		return Cul_DTRicon
 	}
 	return nil
 
 }
 
-func DetermineSecondCulAndRevIcon(I int) (Img1, Img2 *fyne.StaticResource) {
-	//straights are two ways, but you curves are two icons - this one is going to be complicated be ready
-	return nil, nil
+func DetermineSecondCulAndRevIcon(I int) (iconset IconSet) {
+	//if I is the cul, I+1 prev should determine ic2 for I- you need to set the ic2 for I after creating the prev for I+1
+	var ic2 *fyne.StaticResource
+	if Track[I].Cul {
+		preCulpreMove := Track[I+1].PrevMov
+		switch preCulpreMove {
+		case "Left":
+			ic2 = Cul_Righticon
+		case "Right":
+			ic2 = Cul_Lefticon
+		case "UP":
+			ic2 = Cul_Downicon
+		case "Down":
+			ic2 = Cul_UPicon
+		case "DUPLeft":
+			ic2 = Cul_DTLicon
+		case "DUPRight":
+			ic2 = Cul_DTRicon
+		case "DDownRight":
+			ic2 = Cul_DBRicon
+		case "DDownLeft":
+			ic2 = Cul_DBLicon
+		}
+
+		doubleCulicons := IconSet{
+			Ic1: Track[I].Image.Ic1,
+			Ic2: ic2,
+		}
+		return doubleCulicons
+	}
+	if Track[I].Rev {
+
+	}
+	if Track[I].Cul && Track[I].Rev {
+
+	}
+	return IconSet{}
 }
 
 /*

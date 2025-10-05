@@ -7,6 +7,11 @@ import (
 )
 
 func DeterminePath_setStart(TrackType string, numRows, numCols int) {
+	if len(Track) != numRows*numCols {
+		if !VerifyTrackReset(Track) {
+			fmt.Println("Track NOT RESET!")
+		}
+	}
 
 	var R int
 	var C int
@@ -45,4 +50,13 @@ func DeterminePath_setStart(TrackType string, numRows, numCols int) {
 		})
 	}
 	//screenShot := mainWin.Canvas().Capture() - this creates an image.Image of the completed map to use later.
+}
+
+func VerifyTrackReset(T []TrackCell) bool {
+	for i := 0; i <= len(T); i++ {
+		if T[i].CurPosR != -1 && T[i].CurPosC != -1 {
+			return false
+		}
+	}
+	return true
 }

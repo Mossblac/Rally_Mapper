@@ -67,7 +67,7 @@ func HomeScreen() {
 	centeredBox := container.NewCenter(buttonBox)                                             // center the buttons and they will conform to standard size of text
 	borderBox := container.NewBorder(nil, centeredBox, centeredselectBox, centeredTextWindow) // once they are centered, place them on the edge of the screen ( this order matters !)
 
-	logo := canvas.NewImageFromFile("/home/mossblac/workspace/github.com/Mossblac/Rally_Mapper/images/rally_mapper_logo.png")
+	logo := canvas.NewImageFromFile("./images/rally_mapper_logo.png")
 	logo.FillMode = canvas.ImageFillContain
 
 	FullContent := container.NewStack(logo, borderBox)
