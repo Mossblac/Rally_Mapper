@@ -39,11 +39,12 @@ func SetStart(numRows, numCols int) {
 	}
 
 	StarticonToSet := DetermineStartImage(1)
+	SIconSet := IconSet{Ic1: StarticonToSet}
 
 	Track[0] = TrackCell{
 		CurPosR: Track[0].CurPosR,
 		CurPosC: Track[0].CurPosC,
-		Image:   StarticonToSet,
+		Image:   SIconSet,
 		Visited: Track[0].Visited,
 		Start:   Track[0].Start,
 	}

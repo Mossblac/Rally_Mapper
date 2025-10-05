@@ -8,46 +8,28 @@ import (
 )
 
 func DisplayTrkImages() {
-	var icons IconSet
 
 	go func() {
-		StarticonToSet := DetermineStartImage(1)
-
-		IconStart := IconSet{
-			Ic1: StarticonToSet,
-		}
-
-		SetImageInCell(Track[0].CurPosR, Track[0].CurPosC, IconStart)
-
-		time.Sleep(500 * time.Millisecond)
 
 		for i := 0; i < len(Track); i++ {
 			m := Track[i]
-			if m.CurPosR != -1 && m.CurPosC != -1 && !m.Start {
+			if m.CurPosR != -1 && m.CurPosC != -1 {
 
 				if !m.Cul && !m.Rev && !m.Finish {
-
-					icons = IconSet{
-						Ic1: m.Image,
-						// Ic2, Ic3, Ic4 can be nil
-					}
-					SetImageInCell(m.CurPosR, m.CurPosC, icons)
+					SetImageInCell(m.CurPosR, m.CurPosC, m.Image)
 				}
-
 				if m.Cul || m.Rev {
-					icons = IconSet{}
-
+					icons := IconSet{}
 					SetImageInCell(m.CurPosR, m.CurPosC, icons)
 				}
-				if m.Finish {
-					finishline, lastIcon := DetermineLastAndFinishIcon(i)
+				/*if m.Finish {
+					finishline, lastIcon := DetermineLastAndFinishIcon(i) //need to find a way to get this the right int.
 					icons = IconSet{
 						Ic1: lastIcon,
 						Ic2: finishline,
 					}
 					SetImageInCell(m.CurPosR, m.CurPosC, icons)
-				}
-
+				}*/
 			}
 			time.Sleep(50 * time.Millisecond) // Wait between each image
 		}
@@ -137,7 +119,7 @@ func DetermineTrackIconToSet(I int) (icon *fyne.StaticResource) {
 }
 
 func DetermineLastAndFinishIcon(finishInt int) (finishicon, trackicon *fyne.StaticResource) {
-	SIcon := Track[0].Image
+	SIcon := Track[0].Image.Ic1
 	finishPrev := Track[finishInt].PrevMov
 
 	if SIcon == StartUPicon {

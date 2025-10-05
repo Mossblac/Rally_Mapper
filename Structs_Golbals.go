@@ -19,7 +19,7 @@ type TrackCell struct {
 	CurPosC int
 	PrevMov string
 	Visited bool
-	Image   *fyne.StaticResource
+	Image   IconSet
 	Start   bool
 	Finish  bool
 	Cul     bool

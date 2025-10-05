@@ -199,14 +199,15 @@ func PickNext(numRows, numCols, I int) bool {
 		}
 
 		for i := 0; i < I+1; i++ {
-			if !Track[i].Cul && !Track[i].Rev {
+			if !Track[i].Cul && !Track[i].Rev && !Track[i].Start {
 				iconToset := DetermineTrackIconToSet(i)
+				ticon := IconSet{Ic1: iconToset}
 				Track[i] = TrackCell{
 					CurPosR: Track[i].CurPosR,
 					CurPosC: Track[i].CurPosC,
 					PrevMov: Track[i].PrevMov,
 					Visited: Track[i].Visited,
-					Image:   iconToset,
+					Image:   ticon,
 					Start:   Track[i].Start,
 					Finish:  Track[i].Finish,
 					Cul:     Track[i].Cul,
