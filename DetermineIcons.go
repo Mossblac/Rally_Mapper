@@ -174,6 +174,40 @@ func DetermineLastAndFinishIcon(finishInt int) (finishicon, trackicon *fyne.Stat
 
 		}
 	}
+
+	if !TrackT {
+		//left
+		if Track[finishInt].CurPosR == 0 && Track[finishInt].CurPosC == 0 {
+			switch finishPrev {
+			case "UP":
+				return FinishUPicon, StraightUPicon
+			case "DUPLeft":
+				return FinishUPicon, CurveDBR_Ticon
+			}
+		}
+		// center
+		if Track[finishInt].CurPosR == 0 && Track[finishInt].CurPosC == 1 {
+			switch finishPrev {
+			case "UP":
+				return FinishUPicon, StraightUPicon
+			case "DUPLeft":
+				return FinishUPicon, CurveDBR_Ticon
+			case "DUPRight":
+				return FinishUPicon, CurveDBL_Ticon
+			}
+		}
+
+		//right
+		if Track[finishInt].CurPosR == 0 && Track[finishInt].CurPosC == 2 {
+			switch finishPrev {
+			case "UP":
+				return FinishUPicon, StraightUPicon
+			case "DUPRight":
+				return FinishUPicon, CurveDBL_Ticon
+			}
+		}
+
+	}
 	return nil, nil
 }
 
