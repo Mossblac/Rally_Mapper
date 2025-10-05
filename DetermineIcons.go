@@ -6,9 +6,38 @@ import (
 	"fyne.io/fyne/v2"
 )
 
+func CulConversionForIconToSet(I int) string {
+	CulIcon := Track[I].Image.Ic1
+	switch CulIcon {
+	case Cul_UPicon:
+		return "UP"
+	case Cul_Downicon:
+		return "Down"
+	case Cul_Lefticon:
+		return "Left"
+	case Cul_Righticon:
+		return "Right"
+	case Cul_DBLicon:
+		return "DUPRight"
+	case Cul_DBRicon:
+		return "DUPLeft"
+	case Cul_DTLicon:
+		return "DDownRight"
+	case Cul_DTRicon:
+		return "DDownLeft"
+	}
+	return ""
+}
+
 func DetermineTrackIconToSet(I int) (icon *fyne.StaticResource) {
+	var exit string
 	enter := Track[I].PrevMov
-	exit := Track[I+1].PrevMov
+	if Track[I+1].Cul {
+		CulExit := CulConversionForIconToSet(I + 1)
+		exit = CulExit
+	} else {
+		exit = Track[I+1].PrevMov
+	}
 	celldirect := fmt.Sprintf("%v, %v", enter, exit)
 
 	switch celldirect {
