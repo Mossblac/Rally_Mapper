@@ -84,31 +84,32 @@ func DetermineTrackIconToSet(I int) (icon *fyne.StaticResource) {
 }
 
 func DetermineLastAndFinishIcon(finishInt int) (finishicon, trackicon *fyne.StaticResource) {
-	return FinishlineDicon, FinishlineDicon
 
-	/*SIcon := Track[0].Image.Ic1
+	//you now have to change all of this......
+
+	SIcon := Track[0].Image.Ic1
 	finishPrev := Track[finishInt].PrevMov
 
 	if SIcon == StartUPicon {
 		if Track[finishInt].CurPosR > Track[0].CurPosR {
 			switch finishPrev {
 			case "DUPLeft":
-				return FinishlineDicon, UnsetPlaceholdericon //unset needs to be cul
+				return FinishDDLefticon, UnsetPlaceholdericon //unset needs to be cul
 			case "Left":
-				return FinishlineDicon, CurveR_DBLicon
+				return FinishDDLefticon, CurveR_DBLicon
 			case "DDownLeft":
-				return FinishlineDicon, StraightDBLicon
+				return FinishDDLefticon, StraightDBLicon
 			case "Down":
-				return FinishlineDicon, CurveT_DBLicon
+				return FinishDDLefticon, CurveT_DBLicon
 
 			}
 		}
 		if Track[finishInt].CurPosR == Track[0].CurPosR {
 			switch finishPrev {
 			case "Left":
-				return FinishlineLicon, StraightLefticon
+				return FinishLefticon, StraightLefticon
 			case "DDownLeft":
-				return FinishlineLicon, CurveDTR_Licon
+				return FinishLefticon, CurveDTR_Licon
 			}
 		}
 	}
@@ -117,18 +118,18 @@ func DetermineLastAndFinishIcon(finishInt int) (finishicon, trackicon *fyne.Stat
 		if Track[finishInt].CurPosC == Track[0].CurPosC {
 			switch finishPrev {
 			case "Down":
-				return FinishlineDicon, StraightDownicon
+				return FinishDDLefticon, StraightDownicon
 			case "DDownLeft":
-				return FinishlineDicon, CurveDTR_Bicon
+				return FinishDDLefticon, CurveDTR_Bicon
 			}
 		}
 
 		if Track[finishInt].CurPosR > Track[0].CurPosR {
 			switch finishPrev {
 			case "DDownLeft":
-				return FinishlineLicon, CurveDTR_Licon
+				return FinishLefticon, CurveDTR_Licon
 			case "Left":
-				return FinishlineLicon, StraightLefticon
+				return FinishLefticon, StraightLefticon
 			}
 		}
 	}
@@ -137,27 +138,27 @@ func DetermineLastAndFinishIcon(finishInt int) (finishicon, trackicon *fyne.Stat
 		if Track[finishInt].CurPosC > Track[0].CurPosC {
 			switch finishPrev {
 			case "DDownRight":
-				return FinishlineDicon, UnsetPlaceholdericon //unset needs to be cul
+				return FinishDDLefticon, UnsetPlaceholdericon //unset needs to be cul
 			case "Left":
-				return FinishlineDicon, CurveR_DBLicon
+				return FinishDDLefticon, CurveR_DBLicon
 			case "DDownLeft":
-				return FinishlineDicon, StraightDBLicon
+				return FinishDDLefticon, StraightDBLicon
 			case "Down":
-				return FinishlineDicon, CurveT_DBLicon
+				return FinishDDLefticon, CurveT_DBLicon
 
 			}
 		}
 		if Track[finishInt].CurPosR > Track[0].CurPosR {
 			switch finishPrev {
 			case "DDownLeft":
-				return FinishlineLicon, CurveDTR_Bicon
+				return FinishLefticon, CurveDTR_Bicon
 			case "Down":
-				return FinishlineLicon, StraightDownicon
+				return FinishLefticon, StraightDownicon
 			}
 		}
 
 	}
-	return nil, nil*/
+	return nil, nil
 }
 
 func DetermineCulAndRevIcons() {

@@ -82,3 +82,11 @@ var FinishlineDicon = fyne.NewStaticResource("FinishlineD.svg", FinishlineDSVG)
 
 var FinishlineLicon = fyne.NewStaticResource("FinishlineL.svg", FinishlineLSVG)
 
+var FinishDDLefticon = fyne.NewStaticResource("FinishDDLeft.svg", FinishDDLeftSVG)
+
+var FinishDownicon = fyne.NewStaticResource("FinishDown.svg", FinishDownSVG)
+
+var FinishLefticon = fyne.NewStaticResource("FinishLeft.svg", FinishLeftSVG)
+
+var FinishUPicon = fyne.NewStaticResource("FinishUP.svg", FinishUPSVG)
+

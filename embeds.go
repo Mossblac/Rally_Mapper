@@ -124,3 +124,15 @@ var FinishlineDSVG []byte
 //go:embed assets/icons/FinishlineL.svg
 var FinishlineLSVG []byte
 
+//go:embed assets/icons/FinishDDLeft.svg
+var FinishDDLeftSVG []byte
+
+//go:embed assets/icons/FinishDown.svg
+var FinishDownSVG []byte
+
+//go:embed assets/icons/FinishLeft.svg
+var FinishLeftSVG []byte
+
+//go:embed assets/icons/FinishUP.svg
+var FinishUPSVG []byte
+
