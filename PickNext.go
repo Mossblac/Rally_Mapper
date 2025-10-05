@@ -186,12 +186,14 @@ func PickNext(numRows, numCols, I int) bool {
 
 	}
 	if FindFinish(I) {
+		fin, ficon := DetermineLastAndFinishIcon(I + 1)
+		ficonSet := IconSet{Ic1: ficon, Ic2: fin}
 		Track[I+1] = TrackCell{
 			CurPosR: Track[I+1].CurPosR,
 			CurPosC: Track[I+1].CurPosC,
 			PrevMov: Track[I+1].PrevMov,
 			Visited: Track[I+1].Visited,
-			Image:   Track[I+1].Image,
+			Image:   ficonSet,
 			Start:   Track[I+1].Start,
 			Finish:  true,
 			Cul:     Track[I+1].Cul,
@@ -199,7 +201,7 @@ func PickNext(numRows, numCols, I int) bool {
 		}
 
 		for i := 0; i < I+1; i++ {
-			if !Track[i].Cul && !Track[i].Rev && !Track[i].Start {
+			if !Track[i].Cul && !Track[i].Rev && !Track[i].Start && !Track[i].Finish {
 				iconToset := DetermineTrackIconToSet(i)
 				ticon := IconSet{Ic1: iconToset}
 				Track[i] = TrackCell{
@@ -214,6 +216,10 @@ func PickNext(numRows, numCols, I int) bool {
 					Rev:     Track[i].Rev,
 				}
 			}
+			/* if Track[i].Cul || !Track[i].Rev{
+				DetermineCulAndRevIcons()
+			}*/
+
 		}
 
 		fmt.Println("Found Finish, Track completed")
