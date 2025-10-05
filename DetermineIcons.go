@@ -264,7 +264,7 @@ func DetermineFirstCulIcons(I int) (Ic1 *fyne.StaticResource) {
 
 }
 
-func DetermineSecondCulAndRevIcon(I int) (iconset IconSet) {
+func DetermineSecondCul(I int) (iconset IconSet) {
 	//if I is the cul, I+1 prev should determine ic2 for I- you need to set the ic2 for I after creating the prev for I+1
 	var ic2 *fyne.StaticResource
 	if Track[I].Cul {

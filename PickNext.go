@@ -204,7 +204,7 @@ func PickNext(numRows, numCols, I int) bool {
 			var ticon IconSet
 			if !Track[i].Rev && !Track[i].Start && !Track[i].Finish {
 				if Track[i].Cul {
-					ticon = DetermineSecondCulAndRevIcon(i)
+					ticon = DetermineSecondCul(i)
 				} else {
 					iconToset := DetermineTrackIconToSet(i)
 					ticon = IconSet{Ic1: iconToset}
