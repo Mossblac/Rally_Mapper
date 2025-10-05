@@ -13,10 +13,10 @@ func DisplayTrkImages() {
 			m := Track[i]
 			if m.CurPosR != -1 && m.CurPosC != -1 {
 
-				if !m.Cul && !m.Rev {
+				if !m.Rev {
 					SetImageInCell(m.CurPosR, m.CurPosC, m.Image)
 				}
-				if m.Cul || m.Rev {
+				if m.Rev {
 					icons := IconSet{}
 					SetImageInCell(m.CurPosR, m.CurPosC, icons)
 				}

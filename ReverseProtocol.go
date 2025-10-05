@@ -34,13 +34,16 @@ func ReverseProtocol(numRows, numCols, I int) {
 		case "Down":
 			NewPrev = "UP"
 		}
-
+		ic1 := DetermineFirstCulIcons(I) //set as Ic1
+		FirstCulImage := IconSet{
+			Ic1: ic1,
+		}
 		Track[I] = TrackCell{
 			CurPosR: RevCandidate.CurPosR,
 			CurPosC: RevCandidate.CurPosC,
 			PrevMov: NewPrev,
 			Visited: true,
-			Image:   RevCandidate.Image,
+			Image:   FirstCulImage,
 			Start:   RevCandidate.Start,
 			Cul:     true,
 			Rev:     false,
@@ -75,7 +78,7 @@ func ReverseProtocol(numRows, numCols, I int) {
 		case "Down":
 			NPrev = "UP"
 		}
-
+		//DetermineSecondCulAndRevIcon(I) - if cul, assign Ic2 to Track[I], if rev assign Ic1 to Track[I+1](below)
 		Track[I+1] = TrackCell{
 			CurPosR: reverser.CurPosR,
 			CurPosC: reverser.CurPosC,

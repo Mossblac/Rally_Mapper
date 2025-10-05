@@ -90,3 +90,19 @@ var FinishLefticon = fyne.NewStaticResource("FinishLeft.svg", FinishLeftSVG)
 
 var FinishUPicon = fyne.NewStaticResource("FinishUP.svg", FinishUPSVG)
 
+var Cul_Downicon = fyne.NewStaticResource("Cul_Down.svg", Cul_DownSVG)
+
+var Cul_Lefticon = fyne.NewStaticResource("Cul_Left.svg", Cul_LeftSVG)
+
+var Cul_UPicon = fyne.NewStaticResource("Cul_UP.svg", Cul_UPSVG)
+
+var Cul_Righticon = fyne.NewStaticResource("Cul_Right.svg", Cul_RightSVG)
+
+var Cul_DBLicon = fyne.NewStaticResource("Cul_DBL.svg", Cul_DBLSVG)
+
+var Cul_DTLicon = fyne.NewStaticResource("Cul_DTL.svg", Cul_DTLSVG)
+
+var Cul_DTRicon = fyne.NewStaticResource("Cul_DTR.svg", Cul_DTRSVG)
+
+var Cul_DBRicon = fyne.NewStaticResource("Cul_DBR.svg", Cul_DBRSVG)
+

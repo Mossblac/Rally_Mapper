@@ -211,21 +211,35 @@ func DetermineLastAndFinishIcon(finishInt int) (finishicon, trackicon *fyne.Stat
 	return nil, nil
 }
 
-func DetermineCulAndRevIcons() {
-	/*
-			CulorRevToSeT := DetermineCullorRevTrackIconToSet(i)
+func DetermineFirstCulIcons(I int) (Ic1 *fyne.StaticResource) {
+	if !Track[I].Cul && !Track[I].Rev {
+		preCulpreMove := Track[I].PrevMov
+		switch preCulpreMove {
+		case "Left":
+			return Cul_Lefticon
+		case "Right":
+			return Cul_Righticon
+		case "UP":
+			return Cul_UPicon
+		case "Down":
+			return Cul_Downicon
+		case "DUPLeft":
+			return Cul_DBRicon
+		case "DUPRight":
+			return Cul_DBLicon
+		case "DDownRight":
+			return Cul_DTLicon
+		case "DDownLeft":
+			return Cul_DTRicon
+		}
+	}
+	return nil
 
-				Track[i] = TrackCell{
-				CurPosR: Track[i].CurPosR,
-				CurPosC: Track[i].CurPosR,
-				PrevMov: Track[i].PrevMov,
-				Visited: Track[i].Visited,
-				Image:   CulorRevToSet,
-				Start:   Track[i].Start,
-				Cul:     Track[i].Cul,
-				Rev:     Track[i].Rev,
-			}
-	}*/
+}
+
+func DetermineSecondCulAndRevIcon(I int) (Img1, Img2 *fyne.StaticResource) {
+	//straights are two ways, but you curves are two icons - this one is going to be complicated be ready
+	return nil, nil
 }
 
 /*

@@ -136,3 +136,27 @@ var FinishLeftSVG []byte
 //go:embed assets/icons/FinishUP.svg
 var FinishUPSVG []byte
 
+//go:embed assets/icons/Cul_Down.svg
+var Cul_DownSVG []byte
+
+//go:embed assets/icons/Cul_Left.svg
+var Cul_LeftSVG []byte
+
+//go:embed assets/icons/Cul_UP.svg
+var Cul_UPSVG []byte
+
+//go:embed assets/icons/Cul_Right.svg
+var Cul_RightSVG []byte
+
+//go:embed assets/icons/Cul_DBL.svg
+var Cul_DBLSVG []byte
+
+//go:embed assets/icons/Cul_DTL.svg
+var Cul_DTLSVG []byte
+
+//go:embed assets/icons/Cul_DTR.svg
+var Cul_DTRSVG []byte
+
+//go:embed assets/icons/Cul_DBR.svg
+var Cul_DBRSVG []byte
+
