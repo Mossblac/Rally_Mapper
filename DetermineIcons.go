@@ -241,6 +241,27 @@ func DetermineLastAndFinishIcon(finishInt int) (finishicon, trackicon *fyne.Stat
 }
 
 func DetermineFirstCulIcons(I int) (Ic1 *fyne.StaticResource) {
+	if Track[I-1].Cul {
+		preCulpreMove := Track[I].PrevMov
+		switch preCulpreMove {
+		case "Left":
+			return Cul_Lefticon
+		case "Right":
+			return Cul_Righticon
+		case "UP":
+			return Cul_UPicon
+		case "Down":
+			return Cul_Downicon
+		case "DUPLeft":
+			return Cul_DTLicon
+		case "DUPRight":
+			return Cul_DTRicon
+		case "DDownRight":
+			return Cul_DBRicon
+		case "DDownLeft":
+			return Cul_DBLicon
+		}
+	}
 	// going into cul
 	preCulpreMove := Track[I].PrevMov
 	switch preCulpreMove {
@@ -268,6 +289,28 @@ func DetermineFirstCulIcons(I int) (Ic1 *fyne.StaticResource) {
 func DetermineSecondCul(I int) (iconset IconSet) {
 	//prev here is the exit of cul
 	var ic2 *fyne.StaticResource
+	if Track[I].Cul && Track[I+1].Cul {
+		preCulpreMove := Track[I+1].PrevMov
+		switch preCulpreMove {
+		case "Left":
+			ic2 = Cul_Lefticon
+		case "Right":
+			ic2 = Cul_Righticon
+		case "UP":
+			ic2 = Cul_UPicon
+		case "Down":
+			ic2 = Cul_Downicon
+		case "DUPLeft":
+			ic2 = Cul_DTLicon
+		case "DUPRight":
+			ic2 = Cul_DTRicon
+		case "DDownRight":
+			ic2 = Cul_DBRicon
+		case "DDownLeft":
+			ic2 = Cul_DBLicon
+		}
+	}
+
 	if Track[I].Cul && !Track[I+1].Rev {
 		preCulpreMove := Track[I+1].PrevMov
 		switch preCulpreMove {
@@ -301,7 +344,7 @@ func DetermineSecondCul(I int) (iconset IconSet) {
 	return doubleCulicons
 }
 
-func DetermineRev(I int) (iconset IconSet) {
+func DetermineRev(I int) {
 	var ic2 *fyne.StaticResource
 	enter := Track[I].PrevMov
 	exit := Track[I+1].PrevMov
@@ -326,7 +369,22 @@ func DetermineRev(I int) (iconset IconSet) {
 		// it is the curves next....
 	}
 
-	return IconSet{Ic1: Track[I].Image.Ic1, Ic2: ic2}
+	RevSet := IconSet{
+		Ic1: Track[I].Image.Ic1,
+		Ic2: ic2,
+	}
+
+	Track[I] = TrackCell{
+		CurPosR: Track[I].CurPosR,
+		CurPosC: Track[I].CurPosC,
+		PrevMov: Track[I].PrevMov,
+		Visited: Track[I].Visited,
+		Image:   RevSet,
+		Start:   Track[I].Start,
+		Finish:  Track[I].Finish,
+		Cul:     Track[I].Cul,
+		Rev:     Track[I].Rev,
+	}
 }
 
 func DetermineCorners(I int) {

@@ -232,9 +232,6 @@ func PickNext(numRows, numCols, I int) bool {
 				if Track[i].Cul && !Track[i].Rev {
 					ticon = DetermineSecondCul(i)
 				}
-				if Track[i].Rev && !Track[i].Cul {
-					ticon = DetermineRev(i)
-				}
 
 				Track[i] = TrackCell{
 					CurPosR: Track[i].CurPosR,
@@ -246,6 +243,10 @@ func PickNext(numRows, numCols, I int) bool {
 					Finish:  Track[i].Finish,
 					Cul:     Track[i].Cul,
 					Rev:     Track[i].Rev,
+				}
+
+				if Track[i].Rev && !Track[i].Cul {
+					DetermineRev(i)
 				}
 			}
 
