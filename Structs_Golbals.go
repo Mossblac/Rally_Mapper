@@ -4,6 +4,8 @@ import "fyne.io/fyne/v2"
 
 var Track []TrackCell
 
+var TrackLength int
+
 var NumObstacles int
 var RevCount int
 var TrackT bool

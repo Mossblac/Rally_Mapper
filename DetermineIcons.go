@@ -241,7 +241,7 @@ func DetermineLastAndFinishIcon(finishInt int) (finishicon, trackicon *fyne.Stat
 }
 
 func DetermineFirstCulIcons(I int) (Ic1 *fyne.StaticResource) {
-	if Track[I-1].Cul {
+	if Track[I-1].Cul || Track[I-1].Rev {
 		preCulpreMove := Track[I].PrevMov
 		switch preCulpreMove {
 		case "Left":
@@ -262,7 +262,7 @@ func DetermineFirstCulIcons(I int) (Ic1 *fyne.StaticResource) {
 			return Cul_DBLicon
 		}
 	}
-	// going into cul
+
 	preCulpreMove := Track[I].PrevMov
 	switch preCulpreMove {
 	case "Left":
@@ -345,7 +345,7 @@ func DetermineSecondCul(I int) (iconset IconSet) {
 }
 
 func DetermineRev(I int) {
-	var ic2 *fyne.StaticResource
+	/*var ic2 *fyne.StaticResource
 	enter := Track[I].PrevMov
 	exit := Track[I+1].PrevMov
 	celldirect := fmt.Sprintf("%v, %v", enter, exit)
@@ -367,11 +367,11 @@ func DetermineRev(I int) {
 	case "Right, Right":
 		ic2 = Rev_Horizontalicon
 		// it is the curves next....
-	}
+	}*/
 
 	RevSet := IconSet{
 		Ic1: Track[I].Image.Ic1,
-		Ic2: ic2,
+		Ic2: UnsetPlaceholdericon, // set for testing
 	}
 
 	Track[I] = TrackCell{

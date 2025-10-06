@@ -208,6 +208,7 @@ func PickNext(numRows, numCols, I int) bool {
 
 	}
 	if FindFinish(I) {
+		TrackLength = I + 1
 		fin, ficon := DetermineLastAndFinishIcon(I + 1)
 		ficonSet := IconSet{Ic1: ficon, Ic2: fin}
 		Track[I+1] = TrackCell{
@@ -224,12 +225,12 @@ func PickNext(numRows, numCols, I int) bool {
 
 		for i := 0; i < I+1; i++ {
 			var ticon IconSet
-			if !Track[i].Start && !Track[i].Finish {
-				if !Track[i].Rev && !Track[i].Cul {
+			if !Track[i].Rev && !Track[i].Start && !Track[i].Finish {
+				if !Track[i].Cul {
 					iconToset := DetermineTrackIconToSet(i)
 					ticon = IconSet{Ic1: iconToset}
 				}
-				if Track[i].Cul && !Track[i].Rev {
+				if Track[i].Cul && !Track[i].Rev || Track[i].Cul && Track[i].Rev {
 					ticon = DetermineSecondCul(i)
 				}
 
@@ -246,7 +247,7 @@ func PickNext(numRows, numCols, I int) bool {
 				}
 
 				if Track[i].Rev && !Track[i].Cul {
-					DetermineRev(i)
+					//DetermineRev(i)
 				}
 			}
 

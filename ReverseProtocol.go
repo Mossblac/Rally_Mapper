@@ -90,6 +90,22 @@ func ReverseProtocol(numRows, numCols, I int) {
 			Rev:     true,
 		}
 
+		/*rev1 := DetermineTrackIconToSet(I)
+		rev1ImageSet := IconSet{
+			Ic1: rev1,
+		}
+
+		Track[I+1] = TrackCell{
+			CurPosR: reverser.CurPosR,
+			CurPosC: reverser.CurPosC,
+			PrevMov: NPrev,
+			Visited: reverser.Visited,
+			Image:   rev1ImageSet,
+			Start:   reverser.Start,
+			Cul:     reverser.Cul,
+			Rev:     true,
+		}*/
+
 		cell := TrackCell{
 			CurPosR: -1,
 			CurPosC: -1,

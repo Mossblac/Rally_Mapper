@@ -67,6 +67,7 @@ func (l *squareGridLayout) MinSize([]fyne.CanvasObject) fyne.Size {
 func Grid_Widget(TrackType string, numObstacles int) {
 	NumObstacles = numObstacles
 	Track = nil
+	TrackLength = 0
 	var numCols, numRows int
 	twiceObSize := float32(numObstacles * 2)
 
