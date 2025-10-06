@@ -12,14 +12,7 @@ func DisplayTrkImages() {
 		for i := 0; i < len(Track); i++ {
 			m := Track[i]
 			if m.CurPosR != -1 && m.CurPosC != -1 {
-
-				if !m.Rev {
-					SetImageInCell(m.CurPosR, m.CurPosC, m.Image)
-				}
-				if m.Rev {
-					icons := IconSet{}
-					SetImageInCell(m.CurPosR, m.CurPosC, icons)
-				}
+				SetImageInCell(m.CurPosR, m.CurPosC, m.Image)
 			}
 			time.Sleep(50 * time.Millisecond) // Wait between each image
 		}

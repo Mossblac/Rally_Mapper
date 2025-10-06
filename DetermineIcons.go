@@ -241,16 +241,17 @@ func DetermineLastAndFinishIcon(finishInt int) (finishicon, trackicon *fyne.Stat
 }
 
 func DetermineFirstCulIcons(I int) (Ic1 *fyne.StaticResource) {
+	// going into cul
 	preCulpreMove := Track[I].PrevMov
 	switch preCulpreMove {
 	case "Left":
-		return Cul_Lefticon
-	case "Right":
 		return Cul_Righticon
+	case "Right":
+		return Cul_Lefticon
 	case "UP":
-		return Cul_UPicon
-	case "Down":
 		return Cul_Downicon
+	case "Down":
+		return Cul_UPicon
 	case "DUPLeft":
 		return Cul_DBRicon
 	case "DUPRight":
@@ -265,9 +266,9 @@ func DetermineFirstCulIcons(I int) (Ic1 *fyne.StaticResource) {
 }
 
 func DetermineSecondCul(I int) (iconset IconSet) {
-	//if I is the cul, I+1 prev should determine ic2 for I- you need to set the ic2 for I after creating the prev for I+1
+	//prev here is the exit of cul
 	var ic2 *fyne.StaticResource
-	if Track[I].Cul {
+	if Track[I].Cul && !Track[I+1].Rev {
 		preCulpreMove := Track[I+1].PrevMov
 		switch preCulpreMove {
 		case "Left":
@@ -279,51 +280,53 @@ func DetermineSecondCul(I int) (iconset IconSet) {
 		case "Down":
 			ic2 = Cul_UPicon
 		case "DUPLeft":
-			ic2 = Cul_DTLicon
-		case "DUPRight":
-			ic2 = Cul_DTRicon
-		case "DDownRight":
 			ic2 = Cul_DBRicon
-		case "DDownLeft":
+		case "DUPRight":
 			ic2 = Cul_DBLicon
+		case "DDownRight":
+			ic2 = Cul_DTLicon
+		case "DDownLeft":
+			ic2 = Cul_DTRicon
 		}
-
-		doubleCulicons := IconSet{
-			Ic1: Track[I].Image.Ic1,
-			Ic2: ic2,
-		}
-		return doubleCulicons
 	}
-	return IconSet{}
+
+	if Track[I].Cul && Track[I+1].Rev {
+		ic2 = nil
+	}
+
+	doubleCulicons := IconSet{
+		Ic1: Track[I].Image.Ic1,
+		Ic2: ic2,
+	}
+	return doubleCulicons
 }
 
 func DetermineRev(I int) (iconset IconSet) {
-	var ic1 *fyne.StaticResource
 	var ic2 *fyne.StaticResource
 	enter := Track[I].PrevMov
 	exit := Track[I+1].PrevMov
 	celldirect := fmt.Sprintf("%v, %v", enter, exit)
 	switch celldirect {
 	case "UP, UP":
-		ic1 = Rev_Verticalicon
+		ic2 = Rev_Verticalicon
 	case "Down, Down":
-		ic1 = Rev_Verticalicon
+		ic2 = Rev_Verticalicon
 	case "DUPRight, DUPRight":
-		ic1 = Rev_Diag_TR_BLicon
+		ic2 = Rev_Diag_TR_BLicon
 	case "DDownLeft, DDownLeft":
-		ic1 = Rev_Diag_TR_BLicon
+		ic2 = Rev_Diag_TR_BLicon
 	case "DUPLeft, DUPLeft":
-		ic1 = Rev_Diag_TL_BRicon
+		ic2 = Rev_Diag_TL_BRicon
 	case "DDownRight, DDownRight":
-		ic1 = Rev_Diag_TL_BRicon
+		ic2 = Rev_Diag_TL_BRicon
 	case "Left, Left":
-		ic1 = Rev_Horizontalicon
+		ic2 = Rev_Horizontalicon
 	case "Right, Right":
-		ic1 = Rev_Horizontalicon
+		ic2 = Rev_Horizontalicon
 		// it is the curves next....
 	}
 
-	return IconSet{Ic1: ic1, Ic2: ic2}
+	return IconSet{Ic1: Track[I].Image.Ic1, Ic2: ic2}
 }
 
 func DetermineCorners(I int) {

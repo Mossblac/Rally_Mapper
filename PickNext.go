@@ -224,13 +224,18 @@ func PickNext(numRows, numCols, I int) bool {
 
 		for i := 0; i < I+1; i++ {
 			var ticon IconSet
-			if !Track[i].Rev && !Track[i].Start && !Track[i].Finish {
-				if Track[i].Cul {
-					ticon = DetermineSecondCul(i)
-				} else {
+			if !Track[i].Start && !Track[i].Finish {
+				if !Track[i].Rev && !Track[i].Cul {
 					iconToset := DetermineTrackIconToSet(i)
 					ticon = IconSet{Ic1: iconToset}
 				}
+				if Track[i].Cul && !Track[i].Rev {
+					ticon = DetermineSecondCul(i)
+				}
+				if Track[i].Rev && !Track[i].Cul {
+					ticon = DetermineRev(i)
+				}
+
 				Track[i] = TrackCell{
 					CurPosR: Track[i].CurPosR,
 					CurPosC: Track[i].CurPosC,
@@ -243,9 +248,6 @@ func PickNext(numRows, numCols, I int) bool {
 					Rev:     Track[i].Rev,
 				}
 			}
-			/* if Track[i].Cul || !Track[i].Rev{
-				DetermineCulAndRevIcons()
-			}*/
 
 		}
 
