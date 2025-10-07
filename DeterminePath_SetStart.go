@@ -49,7 +49,7 @@ func DeterminePath_setStart(TrackType string, numRows, numCols int) {
 			DisplayTrkImages()
 		})
 	}
-	//screenShot := mainWin.Canvas().Capture() - this creates an image.Image of the completed map to use later.
+	//mainWin.Canvas().Capture() //this creates an image.Image of the completed map to use later.
 }
 
 func VerifyTrackReset(T []TrackCell) bool {

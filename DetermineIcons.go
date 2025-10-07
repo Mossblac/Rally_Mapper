@@ -323,24 +323,30 @@ func DetermineSecondCul(I int) (iconset IconSet) {
 }
 
 func DetermineRev(I int) {
-	//var ic1 *fyne.StaticResource
-	//var ic2 *fyne.StaticResource
-	//var enter1 string
-	//var exit1 string    // 1 = towards cul, before reverse
-	//var celldirect1 string // 2 = away from cull after reverse
-	//var enter2 string
-	//var exit2 string
-	//var cell direct2 string
+	var ic1 *fyne.StaticResource
+	var ic2 *fyne.StaticResource
+	var enter1 string
+	var exit1 string       // 1 = towards cul, before reverse
+	var celldirect1 string // 2 = away from cull after reverse
+	var enter2 string
+	var exit2 string
+	var celldirect2 string
 	if !Track[I+1].Rev && !Track[I+1].Cul {
-		//enter =
-		//exit =
-		//celldirect = fmt.Sprintf("%v, %v", enter, exit)
-		//ic1 = CellDirectDeterminer(celldirect)
+		//towards cul
+		enter1 = Track[RevInt].PrevMov
+		exit1 = Reversed(Track[I].PrevMov)
+		celldirect1 = fmt.Sprintf("%v, %v", enter1, exit1)
+		ic1 = CellDirectDeterminer(celldirect1)
+		// away from cul
+		enter2 = Track[I].PrevMov
+		exit2 = Track[I+1].PrevMov
+		celldirect2 = fmt.Sprintf("%v, %v", enter2, exit2)
+		ic2 = CellDirectDeterminer(celldirect2)
 	}
 
 	RevSet := IconSet{
-		Ic1: Track[I].Image.Ic1,
-		Ic2: UnsetPlaceholdericon, // set for testing
+		Ic1: ic1,
+		Ic2: ic2, // set for testing
 	}
 
 	Track[I] = TrackCell{
@@ -358,6 +364,30 @@ func DetermineRev(I int) {
 
 func DetermineCorners(I int) {
 
+}
+
+func Reversed(input string) string {
+	input = ""
+	switch input {
+	case "UP":
+		return "Down"
+	case "Down":
+		return "UP"
+	case "Left":
+		return "Right"
+	case "Right":
+		return "Left"
+	case "DDownRight":
+		return "DUPLeft"
+	case "DDownLeft":
+		return "DUPRight"
+	case "DUPRight":
+		return "DDownLeft"
+	case "DUPLeft":
+		return "DDownRight"
+	default:
+		return ""
+	}
 }
 
 /*
