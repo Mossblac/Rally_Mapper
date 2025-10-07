@@ -245,7 +245,7 @@ func DetermineLastAndFinishIcon(finishInt int) (finishicon, trackicon *fyne.Stat
 
 func DetermineFirstCulIcons(I int) (Ic1 *fyne.StaticResource) {
 
-	preCulpreMove := Track[I].PrevMov
+	preCulpreMove := Track[I].PrevMov //this is triple checked, working
 	switch preCulpreMove {
 	case "Left":
 		return Cul_Lefticon
@@ -256,13 +256,13 @@ func DetermineFirstCulIcons(I int) (Ic1 *fyne.StaticResource) {
 	case "Down":
 		return Cul_Downicon
 	case "DUPLeft":
-		return Cul_DTLicon
-	case "DUPRight":
-		return Cul_DTRicon
-	case "DDownRight":
 		return Cul_DBRicon
-	case "DDownLeft":
+	case "DUPRight":
 		return Cul_DBLicon
+	case "DDownRight":
+		return Cul_DTLicon
+	case "DDownLeft":
+		return Cul_DTRicon
 	}
 
 	/*if !Track[I+1].Cul && !Track[I+1].Rev {
