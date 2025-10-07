@@ -323,6 +323,7 @@ func DetermineSecondCul(I int) (iconset IconSet) {
 }
 
 func DetermineRev(I int) {
+	// this needs to be set within reverse protocol, otherwise revint wont be correct.
 	var ic1 *fyne.StaticResource
 	var ic2 *fyne.StaticResource
 	var enter1 string
@@ -342,6 +343,35 @@ func DetermineRev(I int) {
 		exit2 = Track[I+1].PrevMov
 		celldirect2 = fmt.Sprintf("%v, %v", enter2, exit2)
 		ic2 = CellDirectDeterminer(celldirect2)
+	}
+
+	if Track[I-1].Rev && !Track[I+1].Cul && !Track[I+1].Rev {
+		enter1 = Track[RevInt].PrevMov
+		exit1 = Reversed(Track[I].PrevMov)
+		celldirect1 = fmt.Sprintf("%v, %v", enter1, exit1)
+		ic1 = CellDirectDeterminer(celldirect1)
+
+		enter2 = Track[I].PrevMov
+		exit2 = Track[I+1].PrevMov
+		celldirect2 = fmt.Sprintf("%v, %v", enter2, exit2)
+		ic2 = CellDirectDeterminer(celldirect2)
+	}
+
+	if Track[I-1].Rev && Track[I+1].Rev {
+		enter1 = Reversed(Track[I+1].PrevMov)
+		exit1 = Reversed(Track[I].PrevMov)
+		celldirect1 = fmt.Sprintf("%v, %v", enter1, exit1)
+		ic1 = CellDirectDeterminer(celldirect1)
+
+		enter2 = Track[I].PrevMov
+		exit2 = Track[I+1].PrevMov
+		celldirect2 = fmt.Sprintf("%v, %v", enter2, exit2)
+		ic2 = CellDirectDeterminer(celldirect2)
+	}
+
+	if Track[I+1].Cul && Track[I+1].Rev {
+		ic1 = Track[I+1].Image.Ic1
+		ic2 = Track[I+1].Image.Ic2
 	}
 
 	RevSet := IconSet{

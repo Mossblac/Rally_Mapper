@@ -196,10 +196,11 @@ func PickNext(numRows, numCols, I int) bool {
 	NPosition := nextMove[MoveKey]
 
 	Track[I+1] = TrackCell{
-		CurPosR: NPosition[0],
-		CurPosC: NPosition[1],
-		PrevMov: MoveKey,
-		Visited: true,
+		TrackInt: I + 1,
+		CurPosR:  NPosition[0],
+		CurPosC:  NPosition[1],
+		PrevMov:  MoveKey,
+		Visited:  true,
 	}
 
 	if !FindFinish(I) && I+1 < len(Track) {
@@ -212,15 +213,16 @@ func PickNext(numRows, numCols, I int) bool {
 		fin, ficon := DetermineLastAndFinishIcon(I + 1)
 		ficonSet := IconSet{Ic1: ficon, Ic2: fin}
 		Track[I+1] = TrackCell{
-			CurPosR: Track[I+1].CurPosR,
-			CurPosC: Track[I+1].CurPosC,
-			PrevMov: Track[I+1].PrevMov,
-			Visited: Track[I+1].Visited,
-			Image:   ficonSet,
-			Start:   Track[I+1].Start,
-			Finish:  true,
-			Cul:     Track[I+1].Cul,
-			Rev:     Track[I+1].Rev,
+			TrackInt: Track[I+1].TrackInt,
+			CurPosR:  Track[I+1].CurPosR,
+			CurPosC:  Track[I+1].CurPosC,
+			PrevMov:  Track[I+1].PrevMov,
+			Visited:  Track[I+1].Visited,
+			Image:    ficonSet,
+			Start:    Track[I+1].Start,
+			Finish:   true,
+			Cul:      Track[I+1].Cul,
+			Rev:      Track[I+1].Rev,
 		}
 
 		for i := 0; i < I+1; i++ {
@@ -230,25 +232,26 @@ func PickNext(numRows, numCols, I int) bool {
 					iconToset := DetermineTrackIconToSet(i)
 					ticon = IconSet{Ic1: iconToset}
 				}
-				if Track[i].Cul && !Track[i].Rev || Track[i].Cul && Track[i].Rev {
+				if Track[i].Cul && !Track[i].Rev {
 					ticon = DetermineSecondCul(i)
 				}
 
 				Track[i] = TrackCell{
-					CurPosR: Track[i].CurPosR,
-					CurPosC: Track[i].CurPosC,
-					PrevMov: Track[i].PrevMov,
-					Visited: Track[i].Visited,
-					Image:   ticon,
-					Start:   Track[i].Start,
-					Finish:  Track[i].Finish,
-					Cul:     Track[i].Cul,
-					Rev:     Track[i].Rev,
+					TrackInt: Track[i].TrackInt,
+					CurPosR:  Track[i].CurPosR,
+					CurPosC:  Track[i].CurPosC,
+					PrevMov:  Track[i].PrevMov,
+					Visited:  Track[i].Visited,
+					Image:    ticon,
+					Start:    Track[i].Start,
+					Finish:   Track[i].Finish,
+					Cul:      Track[i].Cul,
+					Rev:      Track[i].Rev,
 				}
 
-				if Track[i].Rev && !Track[i].Cul {
-					//DetermineRev(i)
-				}
+				//if Track[i].Rev && !Track[i].Cul {
+				//DetermineRev(i)
+				//}
 			}
 
 		}

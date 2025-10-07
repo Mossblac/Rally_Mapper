@@ -18,13 +18,15 @@ type IconSet struct {
 }
 
 type TrackCell struct {
-	CurPosR int
-	CurPosC int
-	PrevMov string
-	Visited bool
-	Image   IconSet
-	Start   bool
-	Finish  bool
-	Cul     bool
-	Rev     bool
+	TrackInt int
+	CurPosR  int
+	CurPosC  int
+	PrevMov  string
+	Visited  bool
+	Image    IconSet
+	Start    bool
+	Finish   bool
+	Cul      bool
+	Rev      bool
+	RevRef   int
 }
