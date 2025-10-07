@@ -39,7 +39,11 @@ func DetermineTrackIconToSet(I int) (icon *fyne.StaticResource) {
 		exit = Track[I+1].PrevMov
 	}
 	celldirect := fmt.Sprintf("%v, %v", enter, exit)
+	return CellDirectDeterminer(celldirect)
 
+}
+
+func CellDirectDeterminer(celldirect string) *fyne.StaticResource {
 	switch celldirect {
 	case "UP, UP":
 		return StraightUPicon
@@ -109,7 +113,6 @@ func DetermineTrackIconToSet(I int) (icon *fyne.StaticResource) {
 		return UnsetPlaceholdericon
 
 	}
-
 }
 
 func DetermineLastAndFinishIcon(finishInt int) (finishicon, trackicon *fyne.StaticResource) {
@@ -241,47 +244,48 @@ func DetermineLastAndFinishIcon(finishInt int) (finishicon, trackicon *fyne.Stat
 }
 
 func DetermineFirstCulIcons(I int) (Ic1 *fyne.StaticResource) {
-	if Track[I-1].Cul || Track[I-1].Rev {
-		preCulpreMove := Track[I].PrevMov
-		switch preCulpreMove {
-		case "Left":
-			return Cul_Lefticon
-		case "Right":
-			return Cul_Righticon
-		case "UP":
-			return Cul_UPicon
-		case "Down":
-			return Cul_Downicon
-		case "DUPLeft":
-			return Cul_DTLicon
-		case "DUPRight":
-			return Cul_DTRicon
-		case "DDownRight":
-			return Cul_DBRicon
-		case "DDownLeft":
-			return Cul_DBLicon
-		}
-	}
 
 	preCulpreMove := Track[I].PrevMov
 	switch preCulpreMove {
 	case "Left":
-		return Cul_Righticon
-	case "Right":
 		return Cul_Lefticon
+	case "Right":
+		return Cul_Righticon
 	case "UP":
-		return Cul_Downicon
-	case "Down":
 		return Cul_UPicon
+	case "Down":
+		return Cul_Downicon
 	case "DUPLeft":
-		return Cul_DBRicon
-	case "DUPRight":
-		return Cul_DBLicon
-	case "DDownRight":
 		return Cul_DTLicon
-	case "DDownLeft":
+	case "DUPRight":
 		return Cul_DTRicon
+	case "DDownRight":
+		return Cul_DBRicon
+	case "DDownLeft":
+		return Cul_DBLicon
 	}
+
+	/*if !Track[I+1].Cul && !Track[I+1].Rev {
+		preCulpreMove := Track[I].PrevMov
+		switch preCulpreMove {
+		case "Left":
+			return Cul_Righticon
+		case "Right":
+			return Cul_Lefticon
+		case "UP":
+			return Cul_Downicon
+		case "Down":
+			return Cul_UPicon
+		case "DUPLeft":
+			return Cul_DBRicon
+		case "DUPRight":
+			return Cul_DBLicon
+		case "DDownRight":
+			return Cul_DTLicon
+		case "DDownLeft":
+			return Cul_DTRicon
+		}
+	}*/
 	return nil
 
 }
@@ -289,29 +293,8 @@ func DetermineFirstCulIcons(I int) (Ic1 *fyne.StaticResource) {
 func DetermineSecondCul(I int) (iconset IconSet) {
 	//prev here is the exit of cul
 	var ic2 *fyne.StaticResource
-	if Track[I].Cul && Track[I+1].Cul {
-		preCulpreMove := Track[I+1].PrevMov
-		switch preCulpreMove {
-		case "Left":
-			ic2 = Cul_Lefticon
-		case "Right":
-			ic2 = Cul_Righticon
-		case "UP":
-			ic2 = Cul_UPicon
-		case "Down":
-			ic2 = Cul_Downicon
-		case "DUPLeft":
-			ic2 = Cul_DTLicon
-		case "DUPRight":
-			ic2 = Cul_DTRicon
-		case "DDownRight":
-			ic2 = Cul_DBRicon
-		case "DDownLeft":
-			ic2 = Cul_DBLicon
-		}
-	}
 
-	if Track[I].Cul && !Track[I+1].Rev {
+	if !Track[I+1].Cul && !Track[I+1].Rev { //this is double checked
 		preCulpreMove := Track[I+1].PrevMov
 		switch preCulpreMove {
 		case "Left":
@@ -323,20 +306,15 @@ func DetermineSecondCul(I int) (iconset IconSet) {
 		case "Down":
 			ic2 = Cul_UPicon
 		case "DUPLeft":
-			ic2 = Cul_DBRicon
-		case "DUPRight":
-			ic2 = Cul_DBLicon
-		case "DDownRight":
 			ic2 = Cul_DTLicon
-		case "DDownLeft":
+		case "DUPRight":
 			ic2 = Cul_DTRicon
+		case "DDownRight":
+			ic2 = Cul_DBRicon
+		case "DDownLeft":
+			ic2 = Cul_DBLicon
 		}
 	}
-
-	if Track[I].Cul && Track[I+1].Rev {
-		ic2 = nil
-	}
-
 	doubleCulicons := IconSet{
 		Ic1: Track[I].Image.Ic1,
 		Ic2: ic2,
@@ -345,29 +323,20 @@ func DetermineSecondCul(I int) (iconset IconSet) {
 }
 
 func DetermineRev(I int) {
-	/*var ic2 *fyne.StaticResource
-	enter := Track[I].PrevMov
-	exit := Track[I+1].PrevMov
-	celldirect := fmt.Sprintf("%v, %v", enter, exit)
-	switch celldirect {
-	case "UP, UP":
-		ic2 = Rev_Verticalicon
-	case "Down, Down":
-		ic2 = Rev_Verticalicon
-	case "DUPRight, DUPRight":
-		ic2 = Rev_Diag_TR_BLicon
-	case "DDownLeft, DDownLeft":
-		ic2 = Rev_Diag_TR_BLicon
-	case "DUPLeft, DUPLeft":
-		ic2 = Rev_Diag_TL_BRicon
-	case "DDownRight, DDownRight":
-		ic2 = Rev_Diag_TL_BRicon
-	case "Left, Left":
-		ic2 = Rev_Horizontalicon
-	case "Right, Right":
-		ic2 = Rev_Horizontalicon
-		// it is the curves next....
-	}*/
+	//var ic1 *fyne.StaticResource
+	//var ic2 *fyne.StaticResource
+	//var enter1 string
+	//var exit1 string    // 1 = towards cul, before reverse
+	//var celldirect1 string // 2 = away from cull after reverse
+	//var enter2 string
+	//var exit2 string
+	//var cell direct2 string
+	if !Track[I+1].Rev && !Track[I+1].Cul {
+		//enter =
+		//exit =
+		//celldirect = fmt.Sprintf("%v, %v", enter, exit)
+		//ic1 = CellDirectDeterminer(celldirect)
+	}
 
 	RevSet := IconSet{
 		Ic1: Track[I].Image.Ic1,
@@ -403,3 +372,49 @@ Right
 Left
 
 */
+
+/*if Track[I+1].Cul && !Track[I+1].Rev {
+	preCulpreMove := Track[I+1].PrevMov
+	switch preCulpreMove {
+	case "Left":
+		ic2 = Cul_Lefticon
+	case "Right":
+		ic2 = Cul_Righticon
+	case "UP":
+		ic2 = Cul_UPicon
+	case "Down":
+		ic2 = Cul_Downicon
+	case "DUPLeft":
+		ic2 = Cul_DTLicon
+	case "DUPRight":
+		ic2 = Cul_DTRicon
+	case "DDownRight":
+		ic2 = Cul_DBRicon
+	case "DDownLeft":
+		ic2 = Cul_DBLicon
+	}
+}*/
+
+/*var ic2 *fyne.StaticResource
+enter := Track[I].PrevMov
+exit := Track[I+1].PrevMov
+celldirect := fmt.Sprintf("%v, %v", enter, exit)
+switch celldirect {
+case "UP, UP":
+	ic2 = Rev_Verticalicon
+case "Down, Down":
+	ic2 = Rev_Verticalicon
+case "DUPRight, DUPRight":
+	ic2 = Rev_Diag_TR_BLicon
+case "DDownLeft, DDownLeft":
+	ic2 = Rev_Diag_TR_BLicon
+case "DUPLeft, DUPLeft":
+	ic2 = Rev_Diag_TL_BRicon
+case "DDownRight, DDownRight":
+	ic2 = Rev_Diag_TL_BRicon
+case "Left, Left":
+	ic2 = Rev_Horizontalicon
+case "Right, Right":
+	ic2 = Rev_Horizontalicon
+	// it is the curves next....
+}*/
