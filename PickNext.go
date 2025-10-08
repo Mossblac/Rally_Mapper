@@ -229,6 +229,7 @@ func PickNext(numRows, numCols, I int) bool {
 					ticon = IconSet{Ic1: iconToset}
 				}
 				if Track[i].Cul && !Track[i].Rev {
+					PreSetCuls = append(PreSetCuls, Track[i].TrackInt)
 					ticon = DetermineCul(i)
 				}
 
@@ -236,9 +237,13 @@ func PickNext(numRows, numCols, I int) bool {
 				DetermineRev(i)
 				}*/
 
-				/*if Track[i].Cul && Track[i].Rev {
-				the images of the cul at the same position
-				}*/
+				if Track[i].Cul && Track[i].Rev {
+					for _, cul := range PreSetCuls {
+						if Track[cul].CurPosR == Track[i].CurPosR && Track[cul].CurPosC == Track[i].CurPosC {
+							ticon = Track[cul].Image
+						}
+					}
+				}
 
 				Track[i] = TrackCell{
 					TrackInt: Track[i].TrackInt,
@@ -257,7 +262,7 @@ func PickNext(numRows, numCols, I int) bool {
 			}
 
 		}
-
+		fmt.Printf("Preset Culs : %v\n", PreSetCuls)
 		fmt.Println("Found Finish, Track completed")
 		return true
 	}

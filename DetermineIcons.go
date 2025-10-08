@@ -244,25 +244,35 @@ func CulEnterDeterminer(enter string) (Ic1 *fyne.StaticResource) {
 }
 
 func DetermineCul(I int) (iconset IconSet) {
+	var ic1 *fyne.StaticResource
+	var ic2 *fyne.StaticResource
 	//prev here is the exit of cul
 
 	if !Track[I+1].Cul { // this is the same if I+1 is rev
 		enterDir := Reversed(Track[I].PrevMov)
-		ic1 := CulEnterDeterminer(enterDir)
+		ic1 = CulEnterDeterminer(enterDir)
 		exitDir := Track[I+1].PrevMov
-		ic2 := CulExitDeterminer(exitDir)
-
-		/* if I-1 = rev
-		if I-1 = cul
-		if cul and rev ignore */
-
-		doubleCulicons := IconSet{
-			Ic1: ic1,
-			Ic2: ic2,
-		}
-		return doubleCulicons
+		ic2 = CulExitDeterminer(exitDir)
 	}
-	return IconSet{}
+
+	if Track[I+1].Cul {
+		enterDir := Reversed(Track[I].PrevMov)
+		ic1 = CulEnterDeterminer(enterDir)
+		exitDir := Reversed(Track[I+1].PrevMov)
+		ic2 = CulExitDeterminer(exitDir)
+	}
+
+	if Track[I+1].Rev {
+		enterDir := Reversed(Track[I].PrevMov)
+		ic1 = CulEnterDeterminer(enterDir)
+		ic2 = nil
+	}
+
+	doubleCulicons := IconSet{
+		Ic1: ic1,
+		Ic2: ic2,
+	}
+	return doubleCulicons
 }
 
 func CulExitDeterminer(culDirect string) *fyne.StaticResource {

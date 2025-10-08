@@ -9,6 +9,7 @@ var TrackLength int
 var NumObstacles int
 var RevCount int
 var TrackT bool
+var PreSetCuls []int
 
 type IconSet struct {
 	Ic1 *fyne.StaticResource

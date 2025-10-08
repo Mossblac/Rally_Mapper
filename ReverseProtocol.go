@@ -70,13 +70,13 @@ func ReverseProtocol(numRows, numCols, I int) {
 		fmt.Printf("RevCount: %v\n", RevCount)
 
 		RevInt--
-		if Track[I+1].Cul && Track[I+1].Rev { //testing this
+		/*if Track[I+1].Cul && Track[I+1].Rev { //testing this
 			ReverseProtocol(numRows, numCols, I+1)
 			return
-		} else {
-			PickNext(numRows, numCols, I+1)
-			return
-		}
+		} else {*/
+		PickNext(numRows, numCols, I+1)
+		return
+
 	}
 
 }
