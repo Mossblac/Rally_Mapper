@@ -35,16 +35,13 @@ func ReverseProtocol(numRows, numCols, I int) {
 			NewPrev = "UP"
 		}
 
-		FirstCulImage := IconSet{
-			Ic1: DetermineFirstCulIcons(I),
-		}
 		Track[I] = TrackCell{
 			TrackInt: I,
 			CurPosR:  RevCandidate.CurPosR,
 			CurPosC:  RevCandidate.CurPosC,
 			PrevMov:  NewPrev,
 			Visited:  true,
-			Image:    FirstCulImage,
+			Image:    RevCandidate.Image,
 			Start:    RevCandidate.Start,
 			Cul:      true,
 			Rev:      false,
@@ -93,14 +90,13 @@ func ReverseProtocol(numRows, numCols, I int) {
 			RevRef:   RevInt,
 		}
 
-		//DetermineRev(I)
-
 		cell := TrackCell{
-			CurPosR: -1,
-			CurPosC: -1,
-			PrevMov: "",
-			Visited: false,
-			Start:   false,
+			TrackInt: -1,
+			CurPosR:  -1,
+			CurPosC:  -1,
+			PrevMov:  "",
+			Visited:  false,
+			Start:    false,
 		}
 		Track = append(Track, cell)
 

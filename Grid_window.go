@@ -119,11 +119,12 @@ func Grid_Widget(TrackType string, numObstacles int) {
 
 	for i := 0; i < numRows*numCols; i++ {
 		cell := TrackCell{
-			CurPosR: -1,
-			CurPosC: -1,
-			PrevMov: "",
-			Visited: false,
-			Start:   false,
+			TrackInt: -1,
+			CurPosR:  -1,
+			CurPosC:  -1,
+			PrevMov:  "",
+			Visited:  false,
+			Start:    false,
 		}
 		Track = append(Track, cell)
 	}
