@@ -233,7 +233,7 @@ func PickNext(numRows, numCols, I int) bool {
 					ticon = IconSet{Ic1: iconToset}
 				}
 				if Track[i].Cul && !Track[i].Rev {
-					ticon = DetermineSecondCul(i)
+					ticon = DetermineCul(i)
 				}
 
 				Track[i] = TrackCell{

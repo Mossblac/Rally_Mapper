@@ -6,35 +6,11 @@ import (
 	"fyne.io/fyne/v2"
 )
 
-func CulConversionForIconToSet(I int) string {
-	CulIcon := Track[I].Image.Ic1
-	switch CulIcon {
-	case Cul_UPicon:
-		return "UP"
-	case Cul_Downicon:
-		return "Down"
-	case Cul_Lefticon:
-		return "Left"
-	case Cul_Righticon:
-		return "Right"
-	case Cul_DBLicon:
-		return "DUPRight"
-	case Cul_DBRicon:
-		return "DUPLeft"
-	case Cul_DTLicon:
-		return "DDownRight"
-	case Cul_DTRicon:
-		return "DDownLeft"
-	}
-	return ""
-}
-
 func DetermineTrackIconToSet(I int) (icon *fyne.StaticResource) {
 	var exit string
 	enter := Track[I].PrevMov
 	if Track[I+1].Cul {
-		CulExit := CulConversionForIconToSet(I + 1)
-		exit = CulExit
+		exit = Reversed(Track[I+1].PrevMov)
 	} else {
 		exit = Track[I+1].PrevMov
 	}
@@ -243,10 +219,8 @@ func DetermineLastAndFinishIcon(finishInt int) (finishicon, trackicon *fyne.Stat
 	return nil, nil
 }
 
-func DetermineFirstCulIcons(I int) (Ic1 *fyne.StaticResource) {
-
-	preCulpreMove := Track[I].PrevMov //this is triple checked, working
-	switch preCulpreMove {
+func CulEnterDeterminer(enter string) (Ic1 *fyne.StaticResource) {
+	switch enter {
 	case "Left":
 		return Cul_Lefticon
 	case "Right":
@@ -265,61 +239,48 @@ func DetermineFirstCulIcons(I int) (Ic1 *fyne.StaticResource) {
 		return Cul_DTRicon
 	}
 
-	/*if !Track[I+1].Cul && !Track[I+1].Rev {
-		preCulpreMove := Track[I].PrevMov
-		switch preCulpreMove {
-		case "Left":
-			return Cul_Righticon
-		case "Right":
-			return Cul_Lefticon
-		case "UP":
-			return Cul_Downicon
-		case "Down":
-			return Cul_UPicon
-		case "DUPLeft":
-			return Cul_DBRicon
-		case "DUPRight":
-			return Cul_DBLicon
-		case "DDownRight":
-			return Cul_DTLicon
-		case "DDownLeft":
-			return Cul_DTRicon
-		}
-	}*/
 	return nil
 
 }
 
-func DetermineSecondCul(I int) (iconset IconSet) {
+func DetermineCul(I int) (iconset IconSet) {
 	//prev here is the exit of cul
-	var ic2 *fyne.StaticResource
 
-	if !Track[I+1].Cul && !Track[I+1].Rev { //this is double checked
-		preCulpreMove := Track[I+1].PrevMov
-		switch preCulpreMove {
-		case "Left":
-			ic2 = Cul_Righticon
-		case "Right":
-			ic2 = Cul_Lefticon
-		case "UP":
-			ic2 = Cul_Downicon
-		case "Down":
-			ic2 = Cul_UPicon
-		case "DUPLeft":
-			ic2 = Cul_DTLicon
-		case "DUPRight":
-			ic2 = Cul_DTRicon
-		case "DDownRight":
-			ic2 = Cul_DBRicon
-		case "DDownLeft":
-			ic2 = Cul_DBLicon
+	if !Track[I+1].Cul && !Track[I+1].Rev {
+		enterDir := Reversed(Track[I].PrevMov)
+		ic1 := CulEnterDeterminer(enterDir)
+		exitDir := Track[I+1].PrevMov
+		ic2 := CulExitDeterminer(exitDir)
+
+		doubleCulicons := IconSet{
+			Ic1: ic1,
+			Ic2: ic2,
 		}
+		return doubleCulicons
 	}
-	doubleCulicons := IconSet{
-		Ic1: Track[I].Image.Ic1,
-		Ic2: ic2,
+	return IconSet{}
+}
+
+func CulExitDeterminer(culDirect string) *fyne.StaticResource {
+	switch culDirect {
+	case "Left":
+		return Cul_Righticon
+	case "Right":
+		return Cul_Lefticon
+	case "UP":
+		return Cul_Downicon
+	case "Down":
+		return Cul_UPicon
+	case "DUPLeft":
+		return Cul_DTLicon
+	case "DUPRight":
+		return Cul_DTRicon
+	case "DDownRight":
+		return Cul_DBRicon
+	case "DDownLeft":
+		return Cul_DBLicon
 	}
-	return doubleCulicons
+	return nil
 }
 
 func DetermineRev(I int) {
@@ -397,7 +358,6 @@ func DetermineCorners(I int) {
 }
 
 func Reversed(input string) string {
-	input = ""
 	switch input {
 	case "UP":
 		return "Down"
