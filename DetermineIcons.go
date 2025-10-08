@@ -298,30 +298,25 @@ func CulExitDeterminer(culDirect string) *fyne.StaticResource {
 }
 
 func DetermineRev(I int) (RevSet IconSet) {
-	// this needs to be set within reverse protocol, otherwise revint wont be correct.
 	var ic1 *fyne.StaticResource
 	var ic2 *fyne.StaticResource
-	// 2 = away from cull after reverse
-	var enter2 string
-	var exit2 string
-	var celldirect2 string
-	if Track[I-1].Cul { // should be correct
+	//var ic3 *fyne.StaticResource
+
+	if Track[I-1].Cul {
 		//towards cul
-		ic1 = Track[Track[I].RevRef].Image.Ic1
+		ic1 = Track[Track[I].RevRef].Image.Ic1 // This works !
 		// away from cul
-		enter2 = Track[I].PrevMov
-		exit2 = Track[I+1].PrevMov
-		celldirect2 = fmt.Sprintf("%v, %v", enter2, exit2)
-		ic2 = CellDirectDeterminer(celldirect2)
+		ic2 = UnsetPlaceholdericon //?? // you can NOT determine reverse path with prevmov....
 	}
 
 	if Track[I-1].Rev {
 		ic1 = Track[Track[I].RevRef].Image.Ic1
 
-		enter2 = Track[I].PrevMov
-		exit2 = Track[I+1].PrevMov
-		celldirect2 = fmt.Sprintf("%v, %v", enter2, exit2)
-		ic2 = CellDirectDeterminer(celldirect2)
+		ic2 = UnsetPlaceholdericon //??
+	}
+
+	if !Track[I+1].Cul && !Track[I+1].Rev {
+
 	}
 
 	RevSet = IconSet{

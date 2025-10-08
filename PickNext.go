@@ -235,6 +235,7 @@ func PickNext(numRows, numCols, I int) bool {
 
 				if Track[i].Rev && !Track[i].Cul {
 					ticon = DetermineRev(i)
+
 				}
 
 				if Track[i].Cul && Track[i].Rev {
