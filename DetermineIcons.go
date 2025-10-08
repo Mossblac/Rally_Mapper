@@ -246,11 +246,15 @@ func CulEnterDeterminer(enter string) (Ic1 *fyne.StaticResource) {
 func DetermineCul(I int) (iconset IconSet) {
 	//prev here is the exit of cul
 
-	if !Track[I+1].Cul && !Track[I+1].Rev {
+	if !Track[I+1].Cul { // this is the same if I+1 is rev
 		enterDir := Reversed(Track[I].PrevMov)
 		ic1 := CulEnterDeterminer(enterDir)
 		exitDir := Track[I+1].PrevMov
 		ic2 := CulExitDeterminer(exitDir)
+
+		/* if I-1 = rev
+		if I-1 = cul
+		if cul and rev ignore */
 
 		doubleCulicons := IconSet{
 			Ic1: ic1,
@@ -392,49 +396,3 @@ Right
 Left
 
 */
-
-/*if Track[I+1].Cul && !Track[I+1].Rev {
-	preCulpreMove := Track[I+1].PrevMov
-	switch preCulpreMove {
-	case "Left":
-		ic2 = Cul_Lefticon
-	case "Right":
-		ic2 = Cul_Righticon
-	case "UP":
-		ic2 = Cul_UPicon
-	case "Down":
-		ic2 = Cul_Downicon
-	case "DUPLeft":
-		ic2 = Cul_DTLicon
-	case "DUPRight":
-		ic2 = Cul_DTRicon
-	case "DDownRight":
-		ic2 = Cul_DBRicon
-	case "DDownLeft":
-		ic2 = Cul_DBLicon
-	}
-}*/
-
-/*var ic2 *fyne.StaticResource
-enter := Track[I].PrevMov
-exit := Track[I+1].PrevMov
-celldirect := fmt.Sprintf("%v, %v", enter, exit)
-switch celldirect {
-case "UP, UP":
-	ic2 = Rev_Verticalicon
-case "Down, Down":
-	ic2 = Rev_Verticalicon
-case "DUPRight, DUPRight":
-	ic2 = Rev_Diag_TR_BLicon
-case "DDownLeft, DDownLeft":
-	ic2 = Rev_Diag_TR_BLicon
-case "DUPLeft, DUPLeft":
-	ic2 = Rev_Diag_TL_BRicon
-case "DDownRight, DDownRight":
-	ic2 = Rev_Diag_TL_BRicon
-case "Left, Left":
-	ic2 = Rev_Horizontalicon
-case "Right, Right":
-	ic2 = Rev_Horizontalicon
-	// it is the curves next....
-}*/

@@ -20,8 +20,6 @@ func PickNext(numRows, numCols, I int) bool {
 			})
 		}
 
-		//ResetAndTryAgain(numRows, numCols)
-
 		fmt.Println("All spaces filled, No Finish found, re-run")
 		return false
 	}
@@ -37,8 +35,6 @@ func PickNext(numRows, numCols, I int) bool {
 				Grid_Widget("loop", NumObstacles)
 			})
 		}
-
-		//ResetAndTryAgain(numRows, numCols)
 
 		fmt.Println("Too many reverse, re-run")
 		return false
@@ -177,7 +173,7 @@ func PickNext(numRows, numCols, I int) bool {
 		}
 	}
 
-	if len(PossibleMoves) == 0 {
+	if len(PossibleMoves) == 0 { //if both cul and rev reverse Protocol
 		fmt.Println("ReverseProtocol engaged")
 		ReverseProtocol(numRows, numCols, I)
 		return true
@@ -228,7 +224,7 @@ func PickNext(numRows, numCols, I int) bool {
 		for i := 0; i < I+1; i++ {
 			var ticon IconSet
 			if !Track[i].Rev && !Track[i].Start && !Track[i].Finish {
-				if !Track[i].Cul {
+				if !Track[i].Cul && !Track[i].Rev {
 					iconToset := DetermineTrackIconToSet(i)
 					ticon = IconSet{Ic1: iconToset}
 				}
