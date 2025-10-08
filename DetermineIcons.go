@@ -297,22 +297,17 @@ func CulExitDeterminer(culDirect string) *fyne.StaticResource {
 	return nil
 }
 
-func DetermineRev(I int) {
+func DetermineRev(I int) (RevSet IconSet) {
 	// this needs to be set within reverse protocol, otherwise revint wont be correct.
 	var ic1 *fyne.StaticResource
 	var ic2 *fyne.StaticResource
-	var enter1 string
-	var exit1 string       // 1 = towards cul, before reverse
-	var celldirect1 string // 2 = away from cull after reverse
+	// 2 = away from cull after reverse
 	var enter2 string
 	var exit2 string
 	var celldirect2 string
-	if !Track[I+1].Rev && !Track[I+1].Cul {
+	if Track[I-1].Cul { // should be correct
 		//towards cul
-		enter1 = Track[RevInt].PrevMov
-		exit1 = Reversed(Track[I].PrevMov)
-		celldirect1 = fmt.Sprintf("%v, %v", enter1, exit1)
-		ic1 = CellDirectDeterminer(celldirect1)
+		ic1 = Track[Track[I].RevRef].Image.Ic1
 		// away from cul
 		enter2 = Track[I].PrevMov
 		exit2 = Track[I+1].PrevMov
@@ -320,11 +315,8 @@ func DetermineRev(I int) {
 		ic2 = CellDirectDeterminer(celldirect2)
 	}
 
-	if Track[I-1].Rev && !Track[I+1].Cul && !Track[I+1].Rev {
-		enter1 = Track[RevInt].PrevMov
-		exit1 = Reversed(Track[I].PrevMov)
-		celldirect1 = fmt.Sprintf("%v, %v", enter1, exit1)
-		ic1 = CellDirectDeterminer(celldirect1)
+	if Track[I-1].Rev {
+		ic1 = Track[Track[I].RevRef].Image.Ic1
 
 		enter2 = Track[I].PrevMov
 		exit2 = Track[I+1].PrevMov
@@ -332,39 +324,12 @@ func DetermineRev(I int) {
 		ic2 = CellDirectDeterminer(celldirect2)
 	}
 
-	if Track[I-1].Rev && Track[I+1].Rev {
-		enter1 = Reversed(Track[I+1].PrevMov)
-		exit1 = Reversed(Track[I].PrevMov)
-		celldirect1 = fmt.Sprintf("%v, %v", enter1, exit1)
-		ic1 = CellDirectDeterminer(celldirect1)
-
-		enter2 = Track[I].PrevMov
-		exit2 = Track[I+1].PrevMov
-		celldirect2 = fmt.Sprintf("%v, %v", enter2, exit2)
-		ic2 = CellDirectDeterminer(celldirect2)
-	}
-
-	if Track[I+1].Cul && Track[I+1].Rev {
-		ic1 = Track[I+1].Image.Ic1
-		ic2 = Track[I+1].Image.Ic2
-	}
-
-	RevSet := IconSet{
+	RevSet = IconSet{
 		Ic1: ic1,
-		Ic2: ic2, // set for testing
+		Ic2: ic2,
 	}
 
-	Track[I] = TrackCell{
-		CurPosR: Track[I].CurPosR,
-		CurPosC: Track[I].CurPosC,
-		PrevMov: Track[I].PrevMov,
-		Visited: Track[I].Visited,
-		Image:   RevSet,
-		Start:   Track[I].Start,
-		Finish:  Track[I].Finish,
-		Cul:     Track[I].Cul,
-		Rev:     Track[I].Rev,
-	}
+	return RevSet
 }
 
 func DetermineCorners(I int) {

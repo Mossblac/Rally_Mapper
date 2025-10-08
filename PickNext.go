@@ -233,9 +233,9 @@ func PickNext(numRows, numCols, I int) bool {
 					ticon = DetermineCul(i)
 				}
 
-				/*if Track[i].Rev && !Track[i].Cul {
-				DetermineRev(i)
-				}*/
+				if Track[i].Rev && !Track[i].Cul {
+					ticon = DetermineRev(i)
+				}
 
 				if Track[i].Cul && Track[i].Rev {
 					for _, cul := range PreSetCuls {
