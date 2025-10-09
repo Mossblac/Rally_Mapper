@@ -221,47 +221,59 @@ func PickNext(numRows, numCols, I int) bool {
 			Rev:      Track[I+1].Rev,
 		}
 
-		for i := 0; i < I+1; i++ {
-			var ticon IconSet
-			if !Track[i].Start && !Track[i].Finish {
-				if !Track[i].Cul && !Track[i].Rev {
-					iconToset := DetermineTrackIconToSet(i)
-					ticon = IconSet{Ic1: iconToset}
-				}
-				if Track[i].Cul && !Track[i].Rev {
-					PreSetCuls = append(PreSetCuls, Track[i].TrackInt)
-					ticon = DetermineCul(i)
-				}
+		if TrackLength < (numRows*numCols)/3 {
+			RevCount = 0
+			if TrackT {
+				fyne.Do(func() {
+					Grid_Widget("loop", NumObstacles)
+				})
+			} else {
+				fyne.Do(func() {
+					Grid_Widget("loop", NumObstacles)
+				})
+			}
+		} else {
+			for i := 0; i < I+1; i++ {
+				var ticon IconSet
+				if !Track[i].Start && !Track[i].Finish {
+					if !Track[i].Cul && !Track[i].Rev {
+						iconToset := DetermineTrackIconToSet(i)
+						ticon = IconSet{Ic1: iconToset}
+					}
+					if Track[i].Cul && !Track[i].Rev {
+						PreSetCuls = append(PreSetCuls, Track[i].TrackInt)
+						ticon = DetermineCul(i)
+					}
 
-				if Track[i].Rev && !Track[i].Cul {
-					ticon = DetermineRev(i)
+					if Track[i].Rev && !Track[i].Cul {
+						ticon = DetermineRev(i)
 
-				}
+					}
 
-				if Track[i].Cul && Track[i].Rev {
-					for _, cul := range PreSetCuls {
-						if Track[cul].CurPosR == Track[i].CurPosR && Track[cul].CurPosC == Track[i].CurPosC {
-							ticon = Track[cul].Image
+					if Track[i].Cul && Track[i].Rev {
+						for _, cul := range PreSetCuls {
+							if Track[cul].CurPosR == Track[i].CurPosR && Track[cul].CurPosC == Track[i].CurPosC {
+								ticon = Track[cul].Image
+							}
 						}
 					}
-				}
 
-				Track[i] = TrackCell{
-					TrackInt: Track[i].TrackInt,
-					CurPosR:  Track[i].CurPosR,
-					CurPosC:  Track[i].CurPosC,
-					PrevMov:  Track[i].PrevMov,
-					Visited:  Track[i].Visited,
-					Image:    ticon,
-					Start:    Track[i].Start,
-					Finish:   Track[i].Finish,
-					Cul:      Track[i].Cul,
-					Rev:      Track[i].Rev,
-					RevRef:   Track[i].RevRef,
-				}
+					Track[i] = TrackCell{
+						TrackInt: Track[i].TrackInt,
+						CurPosR:  Track[i].CurPosR,
+						CurPosC:  Track[i].CurPosC,
+						PrevMov:  Track[i].PrevMov,
+						Visited:  Track[i].Visited,
+						Image:    ticon,
+						Start:    Track[i].Start,
+						Finish:   Track[i].Finish,
+						Cul:      Track[i].Cul,
+						Rev:      Track[i].Rev,
+						RevRef:   Track[i].RevRef,
+					}
 
+				}
 			}
-
 		}
 		fmt.Printf("Preset Culs : %v\n", PreSetCuls)
 		fmt.Println("Found Finish, Track completed")

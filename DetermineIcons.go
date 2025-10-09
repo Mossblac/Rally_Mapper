@@ -314,10 +314,6 @@ func DetermineRev(I int) (RevSet IconSet) {
 	return RevSet
 }
 
-func DetermineCorners(I int) {
-
-}
-
 func Reversed(input string) string {
 	switch input {
 	case "UP":
