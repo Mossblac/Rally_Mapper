@@ -300,19 +300,6 @@ func CulExitDeterminer(culDirect string) *fyne.StaticResource {
 func DetermineRev(I int) (RevSet IconSet) {
 	var ic1 *fyne.StaticResource
 	var ic2 *fyne.StaticResource
-	var ic3 *fyne.StaticResource
-
-	if Track[I].Image.Ic1 != nil && Track[I].Image.Ic2 != nil {
-		enter, exit := RevConverter(I)
-		revdirect := fmt.Sprintf("%v, %v", enter, exit)
-		ic3 = CellDirectDeterminer(revdirect)
-		RevSet = IconSet{
-			Ic1: Track[I].Image.Ic1,
-			Ic2: Track[I].Image.Ic2,
-			Ic3: ic3,
-		}
-		return RevSet
-	}
 
 	ic1 = Track[Track[I].RevRef].Image.Ic1
 	enter, exit := RevConverter(I)
