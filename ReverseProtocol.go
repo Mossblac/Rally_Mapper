@@ -6,7 +6,7 @@ import (
 
 var RevInt int
 
-func ReverseProtocol(numRows, numCols, I int) {
+func ReverseProtocol(numRows, numCols, I int) bool {
 
 	RevCandidate := Track[I]
 	if !RevCandidate.Cul && !RevCandidate.Rev {
@@ -30,8 +30,7 @@ func ReverseProtocol(numRows, numCols, I int) {
 		}
 		fmt.Printf("Previous swapped to: %v\n", NewPrev)
 
-		PickNext(numRows, numCols, I)
-		return
+		return PickNext(numRows, numCols, I)
 	}
 
 	if RevCandidate.Cul || RevCandidate.Rev {
@@ -70,9 +69,9 @@ func ReverseProtocol(numRows, numCols, I int) {
 		fmt.Printf("RevCount: %v\n", RevCount)
 
 		RevInt--
-		PickNext(numRows, numCols, I+1)
-		return
+		return PickNext(numRows, numCols, I+1)
 
 	}
-
+	fmt.Printf("reverse protocol failed\n\n")
+	return false
 }

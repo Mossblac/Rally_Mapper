@@ -156,8 +156,7 @@ func PickNext(numRows, numCols, I int) bool {
 
 	if len(PossibleMoves) == 0 { //if both cul and rev reverse Protocol
 		fmt.Println("ReverseProtocol engaged")
-		ReverseProtocol(numRows, numCols, I)
-		return false
+		return ReverseProtocol(numRows, numCols, I)
 	}
 
 	randomIndex := rand.Intn(len(PossibleMoves))
@@ -178,11 +177,6 @@ func PickNext(numRows, numCols, I int) bool {
 		CurPosC:  NPosition[1],
 		PrevMov:  MoveKey,
 		Visited:  true,
-	}
-
-	if !FindFinish(I) && I+1 < len(Track) {
-		PossibleMoves = nil
-		PickNext(numRows, numCols, I+1)
 	}
 	if FindFinish(I) {
 		TrackLength = I + 1
@@ -218,7 +212,12 @@ func PickNext(numRows, numCols, I int) bool {
 					}
 
 					if Track[i].Rev && !Track[i].Cul {
-						ticon = DetermineRev(i)
+						if Track[i].Image.Ic1 != nil && Track[i].Image.Ic2 != nil {
+							ResetAndTryAgain()
+							return false
+						} else {
+							ticon = DetermineRev(i)
+						}
 
 					}
 
@@ -259,7 +258,12 @@ func PickNext(numRows, numCols, I int) bool {
 		fmt.Printf("Found Finish, Track completed\n\n")
 		return true
 	}
-	return true
+	if !FindFinish(I) && I+1 < len(Track) {
+		PossibleMoves = nil
+		return PickNext(numRows, numCols, I+1)
+	}
+	fmt.Printf("Pick Next Skipped!!!\n\n")
+	return false
 }
 
 func DetermineOptions(I int) (option int) {

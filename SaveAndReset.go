@@ -12,7 +12,7 @@ func ResetAndTryAgain() {
 		})
 	} else {
 		fyne.Do(func() {
-			Grid_Widget("loop", NumObstacles)
+			Grid_Widget("linear", NumObstacles)
 		})
 	}
 }
