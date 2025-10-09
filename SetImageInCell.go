@@ -61,14 +61,14 @@ func SetImageInCell(row, col int, icons IconSet) {
 			}
 
 			if icons.Ic3 != nil {
-				stack.Add(secondimg)
+				stack.Add(thirdimg)
 				stack.Refresh()
 
 				FadeInAnimate(thirdimg)
 			}
 
 			if icons.Ic4 != nil {
-				stack.Add(secondimg)
+				stack.Add(fourthimg)
 				stack.Refresh()
 
 				FadeInAnimate(fourthimg)

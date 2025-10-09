@@ -243,6 +243,7 @@ func PickNext(numRows, numCols, I int) bool {
 						RevRef:   Track[i].RevRef,
 					}
 				}
+				DetermineCorners(numRows, numCols, i)
 			}
 		}
 		for i := 0; i < I+1; i++ {

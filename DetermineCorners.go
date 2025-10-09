@@ -6,7 +6,7 @@ import (
 	"fyne.io/fyne/v2"
 )
 
-func DetermineCorners(numRows, numCols, I int) (CIcons IconSet) {
+func DetermineCorners(numRows, numCols, I int) {
 	var ic3 *fyne.StaticResource
 
 	var CornerTL_list []string
@@ -55,6 +55,7 @@ func DetermineCorners(numRows, numCols, I int) (CIcons IconSet) {
 	//DDownleft
 
 	for i := 0; i < len(Track); i++ {
+		//this checks if any current track needs a corner, need to figure out how to determine if on a list but not in track.
 		Row := Track[i].CurPosR
 		Col := Track[i].CurPosC
 		CurrentCell := fmt.Sprintf("%v, %v", Row, Col)
@@ -85,14 +86,27 @@ func DetermineCorners(numRows, numCols, I int) (CIcons IconSet) {
 			}
 		}
 
-		CIcons = IconSet{
+		CIcons := IconSet{
 			Ic1: Track[i].Image.Ic1,
 			Ic2: Track[i].Image.Ic2,
 			Ic3: ic3,
 		}
 
+		Track[i] = TrackCell{
+			TrackInt: Track[i].TrackInt,
+			CurPosR:  Track[i].CurPosR,
+			CurPosC:  Track[i].CurPosC,
+			PrevMov:  Track[i].PrevMov,
+			Visited:  Track[i].Visited,
+			Image:    CIcons,
+			Start:    Track[i].Start,
+			Finish:   Track[i].Finish,
+			Cul:      Track[i].Cul,
+			Rev:      Track[i].Rev,
+			RevRef:   Track[i].RevRef,
+		}
+
 	}
-	return CIcons
 }
 
 /*
