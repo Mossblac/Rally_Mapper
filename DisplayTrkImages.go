@@ -17,11 +17,11 @@ func DisplayTrkImages() {
 			time.Sleep(50 * time.Millisecond) // Wait between each image
 		}
 
-		for i := range Track {
+		for i := range TrackLength + 1 {
 			fmt.Printf("%+v\n\n", Track[i])
 		}
 		fmt.Printf("Track Length : %v\n", TrackLength)
-		fmt.Println("all images set")
+		fmt.Printf("all images set\n\n")
 
 	}()
 }

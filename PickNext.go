@@ -23,6 +23,7 @@ func PickNext(numRows, numCols, I int) bool {
 	var PossibleMoves []map[string][]int
 	if len(PossibleMoves) != 0 {
 		fmt.Printf("Possible moves not zero at PickNext, length: %v", len(PossibleMoves))
+		return false
 	}
 
 	currentCell := Track[I]
@@ -156,7 +157,7 @@ func PickNext(numRows, numCols, I int) bool {
 	if len(PossibleMoves) == 0 { //if both cul and rev reverse Protocol
 		fmt.Println("ReverseProtocol engaged")
 		ReverseProtocol(numRows, numCols, I)
-		return true
+		return false
 	}
 
 	randomIndex := rand.Intn(len(PossibleMoves))
@@ -182,7 +183,6 @@ func PickNext(numRows, numCols, I int) bool {
 	if !FindFinish(I) && I+1 < len(Track) {
 		PossibleMoves = nil
 		PickNext(numRows, numCols, I+1)
-
 	}
 	if FindFinish(I) {
 		TrackLength = I + 1
@@ -203,6 +203,7 @@ func PickNext(numRows, numCols, I int) bool {
 
 		if TrackLength < (numRows*numCols)/3 {
 			ResetAndTryAgain()
+			return false
 		} else {
 			for i := 0; i < I+1; i++ {
 				var ticon IconSet
@@ -251,11 +252,11 @@ func PickNext(numRows, numCols, I int) bool {
 			ic2 := Track[i].Image.Ic2
 			if ic1 == UnsetPlaceholdericon || ic2 == UnsetPlaceholdericon {
 				ResetAndTryAgain()
+				return false
 			}
 
 		}
-		fmt.Printf("Preset Culs : %v\n", PreSetCuls)
-		fmt.Println("Found Finish, Track completed")
+		fmt.Printf("Found Finish, Track completed\n\n")
 		return true
 	}
 	return true

@@ -2,6 +2,7 @@
 package main
 
 import (
+	"fmt"
 	"image/color"
 	"math"
 
@@ -65,6 +66,7 @@ func (l *squareGridLayout) MinSize([]fyne.CanvasObject) fyne.Size {
 }
 
 func Grid_Widget(TrackType string, numObstacles int) {
+	fmt.Print("Creating New Track\n\n")
 	NumObstacles = numObstacles
 	Track = nil
 	TrackLength = 0

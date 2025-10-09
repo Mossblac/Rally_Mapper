@@ -386,7 +386,7 @@ func RevConverter(I int) (enter, exit string) {
 		exit = "UP"
 	}
 	if Track[I+1].CurPosR < Track[I].CurPosR && Track[I+1].CurPosC < Track[I].CurPosC {
-		exit = "DUPRight"
+		exit = "DUPLeft"
 	}
 	if Track[I+1].CurPosR == Track[I].CurPosR && Track[I+1].CurPosC < Track[I].CurPosC {
 		exit = "Left"

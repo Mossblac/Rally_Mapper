@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
@@ -24,7 +22,6 @@ func HomeScreen() {
 	})
 
 	createB := widget.NewButton("create", func() {
-		fmt.Print("Creating New Track\n\n")
 		fyne.Do(func() {
 			Grid_Widget(courseType, len(Obstacles))
 		})
