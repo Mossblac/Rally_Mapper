@@ -212,7 +212,7 @@ func PickNext(numRows, numCols, I int) bool {
 					}
 
 					if Track[i].Rev && !Track[i].Cul {
-						if Track[i].Image.Ic1 != nil && Track[i].Image.Ic2 != nil {
+						if Track[i].Image.Ic2 != nil {
 							ResetAndTryAgain()
 							return false
 						} else {
