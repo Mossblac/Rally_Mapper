@@ -275,6 +275,23 @@ func PickNext(numRows, numCols, I int) bool {
 				}
 			}
 		}
+		for i := 0; i < I+1; i++ {
+			ic1 := Track[i].Image.Ic1
+			ic2 := Track[i].Image.Ic2
+			if ic1 == UnsetPlaceholdericon || ic2 == UnsetPlaceholdericon {
+				RevCount = 0
+				if TrackT {
+					fyne.Do(func() {
+						Grid_Widget("loop", NumObstacles)
+					})
+				} else {
+					fyne.Do(func() {
+						Grid_Widget("loop", NumObstacles)
+					})
+				}
+			}
+
+		}
 		fmt.Printf("Preset Culs : %v\n", PreSetCuls)
 		fmt.Println("Found Finish, Track completed")
 		return true
