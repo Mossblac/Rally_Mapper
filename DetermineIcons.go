@@ -300,24 +300,11 @@ func CulExitDeterminer(culDirect string) *fyne.StaticResource {
 func DetermineRev(I int) (RevSet IconSet) {
 	var ic1 *fyne.StaticResource
 	var ic2 *fyne.StaticResource
-	//var ic3 *fyne.StaticResource
 
-	if Track[I-1].Cul {
-		//towards cul
-		ic1 = Track[Track[I].RevRef].Image.Ic1 // This works !
-		// away from cul
-		ic2 = UnsetPlaceholdericon //?? // you can NOT determine reverse path with prevmov....
-	}
-
-	if Track[I-1].Rev {
-		ic1 = Track[Track[I].RevRef].Image.Ic1
-
-		ic2 = UnsetPlaceholdericon //??
-	}
-
-	if !Track[I+1].Cul && !Track[I+1].Rev {
-
-	}
+	ic1 = Track[Track[I].RevRef].Image.Ic1
+	enter, exit := RevConverter(I)
+	revdirect := fmt.Sprintf("%v, %v", enter, exit)
+	ic2 = CellDirectDeterminer(revdirect)
 
 	RevSet = IconSet{
 		Ic1: ic1,
@@ -352,6 +339,60 @@ func Reversed(input string) string {
 	default:
 		return ""
 	}
+}
+
+func RevConverter(I int) (enter, exit string) {
+	if Track[I-1].CurPosR == Track[I].CurPosR && Track[I-1].CurPosC > Track[I].CurPosC {
+		enter = "Left"
+	}
+	if Track[I-1].CurPosR < Track[I].CurPosR && Track[I-1].CurPosC > Track[I].CurPosC {
+		enter = "DDownLeft"
+	}
+	if Track[I-1].CurPosR < Track[I].CurPosR && Track[I-1].CurPosC == Track[I].CurPosC {
+		enter = "Down"
+	}
+	if Track[I-1].CurPosR < Track[I].CurPosR && Track[I-1].CurPosC < Track[I].CurPosC {
+		enter = "DDownRight"
+	}
+	if Track[I-1].CurPosR == Track[I].CurPosR && Track[I-1].CurPosC < Track[I].CurPosC {
+		enter = "Right"
+	}
+	if Track[I-1].CurPosR > Track[I].CurPosR && Track[I-1].CurPosC < Track[I].CurPosC {
+		enter = "DUPRight"
+	}
+	if Track[I-1].CurPosR > Track[I].CurPosR && Track[I-1].CurPosC == Track[I].CurPosC {
+		enter = "UP"
+	}
+	if Track[I-1].CurPosR > Track[I].CurPosR && Track[I-1].CurPosC > Track[I].CurPosC {
+		enter = "DUPLeft"
+	}
+
+	if Track[I+1].CurPosR == Track[I].CurPosR && Track[I+1].CurPosC > Track[I].CurPosC {
+		exit = "Right"
+	}
+	if Track[I+1].CurPosR < Track[I].CurPosR && Track[I+1].CurPosC > Track[I].CurPosC {
+		exit = "DUPRight"
+	}
+	if Track[I+1].CurPosR < Track[I].CurPosR && Track[I+1].CurPosC == Track[I].CurPosC {
+		exit = "UP"
+	}
+	if Track[I+1].CurPosR < Track[I].CurPosR && Track[I+1].CurPosC < Track[I].CurPosC {
+		exit = "DUPRight"
+	}
+	if Track[I+1].CurPosR == Track[I].CurPosR && Track[I+1].CurPosC < Track[I].CurPosC {
+		exit = "Left"
+	}
+	if Track[I+1].CurPosR > Track[I].CurPosR && Track[I+1].CurPosC < Track[I].CurPosC {
+		exit = "DDownLeft"
+	}
+	if Track[I+1].CurPosR > Track[I].CurPosR && Track[I+1].CurPosC == Track[I].CurPosC {
+		exit = "Down"
+	}
+	if Track[I+1].CurPosR > Track[I].CurPosR && Track[I+1].CurPosC > Track[I].CurPosC {
+		exit = "DDownRight"
+	}
+
+	return enter, exit
 }
 
 /*
