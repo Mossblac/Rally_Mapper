@@ -72,6 +72,6 @@ func ReverseProtocol(numRows, numCols, I int) bool {
 		return PickNext(numRows, numCols, I+1)
 
 	}
-	fmt.Printf("reverse protocol failed\n\n")
+	fmt.Printf("reverse protocol fail")
 	return false
 }
