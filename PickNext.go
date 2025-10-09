@@ -3,38 +3,18 @@ package main
 import (
 	"fmt"
 	"math/rand"
-
-	"fyne.io/fyne/v2"
 )
 
 func PickNext(numRows, numCols, I int) bool {
 	if I+1 == len(Track) && !FindFinish(I) {
-		RevCount = 0
-		if TrackT {
-			fyne.Do(func() {
-				Grid_Widget("loop", NumObstacles)
-			})
-		} else {
-			fyne.Do(func() {
-				Grid_Widget("loop", NumObstacles)
-			})
-		}
+		ResetAndTryAgain()
 
 		fmt.Println("All spaces filled, No Finish found, re-run")
 		return false
 	}
 
 	if RevCount > len(Track)/4 {
-		RevCount = 0
-		if TrackT {
-			fyne.Do(func() {
-				Grid_Widget("loop", NumObstacles)
-			})
-		} else {
-			fyne.Do(func() {
-				Grid_Widget("loop", NumObstacles)
-			})
-		}
+		ResetAndTryAgain()
 
 		fmt.Println("Too many reverse, re-run")
 		return false
@@ -222,16 +202,7 @@ func PickNext(numRows, numCols, I int) bool {
 		}
 
 		if TrackLength < (numRows*numCols)/3 {
-			RevCount = 0
-			if TrackT {
-				fyne.Do(func() {
-					Grid_Widget("loop", NumObstacles)
-				})
-			} else {
-				fyne.Do(func() {
-					Grid_Widget("loop", NumObstacles)
-				})
-			}
+			ResetAndTryAgain()
 		} else {
 			for i := 0; i < I+1; i++ {
 				var ticon IconSet
@@ -279,16 +250,7 @@ func PickNext(numRows, numCols, I int) bool {
 			ic1 := Track[i].Image.Ic1
 			ic2 := Track[i].Image.Ic2
 			if ic1 == UnsetPlaceholdericon || ic2 == UnsetPlaceholdericon {
-				RevCount = 0
-				if TrackT {
-					fyne.Do(func() {
-						Grid_Widget("loop", NumObstacles)
-					})
-				} else {
-					fyne.Do(func() {
-						Grid_Widget("loop", NumObstacles)
-					})
-				}
+				ResetAndTryAgain()
 			}
 
 		}
