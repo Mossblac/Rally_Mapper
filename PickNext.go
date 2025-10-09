@@ -242,7 +242,6 @@ func PickNext(numRows, numCols, I int) bool {
 						Rev:      Track[i].Rev,
 						RevRef:   Track[i].RevRef,
 					}
-
 				}
 			}
 		}
