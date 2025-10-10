@@ -12,33 +12,20 @@ func DetermineCorners(numRows, numCols int) {
 
 	for i := range Track {
 		r, c := Track[i].CurPosR, Track[i].CurPosC
-		if Track[i].Image.Ic1 == StartAngleURicon || //DUPRight
-			Track[i].Image.Ic1 == StraightDTRicon ||
-			Track[i].Image.Ic1 == StraightDBLicon ||
-			Track[i].Image.Ic1 == CurveB_DTRicon ||
-			Track[i].Image.Ic1 == CurveL_DTRicon ||
-			Track[i].Image.Ic1 == CurveDTR_Bicon ||
-			Track[i].Image.Ic1 == CurveDTR_Licon ||
-			Track[i].Image.Ic1 == Cul_DTRicon {
-			if InBounds(r, c+1, numRows, numCols) {
+		if IsDTopRight(r, c) { //DUPRight
+			if InBounds(r, c+1, numRows, numCols) && !IsDTopLeft(r, c+1) { //right of
 				tl[Cell{r, c + 1}] = v
 			}
-			if InBounds(r-1, c, numRows, numCols) {
+			if InBounds(r-1, c, numRows, numCols) /*&& !IsDBottomRight(r-1, c) */ { // above
 				br[Cell{r - 1, c}] = v
 			}
 		}
 
-		if Track[i].Image.Ic1 == StraightDTLicon || //DUPleft
-			Track[i].Image.Ic1 == StraightDBRicon ||
-			Track[i].Image.Ic1 == CurveDTL_Bicon ||
-			Track[i].Image.Ic1 == CurveDTL_Ricon ||
-			Track[i].Image.Ic1 == CurveB_DTLicon ||
-			Track[i].Image.Ic1 == CurveR_DTLicon ||
-			Track[i].Image.Ic1 == Cul_DTLicon {
-			if InBounds(r, c-1, numRows, numCols) {
-				tr[Cell{r, c + 1}] = v
+		if IsDTopLeft(r, c) { //DUPleft
+			if InBounds(r, c-1, numRows, numCols) && !IsDTopRight(r, c-1) { //left of
+				tr[Cell{r, c - 1}] = v
 			}
-			if InBounds(r-1, c, numRows, numCols) {
+			if InBounds(r-1, c, numRows, numCols) /*&& !IsDBottomLeft(r-1, c) */ { //above
 				bl[Cell{r - 1, c}] = v
 			}
 		}
@@ -78,50 +65,86 @@ func InBounds(r, c, numRows, numCols int) bool {
 	return false
 }
 
-/*
-go
-type Cell struct{ R, C int }
-type void struct{}
-var v void
-
-tl := map[Cell]void{}
-tr := map[Cell]void{}
-bl := map[Cell]void{}
-br := map[Cell]void{}
-
-helper
-inBounds := func(r, c, numRows, numCols int) bool {
-if r >= 0 && r < numRows && c >= 0 && c < numCols{
-return true
+func IsDTopRight(r, c int) bool {
+	for i := range Track {
+		if r == Track[i].CurPosR && c == Track[i].CurPosC {
+			icon := Track[i].Image.Ic1
+			switch icon {
+			case StartAngleURicon:
+				return true
+			case StraightDTRicon:
+				return true
+			case StraightDBLicon:
+				return true
+			case CurveB_DTRicon:
+				return true
+			case CurveL_DTRicon:
+				return true
+			case CurveDTR_Bicon:
+				return true
+			case CurveDTR_Licon:
+				return true
+			case Cul_DTRicon:
+				return true
+			default:
+				return false
+			}
+		}
+	}
+	return false
 }
-return false
+
+func IsDTopLeft(r, c int) bool {
+	for i := range Track {
+		if r == Track[i].CurPosR && c == Track[i].CurPosC {
+			icon := Track[i].Image.Ic1
+			switch icon {
+			case StartAngleULicon:
+				return true
+			case StraightDTLicon:
+				return true
+			case StraightDBRicon:
+				return true
+			case CurveDTL_Bicon:
+				return true
+			case CurveDTL_Ricon:
+				return true
+			case CurveB_DTLicon:
+				return true
+			case CurveR_DTLicon:
+				return true
+			case Cul_DTLicon:
+				return true
+			default:
+				return false
+			}
+		}
+	}
+	return false
 }
 
-for i := range Track {
-    r, c := Track[i].CurPosR, Track[i].CurPosC
-    if drivesCorner(Track[i].Images.Ic1) {
-        if inBounds(r, c+1) { tl[Cell{r, c+1}] = v }
-        if inBounds(r-1, c) { br[Cell{r-1, c}] = v }
-    }
+func IsDBottomRight(r, c int) bool {
+	for i := range Track {
+		if r == Track[i].CurPosR && c == Track[i].CurPosC {
+			icon := Track[i].Image.Ic1
+			switch icon {
+			default:
+				return false
+			}
+		}
+	}
+	return false
 }
 
-// go
-for i := range Track {
-    cell := Cell{Track[i].CurPosR, Track[i].CurPosC}
-    inTL := _, has := tl[cell]; has
-    inTR := _, has := tr[cell]; has
-    inBL := _, has := bl[cell]; has
-    inBR := _, has := br[cell]; has
-
-    switch {
-    case inTL && inBR:
-        Track[i].Images.Ic3 = CornersTL_BRicon
-    case inTL:
-        Track[i].Images.Ic3 = CornerTLicon
-    case inBR:
-        Track[i].Images.Ic3 = CornerBRicon
-    default:
-        // leave as-is or default
-    }
+func IsDBottomLeft(r, c int) bool {
+	for i := range Track {
+		if r == Track[i].CurPosR && c == Track[i].CurPosC {
+			icon := Track[i].Image.Ic1
+			switch icon {
+			default:
+				return false
+			}
+		}
+	}
+	return false
 }
-*/
