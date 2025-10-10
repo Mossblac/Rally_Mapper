@@ -66,6 +66,12 @@ func (l *squareGridLayout) MinSize([]fyne.CanvasObject) fyne.Size {
 }
 
 func Grid_Widget(TrackType string, numObstacles int) {
+	if CurrentStop != nil {
+		close(CurrentStop)
+	}
+
+	CurrentStop = make(chan struct{})
+
 	fmt.Print("Creating New Track\n\n")
 	NumObstacles = numObstacles
 	Track = nil
@@ -131,5 +137,5 @@ func Grid_Widget(TrackType string, numObstacles int) {
 		}
 		Track = append(Track, cell)
 	}
-	DeterminePath_setStart(TrackType, numRows, numCols)
+	DeterminePath_setStart(CurrentStop, TrackType, numRows, numCols)
 }

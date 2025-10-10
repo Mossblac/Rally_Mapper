@@ -6,7 +6,7 @@ import (
 	"fyne.io/fyne/v2"
 )
 
-func DeterminePath_setStart(TrackType string, numRows, numCols int) {
+func DeterminePath_setStart(stop <-chan struct{}, TrackType string, numRows, numCols int) {
 	if len(Track) != numRows*numCols {
 		if !VerifyTrackReset(Track) {
 			fmt.Println("Track NOT RESET!")
@@ -37,17 +37,25 @@ func DeterminePath_setStart(TrackType string, numRows, numCols int) {
 
 	go func() {
 		SetStart(numRows, numCols)
-		ok := PickNext(numRows, numCols, 1)
-		resultCh <- ok
+		ok := PickNext(stop, numRows, numCols, 1)
+
+		select {
+		case <-stop:
+			return
+		case resultCh <- ok:
+		}
 	}()
 
-	ok := <-resultCh
-	fmt.Printf("ok = : %v\n", ok)
-
-	if ok {
-		fyne.Do(func() {
-			DisplayTrkImages()
-		})
+	select {
+	case <-stop:
+		return
+	case ok := <-resultCh:
+		fmt.Printf("ok = : %v\n", ok)
+		if ok {
+			fyne.Do(func() {
+				DisplayTrkImages(stop)
+			})
+		}
 	}
 	//mainWin.Canvas().Capture() //this creates an image.Image of the completed map to use later.
 }

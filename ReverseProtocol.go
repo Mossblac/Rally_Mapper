@@ -6,7 +6,7 @@ import (
 
 var RevInt int
 
-func ReverseProtocol(numRows, numCols, I int) bool {
+func ReverseProtocol(stop <-chan struct{}, numRows, numCols, I int) bool {
 
 	RevCandidate := Track[I]
 	if !RevCandidate.Cul && !RevCandidate.Rev {
@@ -30,7 +30,7 @@ func ReverseProtocol(numRows, numCols, I int) bool {
 		}
 		fmt.Printf("Previous swapped to: %v\n", NewPrev)
 
-		return PickNext(numRows, numCols, I)
+		return PickNext(stop, numRows, numCols, I)
 	}
 
 	if RevCandidate.Cul || RevCandidate.Rev {
@@ -69,7 +69,7 @@ func ReverseProtocol(numRows, numCols, I int) bool {
 		fmt.Printf("RevCount: %v\n", RevCount)
 
 		RevInt--
-		return PickNext(numRows, numCols, I+1)
+		return PickNext(stop, numRows, numCols, I+1)
 
 	}
 	fmt.Printf("reverse protocol fail")

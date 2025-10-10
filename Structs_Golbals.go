@@ -4,6 +4,8 @@ import "fyne.io/fyne/v2"
 
 var Track []TrackCell
 
+var CurrentStop chan struct{}
+
 var TrackLength int
 
 var NumObstacles int

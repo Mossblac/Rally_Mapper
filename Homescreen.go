@@ -22,7 +22,7 @@ func HomeScreen() {
 	})
 
 	createB := widget.NewButton("create", func() {
-		fyne.Do(func() {
+		fyne.DoAndWait(func() {
 			Grid_Widget(courseType, len(Obstacles))
 		})
 	})
