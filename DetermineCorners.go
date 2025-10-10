@@ -19,7 +19,7 @@ func DetermineCorners(numRows, numCols int) {
 					MakeTrack(r, c+1)
 				}
 			}
-			if InBounds(r-1, c, numRows, numCols) /*&& !IsDBottomRight(r-1, c) */ { // above
+			if InBounds(r-1, c, numRows, numCols) && !IsDBottomRight(r-1, c) { // above
 				br[Cell{r - 1, c}] = v
 				if !OnTrack(r-1, c) {
 					MakeTrack(r-1, c)
@@ -34,7 +34,7 @@ func DetermineCorners(numRows, numCols int) {
 					MakeTrack(r, c-1)
 				}
 			}
-			if InBounds(r-1, c, numRows, numCols) /*&& !IsDBottomLeft(r-1, c) */ { //above
+			if InBounds(r-1, c, numRows, numCols) && !IsDBottomLeft(r-1, c) { //above
 				bl[Cell{r - 1, c}] = v
 				if !OnTrack(r-1, c) {
 					MakeTrack(r-1, c)
@@ -42,10 +42,38 @@ func DetermineCorners(numRows, numCols int) {
 			}
 		}
 
+		if IsDBottomRight(r, c) { //DDownRight
+			if InBounds(r+1, c, numRows, numCols) && !IsDTopRight(r+1, c) {
+				tr[Cell{r + 1, c}] = v
+				if !OnTrack(r+1, c) {
+					MakeTrack(r+1, c)
+				}
+			}
+			if InBounds(r, c+1, numRows, numCols) && !IsDBottomLeft(r, c+1) {
+				bl[Cell{r, c + 1}] = v
+				if !OnTrack(r, c+1) {
+					MakeTrack(r, c+1)
+				}
+			}
+		}
+
+		if IsDBottomLeft(r, c) { //DDownleft
+			if InBounds(r+1, c, numRows, numCols) && !IsDTopLeft(r+1, c) {
+				tl[Cell{r + 1, c}] = v
+				if !OnTrack(r+1, c) {
+					MakeTrack(r+1, c)
+				}
+			}
+			if InBounds(r, c-1, numRows, numCols) && !IsDBottomRight(r, c-1) {
+				br[Cell{r, c - 1}] = v
+				if !OnTrack(r, c-1) {
+					MakeTrack(r, c-1)
+				}
+			}
+		}
+
 	}
 
-	//DDownRight
-	//DDownleft
 	for i := range Track {
 		cell := Cell{Track[i].CurPosR, Track[i].CurPosC}
 		_, inTL := tl[cell]
@@ -140,6 +168,20 @@ func IsDBottomRight(r, c int) bool {
 		if r == Track[i].CurPosR && c == Track[i].CurPosC {
 			icon := Track[i].Image.Ic1
 			switch icon {
+			case StraightDTLicon:
+				return true
+			case StraightDBRicon:
+				return true
+			case CurveDBR_Licon:
+				return true
+			case CurveDBR_Ticon:
+				return true
+			case CurveL_DBRicon:
+				return true
+			case CurveT_DBRicon:
+				return true
+			case Cul_DBRicon:
+				return true
 			default:
 				return false
 			}
@@ -153,6 +195,20 @@ func IsDBottomLeft(r, c int) bool {
 		if r == Track[i].CurPosR && c == Track[i].CurPosC {
 			icon := Track[i].Image.Ic1
 			switch icon {
+			case StraightDTRicon:
+				return true
+			case StraightDBLicon:
+				return true
+			case CurveDBL_Ricon:
+				return true
+			case CurveDBL_Ticon:
+				return true
+			case CurveR_DBLicon:
+				return true
+			case CurveT_DBLicon:
+				return true
+			case Cul_DBLicon:
+				return true
 			default:
 				return false
 			}

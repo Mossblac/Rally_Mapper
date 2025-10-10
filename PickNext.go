@@ -220,7 +220,7 @@ func PickNext(numRows, numCols, I int) bool {
 					}
 					Track[i].Image = ticon
 				}
-				//DetermineCorners(numRows, numCols)
+				DetermineCorners(numRows, numCols)
 			}
 		}
 		for i := 0; i < I+1; i++ {
