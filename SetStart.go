@@ -35,7 +35,7 @@ func SetStart(numRows, numCols int) {
 		CurPosR: NewPosition[0],
 		CurPosC: NewPosition[1],
 		PrevMov: MoveKey,
-		Visited: true,
+		Visited: 1,
 	}
 
 	StarticonToSet := DetermineStartImage(1)

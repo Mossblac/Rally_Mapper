@@ -176,7 +176,7 @@ func PickNext(numRows, numCols, I int) bool {
 		CurPosR:  NPosition[0],
 		CurPosC:  NPosition[1],
 		PrevMov:  MoveKey,
-		Visited:  true,
+		Visited:  1,
 	}
 	if FindFinish(I) {
 		TrackLength = I + 1
@@ -184,6 +184,11 @@ func PickNext(numRows, numCols, I int) bool {
 		ficonSet := IconSet{Ic1: ficon, Ic2: fin}
 		Track[I+1].Image = ficonSet
 		Track[I+1].Finish = true
+
+		if ReverseCheck() {
+			ResetAndTryAgain()
+			return false
+		}
 
 		if TrackLength < (numRows*numCols)/3 {
 			ResetAndTryAgain()

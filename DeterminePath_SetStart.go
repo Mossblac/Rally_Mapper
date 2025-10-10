@@ -30,7 +30,7 @@ func DeterminePath_setStart(TrackType string, numRows, numCols int) {
 	Track[0] = TrackCell{
 		CurPosR: R,
 		CurPosC: C,
-		Visited: true,
+		Visited: 1,
 		Start:   true,
 	}
 	resultCh := make(chan bool, 1)

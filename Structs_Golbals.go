@@ -23,7 +23,7 @@ type TrackCell struct {
 	CurPosR  int
 	CurPosC  int
 	PrevMov  string
-	Visited  bool
+	Visited  int
 	Image    IconSet
 	Start    bool
 	Finish   bool

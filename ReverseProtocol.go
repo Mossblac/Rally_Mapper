@@ -22,7 +22,7 @@ func ReverseProtocol(numRows, numCols, I int) bool {
 			CurPosR:  RevCandidate.CurPosR,
 			CurPosC:  RevCandidate.CurPosC,
 			PrevMov:  NewPrev,
-			Visited:  true,
+			Visited:  1,
 			Image:    RevCandidate.Image,
 			Start:    RevCandidate.Start,
 			Cul:      true,
@@ -45,7 +45,7 @@ func ReverseProtocol(numRows, numCols, I int) bool {
 			CurPosR:  reverser.CurPosR,
 			CurPosC:  reverser.CurPosC,
 			PrevMov:  NPrev,
-			Visited:  reverser.Visited,
+			Visited:  reverser.Visited + 1,
 			Image:    reverser.Image,
 			Start:    reverser.Start,
 			Cul:      reverser.Cul,
@@ -58,7 +58,7 @@ func ReverseProtocol(numRows, numCols, I int) bool {
 			CurPosR:  -1,
 			CurPosC:  -1,
 			PrevMov:  "",
-			Visited:  false,
+			Visited:  0,
 			Start:    false,
 		}
 		Track = append(Track, cell)
