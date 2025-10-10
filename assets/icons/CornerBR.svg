@@ -25,21 +25,22 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#505050"
      inkscape:zoom="0.59400004"
-     inkscape:cx="666.66663"
-     inkscape:cy="666.66663"
+     inkscape:cx="666.66662"
+     inkscape:cy="1131.3131"
      inkscape:window-width="1920"
      inkscape:window-height="995"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g1" />
+     inkscape:current-layer="g1"
+     showgrid="false" />
   <g
      inkscape:groupmode="layer"
      inkscape:label="Image"
      id="g1">
     <path
        style="fill:#ffff00;stroke:none"
-       d="m 1331.9999,714.66662 -415.99996,414.66668 -130.66665,131.8807 -70.66667,72.1193 h 16 c -0.0491,-13.2772 19.19222,-25.8589 28,-34.6667 l 87.99999,-88 349.33329,-349.33332 106.6667,-106.66666 c 8.4349,-8.43489 34.9311,-26.4987 29.3333,-40 z"
+       d="m 1367.3534,748.33665 -415.99993,414.66665 -130.66665,131.8807 -70.66667,72.1193 h 16 c -0.0491,-13.2772 19.19222,-25.8589 28,-34.6667 l 87.99999,-88 349.33326,-349.33329 106.6667,-106.66666 c 8.4349,-8.43489 34.9311,-26.4987 29.3333,-40 z"
        id="path1" />
   </g>
 </svg>

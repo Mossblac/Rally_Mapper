@@ -99,7 +99,7 @@ func ResourceToIcon(static *fyne.StaticResource) *canvas.Image {
 	return img
 }
 
-/*func DropInAnimate(image *canvas.Image, container *fyne.Container) {
+/*func DropInAnimate(image *canvas.Image) {
 	// Start above the container
 	originalPos := image.Position()
 	image.Move(fyne.NewPos(originalPos.X, originalPos.Y-100))

@@ -12,14 +12,14 @@ func DetermineCorners(numRows, numCols int) {
 
 	for i := range Track {
 		r, c := Track[i].CurPosR, Track[i].CurPosC
-		if IsDTopRight(r, c) { //DUPRight
-			if InBounds(r, c+1, numRows, numCols) && !IsDTopLeft(r, c+1) { //right of
+		if IsDTopRight(r, c) && IsDBottomLeft(r-1, c+1) { //DUPRight
+			if InBounds(r, c+1, numRows, numCols) && !IsDTopLeft(r, c+1) {
 				tl[Cell{r, c + 1}] = v
 				if !OnTrack(r, c+1) {
 					MakeTrack(r, c+1)
 				}
 			}
-			if InBounds(r-1, c, numRows, numCols) && !IsDBottomRight(r-1, c) { // above
+			if InBounds(r-1, c, numRows, numCols) && !IsDBottomRight(r-1, c) {
 				br[Cell{r - 1, c}] = v
 				if !OnTrack(r-1, c) {
 					MakeTrack(r-1, c)
@@ -27,14 +27,14 @@ func DetermineCorners(numRows, numCols int) {
 			}
 		}
 
-		if IsDTopLeft(r, c) { //DUPleft
-			if InBounds(r, c-1, numRows, numCols) && !IsDTopRight(r, c-1) { //left of
+		if IsDTopLeft(r, c) && IsDBottomRight(r-1, c-1) { //DUPleft
+			if InBounds(r, c-1, numRows, numCols) && !IsDTopRight(r, c-1) {
 				tr[Cell{r, c - 1}] = v
 				if !OnTrack(r, c-1) {
 					MakeTrack(r, c-1)
 				}
 			}
-			if InBounds(r-1, c, numRows, numCols) && !IsDBottomLeft(r-1, c) { //above
+			if InBounds(r-1, c, numRows, numCols) && !IsDBottomLeft(r-1, c) {
 				bl[Cell{r - 1, c}] = v
 				if !OnTrack(r-1, c) {
 					MakeTrack(r-1, c)
@@ -42,7 +42,7 @@ func DetermineCorners(numRows, numCols int) {
 			}
 		}
 
-		if IsDBottomRight(r, c) { //DDownRight
+		if IsDBottomRight(r, c) && IsDTopLeft(r+1, c+1) { //DDownRight
 			if InBounds(r+1, c, numRows, numCols) && !IsDTopRight(r+1, c) {
 				tr[Cell{r + 1, c}] = v
 				if !OnTrack(r+1, c) {
@@ -57,7 +57,7 @@ func DetermineCorners(numRows, numCols int) {
 			}
 		}
 
-		if IsDBottomLeft(r, c) { //DDownleft
+		if IsDBottomLeft(r, c) && IsDTopRight(r+1, c-1) { //DDownleft
 			if InBounds(r+1, c, numRows, numCols) && !IsDTopLeft(r+1, c) {
 				tl[Cell{r + 1, c}] = v
 				if !OnTrack(r+1, c) {
@@ -227,8 +227,8 @@ func OnTrack(r, c int) bool {
 }
 
 func MakeTrack(r, c int) {
-	Track[TrackLength+1] = TrackCell{
-		CurPosR: r,
-		CurPosC: c,
-	}
+	TrackLength++
+	Track[TrackLength+1].CurPosR = r
+	Track[TrackLength+1].CurPosC = c
+
 }
