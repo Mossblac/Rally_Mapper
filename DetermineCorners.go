@@ -12,7 +12,7 @@ func DetermineCorners(numRows, numCols int) {
 
 	for i := range Track {
 		r, c := Track[i].CurPosR, Track[i].CurPosC
-		if IsDTopRight(r, c) && IsDBottomLeft(r-1, c+1) { //DUPRight
+		if IsDTopRight(r, c) || IsDTopRight2(r, c) && IsDBottomLeft(r-1, c+1) { //DUPRight
 			if InBounds(r, c+1, numRows, numCols) && !IsDTopLeft(r, c+1) {
 				tl[Cell{r, c + 1}] = v
 				if !OnTrack(r, c+1) {
@@ -27,7 +27,7 @@ func DetermineCorners(numRows, numCols int) {
 			}
 		}
 
-		if IsDTopLeft(r, c) && IsDBottomRight(r-1, c-1) { //DUPleft
+		if IsDTopLeft(r, c) || IsDTopLeft2(r, c) && IsDBottomRight(r-1, c-1) { //DUPleft
 			if InBounds(r, c-1, numRows, numCols) && !IsDTopRight(r, c-1) {
 				tr[Cell{r, c - 1}] = v
 				if !OnTrack(r, c-1) {
@@ -42,7 +42,7 @@ func DetermineCorners(numRows, numCols int) {
 			}
 		}
 
-		if IsDBottomRight(r, c) && IsDTopLeft(r+1, c+1) { //DDownRight
+		if IsDBottomRight(r, c) || IsDBottomRight2(r, c) && IsDTopLeft(r+1, c+1) { //DDownRight
 			if InBounds(r+1, c, numRows, numCols) && !IsDTopRight(r+1, c) {
 				tr[Cell{r + 1, c}] = v
 				if !OnTrack(r+1, c) {
@@ -57,7 +57,7 @@ func DetermineCorners(numRows, numCols int) {
 			}
 		}
 
-		if IsDBottomLeft(r, c) && IsDTopRight(r+1, c-1) { //DDownleft
+		if IsDBottomLeft(r, c) || IsDBottomLeft2(r, c) && IsDTopRight(r+1, c-1) { //DDownleft
 			if InBounds(r+1, c, numRows, numCols) && !IsDTopLeft(r+1, c) {
 				tl[Cell{r + 1, c}] = v
 				if !OnTrack(r+1, c) {
