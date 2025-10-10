@@ -233,6 +233,7 @@ func PickNext(numRows, numCols, I int) bool {
 
 		}
 		fmt.Printf("Found Finish, Track completed\n\n")
+		fmt.Printf("TrackLength: %v", TrackLength)
 		return true
 	}
 	if !FindFinish(I) && I+1 < len(Track) {
