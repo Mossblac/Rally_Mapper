@@ -118,8 +118,16 @@ func Grid_Widget(TrackType string, numObstacles int) {
 
 	// Centering wrappers no longer needed; grid self-centers via layout.
 	// Keep your Home button and border layout.
-	homeButton := widget.NewButton("Home", func() { HomeScreen() })
-	RunAgainButton := widget.NewButton("Re-Generate", func() { Grid_Widget(TrackType, numObstacles) })
+	homeButton := widget.NewButton("Home", func() {
+		SafeStop()
+		HomeScreen()
+	})
+	RunAgainButton := widget.NewButton("Re-Generate", func() {
+		SafeStop()
+		go func() {
+			Grid_Widget(TrackType, numObstacles)
+		}()
+	})
 
 	buttonbox := container.NewVBox(homeButton, RunAgainButton)
 
@@ -138,4 +146,11 @@ func Grid_Widget(TrackType string, numObstacles int) {
 		Track = append(Track, cell)
 	}
 	DeterminePath_setStart(CurrentStop, TrackType, numRows, numCols)
+}
+
+func SafeStop() {
+	if CurrentStop != nil {
+		close(CurrentStop)
+		CurrentStop = nil
+	}
 }
