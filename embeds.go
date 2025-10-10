@@ -190,3 +190,6 @@ var Rev_HorizontalSVG []byte
 //go:embed assets/icons/Rev_Vertical.svg
 var Rev_VerticalSVG []byte
 
+//go:embed assets/icons/Grass.svg
+var GrassSVG []byte
+

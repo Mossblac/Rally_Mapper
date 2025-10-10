@@ -202,13 +202,7 @@ func PickNext(numRows, numCols, I int) bool {
 					}
 
 					if Track[i].Rev && !Track[i].Cul {
-						if Track[i].Image.Ic2 != nil {
-							ResetAndTryAgain()
-							return false
-						} else {
-							ticon = DetermineRev(i)
-						}
-
+						ticon = DetermineRev(i)
 					}
 
 					if Track[i].Cul && Track[i].Rev {

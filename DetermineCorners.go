@@ -230,5 +230,6 @@ func MakeTrack(r, c int) {
 	TrackLength++
 	Track[TrackLength+1].CurPosR = r
 	Track[TrackLength+1].CurPosC = c
+	Track[TrackLength+1].Image.Ic1 = Grassicon
 
 }

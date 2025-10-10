@@ -126,3 +126,5 @@ var Rev_Horizontalicon = fyne.NewStaticResource("Rev_Horizontal.svg", Rev_Horizo
 
 var Rev_Verticalicon = fyne.NewStaticResource("Rev_Vertical.svg", Rev_VerticalSVG)
 
+var Grassicon = fyne.NewStaticResource("Grass.svg", GrassSVG)
+
