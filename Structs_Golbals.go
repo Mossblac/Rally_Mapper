@@ -1,8 +1,13 @@
 package main
 
-import "fyne.io/fyne/v2"
+import (
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/canvas"
+)
 
 var Track []TrackCell
+
+var GridBackground *canvas.Rectangle
 
 var CurrentStop chan struct{}
 

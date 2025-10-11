@@ -65,7 +65,7 @@ func (l *squareGridLayout) MinSize(_ []fyne.CanvasObject) fyne.Size {
 }
 
 func calculateCellSize(winSize fyne.Size, rows, cols int) float32 {
-	// Exclude space for buttons on right and bottom (~100px each)
+
 	availableWidth := winSize.Width - 100
 	availableHeight := winSize.Height - 100
 	return float32(math.Min(
@@ -96,7 +96,6 @@ func Grid_Widget(trackType string, numObstacles int) {
 		numRows = 3 * numObstacles
 	}
 
-	// Compute cell size to fit full grid into window
 	winSize := mainWin.Canvas().Size()
 	baseCellSize := calculateCellSize(winSize, numRows, numCols)
 	defaultZoomLevel := float32(1.25) // One zoom-in step
@@ -112,7 +111,6 @@ func Grid_Widget(trackType string, numObstacles int) {
 		float64(winSize.Height-100),
 	) / float64(baseCellSize)))
 
-	// Create grid cells
 	CellGrid = make([][]*fyne.Container, numRows)
 	gridObjects = make([]fyne.CanvasObject, 0, numRows*numCols)
 	for r := 0; r < numRows; r++ {
@@ -131,12 +129,18 @@ func Grid_Widget(trackType string, numObstacles int) {
 			gridObjects = append(gridObjects, cellContainer)
 		}
 	}
+	GridBackground = canvas.NewRectangle(color.Black)
+	gridWidth := gridLayout.cellSize * float32(gridLayout.cols)
+	gridHeight := gridLayout.cellSize * float32(gridLayout.rows)
+	GridBackground.Resize(fyne.NewSize(gridWidth, gridHeight))
 
 	grid := container.New(gridLayout, gridObjects...)
-	centeredGrid := container.NewCenter(grid)
+	centeredGrid := container.NewCenter(container.NewWithoutLayout(GridBackground, grid))
 	scroll = container.NewScroll(centeredGrid)
+	bkg := canvas.NewImageFromFile("./images/backgroundcropped.jpg")
+	bkg.FillMode = canvas.ImageFillStretch
+	scrollStack := container.NewStack(bkg, scroll)
 
-	// Zoom buttons
 	zoomIn := widget.NewButton("+", func() {
 		if zoomLevel < maxZoom {
 			zoomLevel *= 1.25
@@ -144,6 +148,11 @@ func Grid_Widget(trackType string, numObstacles int) {
 				zoomLevel = maxZoom
 			}
 			gridLayout.cellSize = baseCellSize * zoomLevel
+
+			GridBackground.Resize(fyne.NewSize(
+				gridLayout.cellSize*float32(gridLayout.cols),
+				gridLayout.cellSize*float32(gridLayout.rows),
+			))
 			grid.Refresh()
 			scroll.Refresh()
 		}
@@ -155,6 +164,11 @@ func Grid_Widget(trackType string, numObstacles int) {
 				zoomLevel = minZoom
 			}
 			gridLayout.cellSize = baseCellSize * zoomLevel
+
+			GridBackground.Resize(fyne.NewSize(
+				gridLayout.cellSize*float32(gridLayout.cols),
+				gridLayout.cellSize*float32(gridLayout.rows),
+			))
 			grid.Refresh()
 			scroll.Refresh()
 		}
@@ -162,6 +176,11 @@ func Grid_Widget(trackType string, numObstacles int) {
 	resetZoom := widget.NewButton("100%", func() {
 		zoomLevel = defaultZoomLevel
 		gridLayout.cellSize = baseCellSize * zoomLevel
+
+		GridBackground.Resize(fyne.NewSize(
+			gridLayout.cellSize*float32(gridLayout.cols),
+			gridLayout.cellSize*float32(gridLayout.rows),
+		))
 		grid.Refresh()
 		scroll.ScrollToTop()
 		scroll.Refresh()
@@ -190,7 +209,7 @@ func Grid_Widget(trackType string, numObstacles int) {
 		centeredBottom,
 		nil,
 		nil,
-		scroll,
+		scrollStack,
 	)
 
 	mainWin.SetContent(content)

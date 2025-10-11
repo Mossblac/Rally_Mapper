@@ -66,10 +66,13 @@ func HomeScreen() {
 	centeredBox := container.NewCenter(buttonBox)                                             // center the buttons and they will conform to standard size of text
 	borderBox := container.NewBorder(nil, centeredBox, centeredselectBox, centeredTextWindow) // once they are centered, place them on the edge of the screen ( this order matters !)
 
+	bkg := canvas.NewImageFromFile("./images/backgroundcropped.jpg")
+	bkg.FillMode = canvas.ImageFillStretch
+
 	logo := canvas.NewImageFromFile("./images/rally_mapper_logo.png")
 	logo.FillMode = canvas.ImageFillContain
 
-	FullContent := container.NewStack(logo, borderBox)
+	FullContent := container.NewStack(bkg, logo, borderBox)
 
 	mainWin.SetContent(FullContent)
 
@@ -97,3 +100,6 @@ func showInstructions() {
 	mainWin.SetContent(centeredTextContent)
 
 }
+
+/*label := canvas.NewText("Hello, Fyne!", color.White)
+label.TextSize = 24 */
