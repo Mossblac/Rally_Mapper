@@ -8,10 +8,11 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
+var Obstacles []string
+
 func HomeScreen() {
 
 	var courseType string
-	var Obstacles []string
 	var selectedObstacle string
 	Oblist := ""
 	Track = Track[:0]
@@ -32,7 +33,7 @@ func HomeScreen() {
 
 	TypeOptions := []string{"loop", "linear"}
 
-	ObstaclesOption := []string{"Curb", "Drop", "Platform", "Low-Bridge", "Slalom"}
+	ObstaclesOption := []string{"Curb/Drop", "Parking Block", "Low-Bridge", "Slalom"}
 
 	setTypeOption := func(value string) {
 		courseType = value

@@ -23,6 +23,7 @@ type IconSet struct {
 	Ic2 *fyne.StaticResource
 	Ic3 *fyne.StaticResource
 	Ic4 *fyne.StaticResource
+	Ic5 *fyne.StaticResource
 }
 
 type TrackCell struct {

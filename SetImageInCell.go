@@ -21,6 +21,7 @@ func SetImageInCell(row, col int, icons IconSet) {
 			secondimg := ResourceToIcon(icons.Ic2)
 			thirdimg := ResourceToIcon(icons.Ic3)
 			fourthimg := ResourceToIcon(icons.Ic4)
+			fifthimg := ResourceToIcon(icons.Ic5)
 
 			cell := CellGrid[row][col]
 			if cell == nil || len(cell.Objects) < 2 {
@@ -71,7 +72,14 @@ func SetImageInCell(row, col int, icons IconSet) {
 				stack.Add(fourthimg)
 				stack.Refresh()
 
-				FadeInAnimate(fourthimg)
+				DropInAnimate(fourthimg)
+			}
+
+			if icons.Ic5 != nil {
+				stack.Add(fifthimg)
+				stack.Refresh()
+
+				DropInAnimate(fifthimg)
 			}
 
 		})
@@ -99,7 +107,7 @@ func ResourceToIcon(static *fyne.StaticResource) *canvas.Image {
 	return img
 }
 
-/*func DropInAnimate(image *canvas.Image) {
+func DropInAnimate(image *canvas.Image) {
 	// Start above the container
 	originalPos := image.Position()
 	image.Move(fyne.NewPos(originalPos.X, originalPos.Y-100))
@@ -117,4 +125,4 @@ func ResourceToIcon(static *fyne.StaticResource) *canvas.Image {
 	)
 
 	dropAnimation.Start()
-}*/
+}
