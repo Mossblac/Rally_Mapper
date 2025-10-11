@@ -57,7 +57,6 @@ func DeterminePath_setStart(stop <-chan struct{}, TrackType string, numRows, num
 			})
 		}
 	}
-	//mainWin.Canvas().Capture() //this creates an image.Image of the completed map to use later.
 }
 
 func VerifyTrackReset(T []TrackCell) bool {

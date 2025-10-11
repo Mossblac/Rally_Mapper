@@ -2,35 +2,35 @@
 package main
 
 import (
-	"fmt"
 	"image/color"
 	"math"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/widget"
 )
 
-var CellGrid [][]*fyne.Container
+var (
+	CellGrid    [][]*fyne.Container
+	zoomLevel   float32 = 1.0
+	minZoom     float32 = 1.0
+	maxZoom     float32 = 0.0
+	gridLayout  *squareGridLayout
+	gridObjects []fyne.CanvasObject
+	scroll      *container.Scroll
+)
 
-type squareGridLayout struct{ rows, cols int }
+type squareGridLayout struct {
+	rows, cols int
+	cellSize   float32
+}
 
 func (l *squareGridLayout) Layout(objs []fyne.CanvasObject, size fyne.Size) {
 	if l.rows == 0 || l.cols == 0 || len(objs) == 0 {
 		return
 	}
-	cell := float32(math.Min(
-		float64(size.Width/float32(l.cols)),
-		float64(size.Height/float32(l.rows)),
-	))
-	if cell < 1 {
-		cell = 1
-	}
-	gridW := cell * float32(l.cols)
-	gridH := cell * float32(l.rows)
-	offX := (size.Width - gridW) / 2
-	offY := (size.Height - gridH) / 2
 
 	i := 0
 	for r := 0; r < l.rows; r++ {
@@ -38,21 +38,21 @@ func (l *squareGridLayout) Layout(objs []fyne.CanvasObject, size fyne.Size) {
 			if i >= len(objs) {
 				return
 			}
-			x := offX + float32(c)*cell
-			y := offY + float32(r)*cell
+			x := float32(c) * l.cellSize
+			y := float32(r) * l.cellSize
 
 			objs[i].Move(fyne.NewPos(x, y))
-			objs[i].Resize(fyne.NewSize(cell, cell))
+			objs[i].Resize(fyne.NewSize(l.cellSize, l.cellSize))
 
 			if cont, ok := objs[i].(*fyne.Container); ok {
 				if len(cont.Objects) >= 2 {
 					border := cont.Objects[0]
 					stack := cont.Objects[1]
 					border.Move(fyne.NewPos(0, 0))
-					border.Resize(fyne.NewSize(cell, cell))
+					border.Resize(fyne.NewSize(l.cellSize, l.cellSize))
 					const m float32 = 1
 					stack.Move(fyne.NewPos(m, m))
-					stack.Resize(fyne.NewSize(cell-2*m, cell-2*m))
+					stack.Resize(fyne.NewSize(l.cellSize-2*m, l.cellSize-2*m))
 				}
 			}
 			i++
@@ -60,79 +60,140 @@ func (l *squareGridLayout) Layout(objs []fyne.CanvasObject, size fyne.Size) {
 	}
 }
 
-func (l *squareGridLayout) MinSize([]fyne.CanvasObject) fyne.Size {
-
-	return fyne.NewSize(float32(l.cols), float32(l.rows))
+func (l *squareGridLayout) MinSize(_ []fyne.CanvasObject) fyne.Size {
+	return fyne.NewSize(l.cellSize*float32(l.cols), l.cellSize*float32(l.rows))
 }
 
-func Grid_Widget(TrackType string, numObstacles int) {
+func calculateCellSize(winSize fyne.Size, rows, cols int) float32 {
+	// Exclude space for buttons on right and bottom (~100px each)
+	availableWidth := winSize.Width - 100
+	availableHeight := winSize.Height - 100
+	return float32(math.Min(
+		float64(availableWidth)/float64(cols),
+		float64(availableHeight)/float64(rows),
+	))
+}
+
+func Grid_Widget(trackType string, numObstacles int) {
 	if CurrentStop != nil {
 		close(CurrentStop)
 	}
-
 	CurrentStop = make(chan struct{})
 
-	fmt.Print("Creating New Track\n\n")
 	NumObstacles = numObstacles
 	Track = nil
 	TrackLength = 0
 	PreSetCuls = nil
-	var numCols, numRows int
-	twiceObSize := float32(numObstacles * 2)
 
-	if TrackType == "loop" {
+	var numCols, numRows int
+	if trackType == "loop" {
 		TrackT = true
 		numCols = 3 * numObstacles
 		numRows = 3 * numObstacles
-	}
-	if TrackType == "linear" {
+	} else {
 		TrackT = false
 		numCols = 3
 		numRows = 3 * numObstacles
 	}
 
+	// Compute cell size to fit full grid into window
+	winSize := mainWin.Canvas().Size()
+	baseCellSize := calculateCellSize(winSize, numRows, numCols)
+	defaultZoomLevel := float32(1.25) // One zoom-in step
+	zoomLevel = defaultZoomLevel
+	gridLayout = &squareGridLayout{
+		rows:     numRows,
+		cols:     numCols,
+		cellSize: baseCellSize * defaultZoomLevel,
+	}
+
+	maxZoom = float32(math.Floor(math.Min(
+		float64(winSize.Width-100),
+		float64(winSize.Height-100),
+	) / float64(baseCellSize)))
+
+	// Create grid cells
 	CellGrid = make([][]*fyne.Container, numRows)
-	objs := make([]fyne.CanvasObject, 0, numRows*numCols)
+	gridObjects = make([]fyne.CanvasObject, 0, numRows*numCols)
 	for r := 0; r < numRows; r++ {
 		CellGrid[r] = make([]*fyne.Container, numCols)
 		for c := 0; c < numCols; c++ {
-
 			border := canvas.NewRectangle(color.Gray16{Y: 0x4000})
 			content := canvas.NewRectangle(color.Black)
-			content.SetMinSize(fyne.NewSize(40-twiceObSize, 40-twiceObSize))
+			content.SetMinSize(fyne.NewSize(40, 40))
 
 			stack := container.NewStack()
-
 			bg := canvas.NewRectangle(color.Black)
 			stack.Add(bg)
 
 			cellContainer := container.NewWithoutLayout(border, stack)
-
 			CellGrid[r][c] = cellContainer
-			objs = append(objs, cellContainer)
+			gridObjects = append(gridObjects, cellContainer)
 		}
 	}
 
-	// Grid container that auto-scales cells and centers them
-	grid := container.New(&squareGridLayout{rows: numRows, cols: numCols}, objs...)
+	grid := container.New(gridLayout, gridObjects...)
+	centeredGrid := container.NewCenter(grid)
+	scroll = container.NewScroll(centeredGrid)
 
-	// Centering wrappers no longer needed; grid self-centers via layout.
-	// Keep your Home button and border layout.
+	// Zoom buttons
+	zoomIn := widget.NewButton("+", func() {
+		if zoomLevel < maxZoom {
+			zoomLevel *= 1.25
+			if zoomLevel > maxZoom {
+				zoomLevel = maxZoom
+			}
+			gridLayout.cellSize = baseCellSize * zoomLevel
+			grid.Refresh()
+			scroll.Refresh()
+		}
+	})
+	zoomOut := widget.NewButton("-", func() {
+		if zoomLevel > minZoom {
+			zoomLevel /= 1.25
+			if zoomLevel < minZoom {
+				zoomLevel = minZoom
+			}
+			gridLayout.cellSize = baseCellSize * zoomLevel
+			grid.Refresh()
+			scroll.Refresh()
+		}
+	})
+	resetZoom := widget.NewButton("100%", func() {
+		zoomLevel = defaultZoomLevel
+		gridLayout.cellSize = baseCellSize * zoomLevel
+		grid.Refresh()
+		scroll.ScrollToTop()
+		scroll.Refresh()
+	})
+
 	homeButton := widget.NewButton("Home", func() {
 		SafeStop()
 		HomeScreen()
 	})
-	RunAgainButton := widget.NewButton("Re-Generate", func() {
+	runAgainButton := widget.NewButton("Re-Generate", func() {
 		SafeStop()
-		go func() {
-			Grid_Widget(TrackType, numObstacles)
-		}()
+		go Grid_Widget(trackType, numObstacles)
 	})
 
-	buttonbox := container.NewVBox(homeButton, RunAgainButton)
+	bottomButtons := container.NewHBox(
+		zoomIn,
+		zoomOut,
+		resetZoom,
+		homeButton,
+		runAgainButton,
+	)
+	centeredBottom := container.NewCenter(bottomButtons)
 
-	gridWithHomeB := container.NewBorder(nil, buttonbox, nil, nil, grid)
-	mainWin.SetContent(gridWithHomeB)
+	content := container.NewBorder(
+		layout.NewSpacer(),
+		centeredBottom,
+		nil,
+		nil,
+		scroll,
+	)
+
+	mainWin.SetContent(content)
 
 	for i := 0; i < numRows*numCols; i++ {
 		cell := TrackCell{
@@ -145,7 +206,8 @@ func Grid_Widget(TrackType string, numObstacles int) {
 		}
 		Track = append(Track, cell)
 	}
-	DeterminePath_setStart(CurrentStop, TrackType, numRows, numCols)
+
+	DeterminePath_setStart(CurrentStop, trackType, numRows, numCols)
 }
 
 func SafeStop() {
