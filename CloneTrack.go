@@ -13,6 +13,7 @@ func CloneTrack(src []TrackCell) []TrackCell {
 			Ic2: src[i].Image.Ic2,
 			Ic3: src[i].Image.Ic3,
 			Ic4: src[i].Image.Ic4,
+			Ic5: src[i].Image.Ic5,
 		}
 	}
 	return dst
