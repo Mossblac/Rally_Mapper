@@ -128,3 +128,95 @@ var Rev_Verticalicon = fyne.NewStaticResource("Rev_Vertical.svg", Rev_VerticalSV
 
 var Grassicon = fyne.NewStaticResource("Grass.svg", GrassSVG)
 
+var CurbDrop_Curve_B_TLorTL_Bicon = fyne.NewStaticResource("CurbDrop_Curve_B_TLorTL_B.svg", CurbDrop_Curve_B_TLorTL_BSVG)
+
+var CurbDrop_Curve_B_TRorTR_Bicon = fyne.NewStaticResource("CurbDrop_Curve_B_TRorTR_B.svg", CurbDrop_Curve_B_TRorTR_BSVG)
+
+var CurbDrop_Curve_L_BRorBR_Licon = fyne.NewStaticResource("CurbDrop_Curve_L_BRorBR_L.svg", CurbDrop_Curve_L_BRorBR_LSVG)
+
+var CurbDrop_Curve_L_TRorTR_Licon = fyne.NewStaticResource("CurbDrop_Curve_L_TRorTR_L.svg", CurbDrop_Curve_L_TRorTR_LSVG)
+
+var CurbDrop_Curve_R_BLotBL_Ricon = fyne.NewStaticResource("CurbDrop_Curve_R_BLotBL_R.svg", CurbDrop_Curve_R_BLotBL_RSVG)
+
+var CurbDrop_Curve_R_TLotTL_Ricon = fyne.NewStaticResource("CurbDrop_Curve_R_TLotTL_R.svg", CurbDrop_Curve_R_TLotTL_RSVG)
+
+var CurbDrop_Curve_T_BLorBL_Ticon = fyne.NewStaticResource("CurbDrop_Curve_T_BLorBL_T.svg", CurbDrop_Curve_T_BLorBL_TSVG)
+
+var CurbDrop_Curve_T_BRorBR_Ticon = fyne.NewStaticResource("CurbDrop_Curve_T_BRorBR_T.svg", CurbDrop_Curve_T_BRorBR_TSVG)
+
+var CurbDrop_D_TL_BRorBR_TLicon = fyne.NewStaticResource("CurbDrop_D_TL_BRorBR_TL.svg", CurbDrop_D_TL_BRorBR_TLSVG)
+
+var CurbDrop_D_TR_BLorBL_TRicon = fyne.NewStaticResource("CurbDrop_D_TR_BLorBL_TR.svg", CurbDrop_D_TR_BLorBL_TRSVG)
+
+var CurbDrop_Horizontalicon = fyne.NewStaticResource("CurbDrop_Horizontal.svg", CurbDrop_HorizontalSVG)
+
+var CurbDrop_Verticalicon = fyne.NewStaticResource("CurbDrop_Vertical.svg", CurbDrop_VerticalSVG)
+
+var LowBridge_Curve_B_TLorTL_Bicon = fyne.NewStaticResource("LowBridge_Curve_B_TLorTL_B.svg", LowBridge_Curve_B_TLorTL_BSVG)
+
+var LowBridge_Curve_B_TRorTR_Bicon = fyne.NewStaticResource("LowBridge_Curve_B_TRorTR_B.svg", LowBridge_Curve_B_TRorTR_BSVG)
+
+var LowBridge_Curve_L_BRorBR_Licon = fyne.NewStaticResource("LowBridge_Curve_L_BRorBR_L.svg", LowBridge_Curve_L_BRorBR_LSVG)
+
+var LowBridge_Curve_L_TRorTR_Licon = fyne.NewStaticResource("LowBridge_Curve_L_TRorTR_L.svg", LowBridge_Curve_L_TRorTR_LSVG)
+
+var LowBridge_Curve_R_BLorBL_Ricon = fyne.NewStaticResource("LowBridge_Curve_R_BLorBL_R.svg", LowBridge_Curve_R_BLorBL_RSVG)
+
+var LowBridge_Curve_R_TLorTL_Ricon = fyne.NewStaticResource("LowBridge_Curve_R_TLorTL_R.svg", LowBridge_Curve_R_TLorTL_RSVG)
+
+var LowBridge_Curve_T_BLorBL_Ticon = fyne.NewStaticResource("LowBridge_Curve_T_BLorBL_T.svg", LowBridge_Curve_T_BLorBL_TSVG)
+
+var LowBridge_Curve_T_BRorBR_Ticon = fyne.NewStaticResource("LowBridge_Curve_T_BRorBR_T.svg", LowBridge_Curve_T_BRorBR_TSVG)
+
+var LowBridge_D_TL_BRorBR_TLicon = fyne.NewStaticResource("LowBridge_D_TL_BRorBR_TL.svg", LowBridge_D_TL_BRorBR_TLSVG)
+
+var LowBridge_D_TR_BLorBL_TRicon = fyne.NewStaticResource("LowBridge_D_TR_BLorBL_TR.svg", LowBridge_D_TR_BLorBL_TRSVG)
+
+var LowBridge_Horizontalicon = fyne.NewStaticResource("LowBridge_Horizontal.svg", LowBridge_HorizontalSVG)
+
+var LowBridge_Verticalicon = fyne.NewStaticResource("LowBridge_Vertical.svg", LowBridge_VerticalSVG)
+
+var ParkingBlock_Curve_B_TLorTL_Bicon = fyne.NewStaticResource("ParkingBlock_Curve_B_TLorTL_B.svg", ParkingBlock_Curve_B_TLorTL_BSVG)
+
+var ParkingBlock_Curve_B_TRorTR_Bicon = fyne.NewStaticResource("ParkingBlock_Curve_B_TRorTR_B.svg", ParkingBlock_Curve_B_TRorTR_BSVG)
+
+var ParkingBlock_Curve_L_BRorBR_Licon = fyne.NewStaticResource("ParkingBlock_Curve_L_BRorBR_L.svg", ParkingBlock_Curve_L_BRorBR_LSVG)
+
+var ParkingBlock_Curve_L_TRorTR_Licon = fyne.NewStaticResource("ParkingBlock_Curve_L_TRorTR_L.svg", ParkingBlock_Curve_L_TRorTR_LSVG)
+
+var ParkingBlock_Curve_R_BLorBL_Ricon = fyne.NewStaticResource("ParkingBlock_Curve_R_BLorBL_R.svg", ParkingBlock_Curve_R_BLorBL_RSVG)
+
+var ParkingBlock_Curve_R_TLorTL_Ricon = fyne.NewStaticResource("ParkingBlock_Curve_R_TLorTL_R.svg", ParkingBlock_Curve_R_TLorTL_RSVG)
+
+var ParkingBlock_Curve_T_BLorBL_Ticon = fyne.NewStaticResource("ParkingBlock_Curve_T_BLorBL_T.svg", ParkingBlock_Curve_T_BLorBL_TSVG)
+
+var ParkingBlock_Curve_T_BRorBR_Ticon = fyne.NewStaticResource("ParkingBlock_Curve_T_BRorBR_T.svg", ParkingBlock_Curve_T_BRorBR_TSVG)
+
+var ParkingBlock_D_TL_BRorBR_TLicon = fyne.NewStaticResource("ParkingBlock_D_TL_BRorBR_TL.svg", ParkingBlock_D_TL_BRorBR_TLSVG)
+
+var ParkingBlock_D_TR_BLorBL_TRicon = fyne.NewStaticResource("ParkingBlock_D_TR_BLorBL_TR.svg", ParkingBlock_D_TR_BLorBL_TRSVG)
+
+var ParkingBlock_Horizontalicon = fyne.NewStaticResource("ParkingBlock_Horizontal.svg", ParkingBlock_HorizontalSVG)
+
+var ParkingBlock_Verticalicon = fyne.NewStaticResource("ParkingBlock_Vertical.svg", ParkingBlock_VerticalSVG)
+
+var Punch10icon = fyne.NewStaticResource("Punch10.svg", Punch10SVG)
+
+var Punch1icon = fyne.NewStaticResource("Punch1.svg", Punch1SVG)
+
+var Punch2icon = fyne.NewStaticResource("Punch2.svg", Punch2SVG)
+
+var Punch3icon = fyne.NewStaticResource("Punch3.svg", Punch3SVG)
+
+var Punch4icon = fyne.NewStaticResource("Punch4.svg", Punch4SVG)
+
+var Punch5icon = fyne.NewStaticResource("Punch5.svg", Punch5SVG)
+
+var Punch6icon = fyne.NewStaticResource("Punch6.svg", Punch6SVG)
+
+var Punch7icon = fyne.NewStaticResource("Punch7.svg", Punch7SVG)
+
+var Punch8icon = fyne.NewStaticResource("Punch8.svg", Punch8SVG)
+
+var Punch9icon = fyne.NewStaticResource("Punch9.svg", Punch9SVG)
+

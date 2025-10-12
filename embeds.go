@@ -193,3 +193,141 @@ var Rev_VerticalSVG []byte
 //go:embed assets/icons/Grass.svg
 var GrassSVG []byte
 
+//go:embed assets/icons/CurbDrop_Curve_B_TLorTL_B.svg
+var CurbDrop_Curve_B_TLorTL_BSVG []byte
+
+//go:embed assets/icons/CurbDrop_Curve_B_TRorTR_B.svg
+var CurbDrop_Curve_B_TRorTR_BSVG []byte
+
+//go:embed assets/icons/CurbDrop_Curve_L_BRorBR_L.svg
+var CurbDrop_Curve_L_BRorBR_LSVG []byte
+
+//go:embed assets/icons/CurbDrop_Curve_L_TRorTR_L.svg
+var CurbDrop_Curve_L_TRorTR_LSVG []byte
+
+//go:embed assets/icons/CurbDrop_Curve_R_BLotBL_R.svg
+var CurbDrop_Curve_R_BLotBL_RSVG []byte
+
+//go:embed assets/icons/CurbDrop_Curve_R_TLotTL_R.svg
+var CurbDrop_Curve_R_TLotTL_RSVG []byte
+
+//go:embed assets/icons/CurbDrop_Curve_T_BLorBL_T.svg
+var CurbDrop_Curve_T_BLorBL_TSVG []byte
+
+//go:embed assets/icons/CurbDrop_Curve_T_BRorBR_T.svg
+var CurbDrop_Curve_T_BRorBR_TSVG []byte
+
+//go:embed assets/icons/CurbDrop_D_TL_BRorBR_TL.svg
+var CurbDrop_D_TL_BRorBR_TLSVG []byte
+
+//go:embed assets/icons/CurbDrop_D_TR_BLorBL_TR.svg
+var CurbDrop_D_TR_BLorBL_TRSVG []byte
+
+//go:embed assets/icons/CurbDrop_Horizontal.svg
+var CurbDrop_HorizontalSVG []byte
+
+//go:embed assets/icons/CurbDrop_Vertical.svg
+var CurbDrop_VerticalSVG []byte
+
+//go:embed assets/icons/LowBridge_Curve_B_TLorTL_B.svg
+var LowBridge_Curve_B_TLorTL_BSVG []byte
+
+//go:embed assets/icons/LowBridge_Curve_B_TRorTR_B.svg
+var LowBridge_Curve_B_TRorTR_BSVG []byte
+
+//go:embed assets/icons/LowBridge_Curve_L_BRorBR_L.svg
+var LowBridge_Curve_L_BRorBR_LSVG []byte
+
+//go:embed assets/icons/LowBridge_Curve_L_TRorTR_L.svg
+var LowBridge_Curve_L_TRorTR_LSVG []byte
+
+//go:embed assets/icons/LowBridge_Curve_R_BLorBL_R.svg
+var LowBridge_Curve_R_BLorBL_RSVG []byte
+
+//go:embed assets/icons/LowBridge_Curve_R_TLorTL_R.svg
+var LowBridge_Curve_R_TLorTL_RSVG []byte
+
+//go:embed assets/icons/LowBridge_Curve_T_BLorBL_T.svg
+var LowBridge_Curve_T_BLorBL_TSVG []byte
+
+//go:embed assets/icons/LowBridge_Curve_T_BRorBR_T.svg
+var LowBridge_Curve_T_BRorBR_TSVG []byte
+
+//go:embed assets/icons/LowBridge_D_TL_BRorBR_TL.svg
+var LowBridge_D_TL_BRorBR_TLSVG []byte
+
+//go:embed assets/icons/LowBridge_D_TR_BLorBL_TR.svg
+var LowBridge_D_TR_BLorBL_TRSVG []byte
+
+//go:embed assets/icons/LowBridge_Horizontal.svg
+var LowBridge_HorizontalSVG []byte
+
+//go:embed assets/icons/LowBridge_Vertical.svg
+var LowBridge_VerticalSVG []byte
+
+//go:embed assets/icons/ParkingBlock_Curve_B_TLorTL_B.svg
+var ParkingBlock_Curve_B_TLorTL_BSVG []byte
+
+//go:embed assets/icons/ParkingBlock_Curve_B_TRorTR_B.svg
+var ParkingBlock_Curve_B_TRorTR_BSVG []byte
+
+//go:embed assets/icons/ParkingBlock_Curve_L_BRorBR_L.svg
+var ParkingBlock_Curve_L_BRorBR_LSVG []byte
+
+//go:embed assets/icons/ParkingBlock_Curve_L_TRorTR_L.svg
+var ParkingBlock_Curve_L_TRorTR_LSVG []byte
+
+//go:embed assets/icons/ParkingBlock_Curve_R_BLorBL_R.svg
+var ParkingBlock_Curve_R_BLorBL_RSVG []byte
+
+//go:embed assets/icons/ParkingBlock_Curve_R_TLorTL_R.svg
+var ParkingBlock_Curve_R_TLorTL_RSVG []byte
+
+//go:embed assets/icons/ParkingBlock_Curve_T_BLorBL_T.svg
+var ParkingBlock_Curve_T_BLorBL_TSVG []byte
+
+//go:embed assets/icons/ParkingBlock_Curve_T_BRorBR_T.svg
+var ParkingBlock_Curve_T_BRorBR_TSVG []byte
+
+//go:embed assets/icons/ParkingBlock_D_TL_BRorBR_TL.svg
+var ParkingBlock_D_TL_BRorBR_TLSVG []byte
+
+//go:embed assets/icons/ParkingBlock_D_TR_BLorBL_TR.svg
+var ParkingBlock_D_TR_BLorBL_TRSVG []byte
+
+//go:embed assets/icons/ParkingBlock_Horizontal.svg
+var ParkingBlock_HorizontalSVG []byte
+
+//go:embed assets/icons/ParkingBlock_Vertical.svg
+var ParkingBlock_VerticalSVG []byte
+
+//go:embed assets/icons/Punch10.svg
+var Punch10SVG []byte
+
+//go:embed assets/icons/Punch1.svg
+var Punch1SVG []byte
+
+//go:embed assets/icons/Punch2.svg
+var Punch2SVG []byte
+
+//go:embed assets/icons/Punch3.svg
+var Punch3SVG []byte
+
+//go:embed assets/icons/Punch4.svg
+var Punch4SVG []byte
+
+//go:embed assets/icons/Punch5.svg
+var Punch5SVG []byte
+
+//go:embed assets/icons/Punch6.svg
+var Punch6SVG []byte
+
+//go:embed assets/icons/Punch7.svg
+var Punch7SVG []byte
+
+//go:embed assets/icons/Punch8.svg
+var Punch8SVG []byte
+
+//go:embed assets/icons/Punch9.svg
+var Punch9SVG []byte
+
