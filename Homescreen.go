@@ -1,6 +1,8 @@
 package main
 
 import (
+	"image/color"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
@@ -8,7 +10,7 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-var Obstacles []string
+var Obstacles []string //not resetting to nil when returning to homscreen, but you need to change the whole setup
 
 func HomeScreen() {
 
@@ -17,6 +19,41 @@ func HomeScreen() {
 	Oblist := ""
 	Track = Track[:0]
 	RevCount = 0
+
+	courseType = "loop"
+	Stroke := canvas.NewText("Loop", color.Black)
+	Stroke.TextStyle.Bold = true
+	Stroke.TextSize = 62
+
+	LargeText := canvas.NewText("Loop", color.RGBA{R: 54, G: 1, B: 63, A: 255})
+	LargeText.TextStyle.Bold = true
+	LargeText.TextSize = 60
+
+	SmallText := canvas.NewText("Check to switch to : linear", color.Black)
+	SmallText.TextSize = 20
+
+	TtypeCheck := widget.NewCheck("", func(checked bool) {
+		if checked {
+			courseType = "linear"
+			LargeText.Text = "Linear"
+			Stroke.Text = "Linear"
+			SmallText.Text = "Check to switch to : loop"
+			Stroke.Refresh()
+			SmallText.Refresh()
+			LargeText.Refresh()
+		} else {
+			courseType = "loop"
+			LargeText.Text = "Loop"
+			Stroke.Text = "Loop"
+			SmallText.Text = "Check to switch to : linear"
+			Stroke.Refresh()
+			SmallText.Refresh()
+			LargeText.Refresh()
+		}
+
+	})
+	StrokeStack := container.NewStack(Stroke, LargeText)
+	CenteredCheckBoxAndText := container.NewCenter(StrokeStack)
 
 	mainB := widget.NewButton("Instructions", func() {
 		showInstructions()
@@ -31,13 +68,7 @@ func HomeScreen() {
 	TextWindow := widget.NewLabel("")
 	MaxObWindow := widget.NewLabel("")
 
-	TypeOptions := []string{"loop", "linear"}
-
 	ObstaclesOption := []string{"Curb/Drop", "Parking Block", "Low-Bridge", "Slalom"}
-
-	setTypeOption := func(value string) {
-		courseType = value
-	}
 
 	setObstacleOption := func(s string) {
 		selectedObstacle = s
@@ -54,18 +85,19 @@ func HomeScreen() {
 
 	})
 
-	courseTypeSelect := widget.NewSelect(TypeOptions, setTypeOption)
 	ObstacleSelect := widget.NewSelect(ObstaclesOption, setObstacleOption)
 	addObstacleBox := container.NewHBox(ObstacleSelect, addButton)
-	selectBox := container.NewVBox(widget.NewLabel("Course Type"), courseTypeSelect, widget.NewLabel("# Obstacles"), addObstacleBox)
+	CheckBoxV := container.NewHBox(TtypeCheck, SmallText)
+	selectBox := container.NewVBox(widget.NewLabel("# Obstacles"), addObstacleBox)
 	centeredselectBox := container.NewCenter(selectBox)
+	CheckAndSelectBox := container.NewVBox(CheckBoxV, centeredselectBox)
 
 	VBoxTextWindow := container.NewVBox(TextWindow, MaxObWindow)
 	centeredTextWindow := container.NewCenter(VBoxTextWindow)
 
-	buttonBox := container.NewHBox(mainB, createB)                                            //new horizontal box, making buttons side by side
-	centeredBox := container.NewCenter(buttonBox)                                             // center the buttons and they will conform to standard size of text
-	borderBox := container.NewBorder(nil, centeredBox, centeredselectBox, centeredTextWindow) // once they are centered, place them on the edge of the screen ( this order matters !)
+	buttonBox := container.NewHBox(mainB, createB)                                                                //new horizontal box, making buttons side by side
+	centeredBox := container.NewCenter(buttonBox)                                                                 // center the buttons and they will conform to standard size of text
+	borderBox := container.NewBorder(CenteredCheckBoxAndText, centeredBox, CheckAndSelectBox, centeredTextWindow) // once they are centered, place them on the edge of the screen ( this order matters !)
 
 	bkg := canvas.NewImageFromFile("./images/backgroundcropped.jpg")
 	bkg.FillMode = canvas.ImageFillStretch

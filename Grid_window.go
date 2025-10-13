@@ -98,7 +98,7 @@ func Grid_Widget(trackType string, numObstacles int) {
 
 	winSize := mainWin.Canvas().Size()
 	baseCellSize := calculateCellSize(winSize, numRows, numCols)
-	defaultZoomLevel := float32(1.25) // One zoom-in step
+	defaultZoomLevel := float32(1.0) // Default Zoom Level
 	zoomLevel = defaultZoomLevel
 	gridLayout = &squareGridLayout{
 		rows:     numRows,
