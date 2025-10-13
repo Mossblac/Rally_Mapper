@@ -70,6 +70,8 @@ func HomeScreen() {
 	}
 
 	TrackSizeSelect := widget.NewSelect(Loop_UnChecked_options, TrackSizeConverter)
+	selectbackground := canvas.NewRectangle(color.Black)
+	TrackSizeSelectStack := container.NewStack(selectbackground, TrackSizeSelect)
 
 	TtypeCheck := widget.NewCheck("", func(checked bool) {
 		if checked {
@@ -119,7 +121,7 @@ func HomeScreen() {
 	picktracksizeText.TextStyle.Bold = true
 	picktracksizeText.TextSize = 20
 
-	TrackSizeSelectCentered := container.NewCenter(TrackSizeSelect)
+	TrackSizeSelectCentered := container.NewCenter(TrackSizeSelectStack)
 	CheckAndSelectBox := container.NewVBox(CheckBoxV, picktracksizeText, TrackSizeSelectCentered)
 
 	VBoxTextWindow := container.NewVBox(TextWindow, MaxObWindow)
