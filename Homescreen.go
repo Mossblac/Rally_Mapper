@@ -10,15 +10,16 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-var Obstacles []string //not resetting to nil when returning to homscreen, but you need to change the whole setup
+var Obstacles []string //use for ob list
+var TrackSize int
 
 func HomeScreen() {
 
 	var courseType string
-	var selectedObstacle string
-	Oblist := ""
+
 	Track = Track[:0]
 	RevCount = 0
+	TrackSize = 0
 
 	courseType = "loop"
 	Stroke := canvas.NewText("Loop", color.Black)
@@ -32,8 +33,49 @@ func HomeScreen() {
 	SmallText := canvas.NewText("Check to switch to : linear", color.Black)
 	SmallText.TextSize = 20
 
+	Linear_Checked_options := []string{"120ft", "180ft", "240ft", "300ft", "360ft", "420ft", "480ft"}
+	Loop_UnChecked_options := []string{"3600sqft", "8100sqft", "14400sqft", "22500sqft", "32400sqft", "44100sqft", "57600sqft"}
+
+	TrackSizeConverter := func(s string) {
+		switch s {
+		case "3600sqft":
+			TrackSize = 2
+		case "8100sqft":
+			TrackSize = 3
+		case "14400sqft":
+			TrackSize = 4
+		case "22500sqft":
+			TrackSize = 5
+		case "32400sqft":
+			TrackSize = 6
+		case "44100sqft":
+			TrackSize = 7
+		case "57600sqft":
+			TrackSize = 8
+		case "120ft":
+			TrackSize = 2
+		case "180ft":
+			TrackSize = 3
+		case "240ft":
+			TrackSize = 4
+		case "300ft":
+			TrackSize = 5
+		case "360ft":
+			TrackSize = 6
+		case "420ft":
+			TrackSize = 7
+		case "480ft":
+			TrackSize = 8
+		}
+	}
+
+	TrackSizeSelect := widget.NewSelect(Loop_UnChecked_options, TrackSizeConverter)
+
 	TtypeCheck := widget.NewCheck("", func(checked bool) {
 		if checked {
+			TrackSizeSelect.Options = Linear_Checked_options
+			TrackSizeSelect.ClearSelected()
+			TrackSizeSelect.Refresh()
 			courseType = "linear"
 			LargeText.Text = "Linear"
 			Stroke.Text = "Linear"
@@ -42,6 +84,9 @@ func HomeScreen() {
 			SmallText.Refresh()
 			LargeText.Refresh()
 		} else {
+			TrackSizeSelect.Options = Loop_UnChecked_options
+			TrackSizeSelect.ClearSelected()
+			TrackSizeSelect.Refresh()
 			courseType = "loop"
 			LargeText.Text = "Loop"
 			Stroke.Text = "Loop"
@@ -61,36 +106,21 @@ func HomeScreen() {
 
 	createB := widget.NewButton("create", func() {
 		fyne.DoAndWait(func() {
-			Grid_Widget(courseType, len(Obstacles))
+			Grid_Widget(courseType, TrackSize)
 		})
 	})
 
 	TextWindow := widget.NewLabel("")
 	MaxObWindow := widget.NewLabel("")
 
-	ObstaclesOption := []string{"Curb/Drop", "Parking Block", "Low-Bridge", "Slalom"}
-
-	setObstacleOption := func(s string) {
-		selectedObstacle = s
-	}
-
-	addButton := widget.NewButton("Add", func() {
-		if len(Obstacles) < 10 {
-			Obstacles = append(Obstacles, selectedObstacle)
-			Oblist += selectedObstacle + "          " + "\n"
-			TextWindow.SetText(Oblist)
-		} else {
-			MaxObWindow.SetText("max number\n of obstacles\n added!")
-		}
-
-	})
-
-	ObstacleSelect := widget.NewSelect(ObstaclesOption, setObstacleOption)
-	addObstacleBox := container.NewHBox(ObstacleSelect, addButton)
 	CheckBoxV := container.NewHBox(TtypeCheck, SmallText)
-	selectBox := container.NewVBox(widget.NewLabel("# Obstacles"), addObstacleBox)
-	centeredselectBox := container.NewCenter(selectBox)
-	CheckAndSelectBox := container.NewVBox(CheckBoxV, centeredselectBox)
+
+	picktracksizeText := canvas.NewText("Select Track Size:", color.RGBA{R: 54, G: 1, B: 63, A: 255})
+	picktracksizeText.TextStyle.Bold = true
+	picktracksizeText.TextSize = 20
+
+	TrackSizeSelectCentered := container.NewCenter(TrackSizeSelect)
+	CheckAndSelectBox := container.NewVBox(CheckBoxV, picktracksizeText, TrackSizeSelectCentered)
 
 	VBoxTextWindow := container.NewVBox(TextWindow, MaxObWindow)
 	centeredTextWindow := container.NewCenter(VBoxTextWindow)
@@ -133,6 +163,3 @@ func showInstructions() {
 	mainWin.SetContent(centeredTextContent)
 
 }
-
-/*label := canvas.NewText("Hello, Fyne!", color.White)
-label.TextSize = 24 */

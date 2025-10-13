@@ -93,7 +93,7 @@ func Grid_Widget(trackType string, numObstacles int) {
 	} else {
 		TrackT = false
 		numCols = 3
-		numRows = 3 * numObstacles
+		numRows = 6 * numObstacles
 	}
 
 	winSize := mainWin.Canvas().Size()

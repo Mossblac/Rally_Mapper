@@ -8,11 +8,11 @@ func ResetAndTryAgain() {
 	RevCount = 0
 	if TrackT {
 		fyne.Do(func() {
-			Grid_Widget("loop", NumObstacles)
+			Grid_Widget("loop", TrackSize)
 		})
 	} else {
 		fyne.Do(func() {
-			Grid_Widget("linear", NumObstacles)
+			Grid_Widget("linear", TrackSize)
 		})
 	}
 }
