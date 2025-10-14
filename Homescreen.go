@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"image/color"
+	"strings"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
@@ -12,6 +14,7 @@ import (
 
 var Obstacles []string //use for ob list
 var TrackSize int
+var ObDisplay string
 
 func HomeScreen() {
 
@@ -21,12 +24,76 @@ func HomeScreen() {
 	RevCount = 0
 	TrackSize = 0
 
+	ObDisplayText := widget.NewLabel("") //this is what goes in your display box as centered text
+	ObDisplayText.Alignment = fyne.TextAlignCenter
+
+	AddObstacleButtonLowBridge := widget.NewButton("+", func() {
+		ObstacleListBuilderADD("LowBridge")
+		ObDisplayText.Text = ObDisplay
+		ObDisplayText.Refresh()
+	})
+
+	RemoveObstacleButtonLowBride := widget.NewButton("-", func() {
+		ObstacleListBuilderREMOVE("LowBridge")
+		ObDisplayText.Text = ObDisplay
+		ObDisplayText.Refresh()
+	})
+
+	AddObstacleButtonParkingBlock := widget.NewButton("+", func() {
+		ObstacleListBuilderADD("ParkingBlock")
+		ObDisplayText.Text = ObDisplay
+		ObDisplayText.Refresh()
+	})
+
+	RemoveObstacleButtonParkingBlock := widget.NewButton("-", func() {
+		ObstacleListBuilderREMOVE("ParkingBlock")
+		ObDisplayText.Text = ObDisplay
+		ObDisplayText.Refresh()
+	})
+
+	AddObstacleButtonCurb_Drop := widget.NewButton("+", func() {
+		ObstacleListBuilderADD("Curb_Drop")
+		ObDisplayText.Text = ObDisplay
+		ObDisplayText.Refresh()
+	})
+
+	RemoveObstacleButtonCurb_Drop := widget.NewButton("-", func() {
+		ObstacleListBuilderREMOVE("Curb_Drop")
+		ObDisplayText.Text = ObDisplay
+		ObDisplayText.Refresh()
+	})
+
+	lowbridge := canvas.NewImageFromResource(LowBridge_Verticalicon)
+	lowbridge.FillMode = canvas.ImageFillContain
+	lowbridge.SetMinSize(fyne.NewSize(40, 40))
+	parkingBlock := canvas.NewImageFromResource(ParkingBlock_Verticalicon)
+	parkingBlock.FillMode = canvas.ImageFillContain
+	parkingBlock.SetMinSize(fyne.NewSize(40, 40))
+	curb_drop := canvas.NewImageFromResource(CurbDrop_Verticalicon)
+	curb_drop.FillMode = canvas.ImageFillContain
+	curb_drop.SetMinSize(fyne.NewSize(65, 65))
+
+	iconBackground := canvas.NewRectangle(color.Black)
+	iconBackground.SetMinSize(fyne.NewSize(70, 70))
+
+	lowBridgeStack := container.NewStack(iconBackground, container.NewCenter(lowbridge))
+	parkingBlockStack := container.NewStack(iconBackground, container.NewCenter(parkingBlock))
+	curb_dropStack := container.NewStack(iconBackground, container.NewCenter(curb_drop))
+
+	lowbridgeWithButtons := container.NewHBox(layout.NewSpacer(), RemoveObstacleButtonLowBride, lowBridgeStack, AddObstacleButtonLowBridge, layout.NewSpacer())
+	parkingblockWithButtons := container.NewHBox(layout.NewSpacer(), RemoveObstacleButtonParkingBlock, parkingBlockStack, AddObstacleButtonParkingBlock, layout.NewSpacer())
+	curb_dropWithButtons := container.NewHBox(layout.NewSpacer(), RemoveObstacleButtonCurb_Drop, curb_dropStack, AddObstacleButtonCurb_Drop, layout.NewSpacer())
+
+	IconVBox := container.NewVBox(lowbridgeWithButtons, parkingblockWithButtons, curb_dropWithButtons) // icons still not showing up.
+
+	canvas.Refresh(lowbridge)
+	canvas.Refresh(parkingBlock)
+	canvas.Refresh(curb_drop)
+
 	courseType = "loop"
-	Stroke := canvas.NewText("Loop", color.Black)
-	Stroke.TextStyle.Bold = true
-	Stroke.TextSize = 62
 
 	LargeText := canvas.NewText("Loop", color.RGBA{R: 54, G: 1, B: 63, A: 255})
+	LargeText.Alignment = fyne.TextAlignCenter
 	LargeText.TextStyle.Bold = true
 	LargeText.TextSize = 60
 
@@ -80,9 +147,7 @@ func HomeScreen() {
 			TrackSizeSelect.Refresh()
 			courseType = "linear"
 			LargeText.Text = "Linear"
-			Stroke.Text = "Linear"
 			SmallText.Text = "Check to switch to : loop"
-			Stroke.Refresh()
 			SmallText.Refresh()
 			LargeText.Refresh()
 		} else {
@@ -91,16 +156,12 @@ func HomeScreen() {
 			TrackSizeSelect.Refresh()
 			courseType = "loop"
 			LargeText.Text = "Loop"
-			Stroke.Text = "Loop"
 			SmallText.Text = "Check to switch to : linear"
-			Stroke.Refresh()
 			SmallText.Refresh()
 			LargeText.Refresh()
 		}
 
 	})
-	StrokeStack := container.NewStack(Stroke, LargeText)
-	CenteredCheckBoxAndText := container.NewCenter(StrokeStack)
 
 	mainB := widget.NewButton("Instructions", func() {
 		showInstructions()
@@ -112,24 +173,24 @@ func HomeScreen() {
 		})
 	})
 
-	TextWindow := widget.NewLabel("")
-	MaxObWindow := widget.NewLabel("")
-
-	CheckBoxV := container.NewHBox(TtypeCheck, SmallText)
+	CheckBox := container.NewVBox(TtypeCheck, SmallText)
 
 	picktracksizeText := canvas.NewText("Select Track Size:", color.RGBA{R: 54, G: 1, B: 63, A: 255})
 	picktracksizeText.TextStyle.Bold = true
 	picktracksizeText.TextSize = 20
 
 	TrackSizeSelectCentered := container.NewCenter(TrackSizeSelectStack)
-	CheckAndSelectBox := container.NewVBox(CheckBoxV, picktracksizeText, TrackSizeSelectCentered)
+	CheckAndSelectBox := container.NewVBox(CheckBox, picktracksizeText, TrackSizeSelectCentered, IconVBox) //left box
 
-	VBoxTextWindow := container.NewVBox(TextWindow, MaxObWindow)
-	centeredTextWindow := container.NewCenter(VBoxTextWindow)
+	buttonBox := container.NewHBox(mainB, createB)
+	centeredBox := container.NewCenter(buttonBox)
+	ObstacleDisplayBKGRD := canvas.NewRectangle(color.Black)
+	ObstacleDisplayBKGRD.SetMinSize(fyne.NewSize(170, 300))
 
-	buttonBox := container.NewHBox(mainB, createB)                                                                //new horizontal box, making buttons side by side
-	centeredBox := container.NewCenter(buttonBox)                                                                 // center the buttons and they will conform to standard size of text
-	borderBox := container.NewBorder(CenteredCheckBoxAndText, centeredBox, CheckAndSelectBox, centeredTextWindow) // once they are centered, place them on the edge of the screen ( this order matters !)
+	ObDisplayStack := container.NewStack(ObstacleDisplayBKGRD, container.NewCenter(ObDisplayText))
+	obDisplayVbox := container.NewVBox(layout.NewSpacer(), ObDisplayStack, layout.NewSpacer())
+
+	borderBox := container.NewBorder(container.NewCenter(LargeText), centeredBox, CheckAndSelectBox, obDisplayVbox)
 
 	bkg := canvas.NewImageFromFile("./images/backgroundcropped.jpg")
 	bkg.FillMode = canvas.ImageFillStretch
@@ -164,4 +225,25 @@ func showInstructions() {
 
 	mainWin.SetContent(centeredTextContent)
 
+}
+
+func ObstacleListBuilderADD(obtype string) {
+	if len(Obstacles) < 10 {
+		Obstacles = append(Obstacles, obtype)
+		ObDisplay = strings.Join(Obstacles, "\n")
+	} else {
+		ObDisplay += "\nmax 10" //keeps adding this
+	}
+}
+
+func ObstacleListBuilderREMOVE(obtype string) {
+	lastIndex := strings.LastIndex(ObDisplay, obtype+"\n")
+	if lastIndex == -1 {
+		return
+	} else {
+		ObDisplay = ObDisplay[:lastIndex] + ObDisplay[lastIndex+len(obtype+"\n"):]
+		Obstacles = strings.Split(ObDisplay, "\n")
+	}
+
+	fmt.Printf("%v\n", Obstacles) //not removing last item.
 }
