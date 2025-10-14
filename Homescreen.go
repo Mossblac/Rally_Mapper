@@ -231,19 +231,49 @@ func ObstacleListBuilderADD(obtype string) {
 	if len(Obstacles) < 10 {
 		Obstacles = append(Obstacles, obtype)
 		ObDisplay = strings.Join(Obstacles, "\n")
-	} else {
-		ObDisplay += "\nmax 10" //keeps adding this
 	}
+	if len(strings.Split(ObDisplay, "\n")) == 10 {
+		return
+	}
+
 }
 
 func ObstacleListBuilderREMOVE(obtype string) {
-	lastIndex := strings.LastIndex(ObDisplay, obtype+"\n")
-	if lastIndex == -1 {
-		return
-	} else {
-		ObDisplay = ObDisplay[:lastIndex] + ObDisplay[lastIndex+len(obtype+"\n"):]
-		Obstacles = strings.Split(ObDisplay, "\n")
+	var NewObstacles []string
+	obcount := 0
+	for _, item := range Obstacles {
+		if item == obtype {
+			obcount++
+		}
 	}
 
-	fmt.Printf("%v\n", Obstacles) //not removing last item.
+	if len(Obstacles) == 1 && obcount == 1 {
+		Obstacles = nil
+		ObDisplay = ""
+	}
+
+	if len(Obstacles) > 1 && obcount == 1 {
+		for _, item := range Obstacles {
+			if item != obtype {
+				NewObstacles = append(NewObstacles, item)
+				Obstacles = NewObstacles
+				ObDisplay = strings.Join(Obstacles, "\n")
+			}
+		}
+
+	}
+	if obcount == 0 {
+		return
+
+	} else {
+		lastIndex := strings.LastIndex(ObDisplay, obtype+"\n")
+		if lastIndex == -1 {
+			return
+		} else {
+			ObDisplay = ObDisplay[:lastIndex] + ObDisplay[lastIndex+len(obtype+"\n"):]
+			Obstacles = strings.Split(ObDisplay, "\n")
+		}
+	}
+
+	fmt.Printf("%v\n", Obstacles) //still not fucking working
 }
