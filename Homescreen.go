@@ -12,7 +12,7 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-var Obstacles []string //use for ob list
+var Obstacles []string
 var TrackSize int
 var ObDisplay string
 
@@ -24,7 +24,7 @@ func HomeScreen() {
 	RevCount = 0
 	TrackSize = 0
 
-	ObDisplayText := widget.NewLabel("") //this is what goes in your display box as centered text
+	ObDisplayText := widget.NewLabel("")
 	ObDisplayText.Alignment = fyne.TextAlignCenter
 
 	AddObstacleButtonLowBridge := widget.NewButton("+", func() {
@@ -173,14 +173,21 @@ func HomeScreen() {
 		})
 	})
 
-	CheckBox := container.NewVBox(TtypeCheck, SmallText)
+	CheckBox := container.NewHBox(SmallText, TtypeCheck)
 
 	picktracksizeText := canvas.NewText("Select Track Size:", color.RGBA{R: 54, G: 1, B: 63, A: 255})
 	picktracksizeText.TextStyle.Bold = true
 	picktracksizeText.TextSize = 20
 
 	TrackSizeSelectCentered := container.NewCenter(TrackSizeSelectStack)
-	CheckAndSelectBox := container.NewVBox(CheckBox, picktracksizeText, TrackSizeSelectCentered, IconVBox) //left box
+
+	SelectObstacles := widget.NewLabel("Choose Obstacles\nMax 10")
+	SelectObstacles.Alignment = fyne.TextAlignCenter
+	SelObBKG := canvas.NewRectangle(color.Black)
+	SelectObTxtStack := container.NewStack(SelObBKG, SelectObstacles)
+	SelectObTextBox := container.NewHBox(layout.NewSpacer(), SelectObTxtStack, layout.NewSpacer())
+
+	CheckAndSelectBox := container.NewVBox(CheckBox, picktracksizeText, TrackSizeSelectCentered, SelectObTextBox, IconVBox) //left box
 
 	buttonBox := container.NewHBox(mainB, createB)
 	centeredBox := container.NewCenter(buttonBox)
