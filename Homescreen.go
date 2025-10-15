@@ -169,9 +169,13 @@ func HomeScreen() {
 	})
 
 	createB := widget.NewButton("create", func() {
-		fyne.DoAndWait(func() {
-			Grid_Widget(courseType, TrackSize)
-		})
+		if TrackSize == 0 {
+			return
+		} else {
+			fyne.DoAndWait(func() {
+				Grid_Widget(courseType, TrackSize)
+			})
+		}
 	})
 
 	CheckBox := container.NewHBox(SmallText, TtypeCheck)

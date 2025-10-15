@@ -2,8 +2,6 @@ package main
 
 import "fmt"
 
-var SpacingList []int
-
 func DetermineObstacles() {
 	for i := 0; i < len(SpacingList); i++ {
 		if !NotPlacable(SpacingList[i]) {
@@ -42,9 +40,11 @@ func RecursiveBack(I int) int {
 	return 0
 }
 
-func RecursiveForward(I int) int { // needs to be next in Spacing list, not the number plus 1
-	if I == SpacingList[I+1] {
-		return 0
+func RecursiveForward(I int) int { // test
+	for i := range SpacingList {
+		if I == SpacingList[i] {
+			return 0
+		}
 	}
 	if NotPlacable(I) {
 		RecursiveForward(I + 1)
@@ -58,9 +58,9 @@ func CalcSpacing() { // call before Determine Obstacles
 	if len(Obstacles) == 0 {
 		return
 	} else {
-		Spacing := TrackLength / (len(Obstacles) + 1)
+		spacing := TFinish / (len(Obstacles) + 1)
 		for i := 1; i < len(Obstacles)+1; i++ {
-			SpacingList = append(SpacingList, Spacing*i)
+			SpacingList = append(SpacingList, spacing*i)
 		}
 		fmt.Printf("%v\n", SpacingList)
 		if len(SpacingList) != len(Obstacles) {
@@ -91,6 +91,11 @@ func NotPlacable(I int) bool {
 }
 
 func DetermineOBIconAndPlace(I int, obstacle string) { // ect, etc...
+	for i := range TFinish {
+		if Track[i].CurPosR == Track[I].CurPosR && Track[i].CurPosC == Track[I].CurPosC {
+			Track[i].Image.Ic4 = UnsetPlaceholdericon
+		}
+	}
 	Track[I].Image.Ic4 = UnsetPlaceholdericon
 	/*ic1 := Track[I].Image.Ic1
 	if obstacle == "LowBridge" {

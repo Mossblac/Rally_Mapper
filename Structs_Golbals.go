@@ -10,8 +10,9 @@ var Track []TrackCell
 var GridBackground *canvas.Rectangle
 
 var CurrentStop chan struct{}
-
+var SpacingList []int
 var TrackLength int
+var TFinish int
 
 var NumObstacles int
 var RevCount int

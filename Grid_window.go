@@ -83,7 +83,9 @@ func Grid_Widget(trackType string, numObstacles int) {
 	NumObstacles = numObstacles
 	Track = nil
 	TrackLength = 0
+	TFinish = 0
 	PreSetCuls = nil
+	SpacingList = nil
 
 	var numCols, numRows int
 	if trackType == "loop" {
