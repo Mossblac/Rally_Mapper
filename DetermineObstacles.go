@@ -44,7 +44,7 @@ func RecursiveBack(I int) int {
 	return 0
 }
 
-func RecursiveForward(I int) int { // test
+func RecursiveForward(I int) int {
 	for i := range SpacingList {
 		if I == SpacingList[i] {
 			return 0

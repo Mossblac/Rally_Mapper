@@ -229,6 +229,7 @@ func PickNext(stop <-chan struct{}, numRows, numCols, I int) bool {
 				}
 				CalcSpacing()
 				DetermineObstacles()
+				DeterminePunches()
 			}
 			for i := 0; i < I+1; i++ {
 				ic1 := Track[i].Image.Ic1
