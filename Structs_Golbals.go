@@ -1,6 +1,8 @@
 package main
 
 import (
+	"time"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
 )
@@ -39,4 +41,5 @@ type TrackCell struct {
 	Cul      bool
 	Rev      bool
 	RevRef   int
+	PTime    time.Time
 }

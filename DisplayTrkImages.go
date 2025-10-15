@@ -21,7 +21,7 @@ func DisplayTrkImages(stop <-chan struct{}) {
 			case <-stop:
 				return
 			default:
-				m := Track[i]
+				m := trackClone[i]
 				if m.CurPosR != -1 && m.CurPosC != -1 {
 					SetImageInCell(m.CurPosR, m.CurPosC, m.Image)
 				}
@@ -39,6 +39,7 @@ func DisplayTrkImages(stop <-chan struct{}) {
 		fmt.Printf("Track Length : %v\n", TrackLength)
 		fmt.Printf("TFinish : %v\n", TFinish)
 		fmt.Printf("all images set\n\n")
+		fmt.Printf("%v", TotalTrackTime())
 
 	}()
 }

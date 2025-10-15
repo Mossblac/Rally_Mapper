@@ -2,8 +2,10 @@ package main
 
 import "fyne.io/fyne/v2"
 
-func DeterminePunches() { //after obstacles are placed, changes SpacingList
-	//var EndofRevsList []int
+func DeterminePunches() {
+	if len(Obstacles) == 0 {
+		return
+	}
 	var PunchList []int
 	PunchImages := []*fyne.StaticResource{
 		Punch1icon,
@@ -23,10 +25,6 @@ func DeterminePunches() { //after obstacles are placed, changes SpacingList
 			CulsNeedsPunch := i
 			PunchList = append(PunchList, CulsNeedsPunch)
 		}
-		/*if Track[i].Rev && !Track[i+1].Rev {
-			EndofRevint := i
-			EndofRevsList = append(EndofRevsList, EndofRevint)
-		}*/
 	}
 	if len(PunchList) > 10 {
 		PunchList = PunchList[:10]
