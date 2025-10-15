@@ -55,13 +55,17 @@ func RecursiveForward(I int) int { // needs to be next in Spacing list, not the 
 }
 
 func CalcSpacing() { // call before Determine Obstacles
-	Spacing := TrackLength / (len(Obstacles) + 1)
-	for i := 1; i < len(Obstacles)+1; i++ {
-		SpacingList = append(SpacingList, Spacing*i)
-	}
-	fmt.Printf("%v\n", SpacingList)
-	if len(SpacingList) != len(Obstacles) {
-		fmt.Printf("error calculating spacing, SpacingList: %v, Obstacles: %v\n", len(SpacingList), len(Obstacles))
+	if len(Obstacles) == 0 {
+		return
+	} else {
+		Spacing := TrackLength / (len(Obstacles) + 1)
+		for i := 1; i < len(Obstacles)+1; i++ {
+			SpacingList = append(SpacingList, Spacing*i)
+		}
+		fmt.Printf("%v\n", SpacingList)
+		if len(SpacingList) != len(Obstacles) {
+			fmt.Printf("error calculating spacing, SpacingList: %v, Obstacles: %v\n", len(SpacingList), len(Obstacles))
+		}
 	}
 }
 
