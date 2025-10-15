@@ -225,6 +225,8 @@ func PickNext(stop <-chan struct{}, numRows, numCols, I int) bool {
 						Track[i].Image = ticon
 					}
 					DetermineCorners(numRows, numCols)
+					//CalcSpacing()
+					//DetermineObstacles()
 				}
 			}
 			for i := 0; i < I+1; i++ {

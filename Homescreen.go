@@ -17,6 +17,7 @@ var TrackSize int
 var ObDisplay string
 
 func HomeScreen() {
+	Obstacles = nil
 
 	var courseType string
 
