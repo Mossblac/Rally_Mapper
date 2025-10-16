@@ -13,7 +13,7 @@ func main() {
 	Rally_Mapper := app.New()
 	mainWin = Rally_Mapper.NewWindow("Rally Mapper")
 	punchWin = Rally_Mapper.NewWindow("Punch Info")
-	punchWin.Resize(fyne.NewSize(700, 700))
+	punchWin.Resize(fyne.NewSize(300, 500))
 	punchWin.Hide()
 	mainWin.Resize(fyne.NewSize(800, 800))
 	mainWin.SetMaster()

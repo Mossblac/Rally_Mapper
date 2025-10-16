@@ -92,6 +92,10 @@ func PunchInfo() {
 
 	PBorderBox := container.NewBorder(nil, CloseButtonCentered, nil, nil, AllInfoScroll)
 
+	punchWin.SetCloseIntercept(func() {
+		punchWin.Hide()
+	})
+
 	punchWin.SetContent(PBorderBox)
 }
 
