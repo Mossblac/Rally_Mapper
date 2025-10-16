@@ -24,11 +24,11 @@ var RevCount int
 var TrackT bool
 var PreSetCuls []int
 var PunchList []int
-var LoadingPunchList []int
 
 var ClickedOnce bool
 var Loading bool
 var none TrackSave
+var LoadedTrk TrackSave
 
 type IconSet struct {
 	Ic1 *fyne.StaticResource `json:"ic1"`

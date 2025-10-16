@@ -11,7 +11,7 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-func PunchInfo() {
+func PunchInfo(T TrackSave) {
 
 	CloseButton := widget.NewButton("Close", func() {
 		punchWin.Hide()
@@ -74,16 +74,16 @@ func PunchInfo() {
 	Punch9stack := container.NewStack(iconBackground, container.NewCenter(Punch9))
 	Punch10stack := container.NewStack(iconBackground, container.NewCenter(Punch10))
 
-	P1WithText := container.NewHBox(layout.NewSpacer(), Punch1stack, labelFromPtime(PTimes(0)), layout.NewSpacer())
-	P2WithText := container.NewHBox(layout.NewSpacer(), Punch2stack, labelFromPtime(PTimes(1)), layout.NewSpacer())
-	P3WithText := container.NewHBox(layout.NewSpacer(), Punch3stack, labelFromPtime(PTimes(2)), layout.NewSpacer())
-	P4WithText := container.NewHBox(layout.NewSpacer(), Punch4stack, labelFromPtime(PTimes(3)), layout.NewSpacer())
-	P5WithText := container.NewHBox(layout.NewSpacer(), Punch5stack, labelFromPtime(PTimes(4)), layout.NewSpacer())
-	P6WithText := container.NewHBox(layout.NewSpacer(), Punch6stack, labelFromPtime(PTimes(5)), layout.NewSpacer())
-	P7WithText := container.NewHBox(layout.NewSpacer(), Punch7stack, labelFromPtime(PTimes(6)), layout.NewSpacer())
-	P8WithText := container.NewHBox(layout.NewSpacer(), Punch8stack, labelFromPtime(PTimes(7)), layout.NewSpacer())
-	P9WithText := container.NewHBox(layout.NewSpacer(), Punch9stack, labelFromPtime(PTimes(8)), layout.NewSpacer())
-	P10WithText := container.NewHBox(layout.NewSpacer(), Punch10stack, labelFromPtime(PTimes(9)), layout.NewSpacer())
+	P1WithText := container.NewHBox(layout.NewSpacer(), Punch1stack, labelFromPtime(PTimes(0, T)), layout.NewSpacer())
+	P2WithText := container.NewHBox(layout.NewSpacer(), Punch2stack, labelFromPtime(PTimes(1, T)), layout.NewSpacer())
+	P3WithText := container.NewHBox(layout.NewSpacer(), Punch3stack, labelFromPtime(PTimes(2, T)), layout.NewSpacer())
+	P4WithText := container.NewHBox(layout.NewSpacer(), Punch4stack, labelFromPtime(PTimes(3, T)), layout.NewSpacer())
+	P5WithText := container.NewHBox(layout.NewSpacer(), Punch5stack, labelFromPtime(PTimes(4, T)), layout.NewSpacer())
+	P6WithText := container.NewHBox(layout.NewSpacer(), Punch6stack, labelFromPtime(PTimes(5, T)), layout.NewSpacer())
+	P7WithText := container.NewHBox(layout.NewSpacer(), Punch7stack, labelFromPtime(PTimes(6, T)), layout.NewSpacer())
+	P8WithText := container.NewHBox(layout.NewSpacer(), Punch8stack, labelFromPtime(PTimes(7, T)), layout.NewSpacer())
+	P9WithText := container.NewHBox(layout.NewSpacer(), Punch9stack, labelFromPtime(PTimes(8, T)), layout.NewSpacer())
+	P10WithText := container.NewHBox(layout.NewSpacer(), Punch10stack, labelFromPtime(PTimes(9, T)), layout.NewSpacer())
 
 	AllInfoVBox := container.NewVBox(LabelFromTotalTime(TotalTrackTime()), P1WithText, P2WithText,
 		P3WithText, P4WithText, P5WithText, P6WithText, P7WithText, P8WithText, P9WithText, P10WithText, layout.NewSpacer())
@@ -99,15 +99,20 @@ func PunchInfo() {
 	punchWin.SetContent(PBorderBox)
 }
 
-func PTimes(I int) (ptime time.Duration) {
+func PTimes(I int, T TrackSave) (ptime time.Duration) {
 	if Loading {
-		PunchList = LoadingPunchList
+		if PunchList == nil {
+			return time.Duration(0.0)
+		}
+		if len(PunchList) > I {
+			return T.TrackData[PunchList[I]].PTime
+		}
 	} else {
 		if PunchList == nil {
 			return time.Duration(0.0)
 		}
 		if len(PunchList) > I {
-			return Track[PunchList[I]].PTime
+			return Track[PunchList[I]].PTime // change this to loaded track
 		}
 	}
 	return time.Duration(0.0)

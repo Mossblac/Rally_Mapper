@@ -29,7 +29,6 @@ func onSelect(T CatalogEntry) {
 		trackT = "linear"
 	}
 	Trk := *TrkPoint
-	LoadingPunchList = Trk.Punchlist
 	Grid_Widget(trackT, Trk.TSize, Trk)
 	loadWin.Hide()
 

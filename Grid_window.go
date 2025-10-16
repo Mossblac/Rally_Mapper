@@ -189,29 +189,41 @@ func Grid_Widget(trackType string, numObstacles int, T TrackSave) {
 	})
 
 	homeButton := widget.NewButton("Home", func() {
+		saveWin.Hide()
 		punchWin.Hide()
 		SafeStop()
 		HomeScreen()
 	})
 	runAgainButton := widget.NewButton("Re-Generate", func() {
+		saveWin.Hide()
 		punchWin.Hide()
-		SafeStop()
-		go Grid_Widget(trackType, numObstacles, none)
+		if !Loading {
+			SafeStop()
+			go Grid_Widget(trackType, numObstacles, none)
+		} else {
+			return
+		}
 	})
 
 	PunchInfoButton := widget.NewButton("Punch Info", func() {
-		PunchInfo()
+		saveWin.Hide()
+		PunchInfo(T)
 		punchWin.Show()
 	})
 	ClickedOnce = false
 	SaveWindowButton := widget.NewButton("Save", func() {
-		if !ClickedOnce {
-			SaveWindow(numObstacles)
-			saveWin.Show()
-			ClickedOnce = true
+		punchWin.Hide()
+		if !Loading {
+			if !ClickedOnce {
+				SaveWindow(numObstacles)
+				saveWin.Show()
+				ClickedOnce = true
+			} else {
+				SavedWindow()
+				saveWin.Show()
+			}
 		} else {
-			SavedWindow()
-			saveWin.Show()
+			return
 		}
 	})
 
@@ -251,6 +263,7 @@ func Grid_Widget(trackType string, numObstacles int, T TrackSave) {
 		Track = append(Track, cell)
 	}
 	if Loading {
+		PunchList = T.Punchlist
 		DisplayTrkImages(CurrentStop, T.TrackData)
 	} else {
 		DeterminePath_setStart(CurrentStop, trackType, numRows, numCols)
