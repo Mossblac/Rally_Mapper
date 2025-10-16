@@ -100,11 +100,15 @@ func PunchInfo() {
 }
 
 func PTimes(I int) (ptime time.Duration) {
-	if PunchList == nil {
-		return time.Duration(0.0)
-	}
-	if len(PunchList) > I {
-		return Track[PunchList[I]].PTime
+	if Loading {
+		PunchList = LoadingPunchList
+	} else {
+		if PunchList == nil {
+			return time.Duration(0.0)
+		}
+		if len(PunchList) > I {
+			return Track[PunchList[I]].PTime
+		}
 	}
 	return time.Duration(0.0)
 }

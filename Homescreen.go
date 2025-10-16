@@ -17,6 +17,7 @@ var TrackSize int
 var ObDisplay string
 
 func HomeScreen() {
+	Loading = false
 	Obstacles = nil
 
 	var courseType string
@@ -166,18 +167,24 @@ func HomeScreen() {
 
 	})
 
-	mainB := widget.NewButton("Instructions", func() {
+	InfoB := widget.NewButton("Instructions", func() {
 		showInstructions()
 	})
 
 	createB := widget.NewButton("create", func() {
+		Loading = false
 		if TrackSize == 0 {
 			return
 		} else {
 			fyne.Do(func() {
-				Grid_Widget(courseType, TrackSize)
+				Grid_Widget(courseType, TrackSize, none)
 			})
 		}
+	})
+
+	loadTrack := widget.NewButton("Load Track", func() {
+		LoadT()
+		loadWin.Show()
 	})
 
 	CheckBox := container.NewHBox(SmallText, TtypeCheck)
@@ -195,10 +202,11 @@ func HomeScreen() {
 	SelectObTxtStack := container.NewStack(SelObBKG, SelectObstacles)
 	SelectObTextBox := container.NewHBox(layout.NewSpacer(), SelectObTxtStack, layout.NewSpacer())
 
-	CheckAndSelectBox := container.NewVBox(CheckBox, picktracksizeText, TrackSizeSelectCentered, SelectObTextBox, IconVBox) //left box
+	CheckAndSelectBox := container.NewVBox(CheckBox, picktracksizeText, TrackSizeSelectCentered, SelectObTextBox, IconVBox)
 
-	buttonBox := container.NewHBox(mainB, createB)
+	buttonBox := container.NewHBox(InfoB, layout.NewSpacer(), loadTrack, layout.NewSpacer(), createB) // add load button here
 	centeredBox := container.NewCenter(buttonBox)
+
 	ObstacleDisplayBKGRD := canvas.NewRectangle(color.Black)
 	ObstacleDisplayBKGRD.CornerRadius = 20
 	ObstacleDisplayBKGRD.SetMinSize(fyne.NewSize(170, 300))
@@ -220,7 +228,7 @@ func HomeScreen() {
 
 }
 
-func showInstructions() {
+func showInstructions() { //need to update this
 	textLabel := widget.NewLabel("Enter number of punches\n\nEnter physical equipment avalable\n\nEnter number of desired obstacles\n\nEnter 0-4 to reprisent percentage\n of required obstacles\n (0 = 0%, 2 = 50%, 4 = 100%)\n\nEnter maximum size of\n area in square feet\n - default is unlimited\n\nverify info and confirm")
 	textLabel.Alignment = fyne.TextAlignCenter
 

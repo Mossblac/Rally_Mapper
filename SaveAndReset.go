@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/fs"
 	"os"
 	"path/filepath"
@@ -17,11 +16,11 @@ func ResetAndTryAgain() {
 	RevCount = 0
 	if TrackT {
 		fyne.Do(func() {
-			Grid_Widget("loop", TrackSize)
+			Grid_Widget("loop", TrackSize, none)
 		})
 	} else {
 		fyne.Do(func() {
-			Grid_Widget("linear", TrackSize)
+			Grid_Widget("linear", TrackSize, none)
 		})
 	}
 }
@@ -31,6 +30,7 @@ type TrackSave struct {
 	ID             string        `json:"id"`
 	Name           string        `json:"name"`
 	CreatedAt      time.Time     `json:"createdAt"`
+	Ttype          bool          `json:"type"`
 	TimeToComplete time.Duration `json:"timeToComplete"`
 	TSize          int           `json:"tSize"`
 	Punchlist      []int         `json:"punchList"`
@@ -41,6 +41,7 @@ type CatalogEntry struct {
 	ID             string        `json:"id"`
 	Name           string        `json:"name"`
 	CreatedAt      time.Time     `json:"createdAt"`
+	Ttype          bool          `json:"type"`
 	TimeToComplete time.Duration `json:"timeToComplete"`
 	TSize          int           `json:"tSize"`
 	Punchlist      []int         `json:"punchList"`
@@ -107,6 +108,7 @@ func SaveNewTrack(baseDir string, t *TrackSave) error {
 		ID:             t.ID,
 		Name:           t.Name,
 		CreatedAt:      t.CreatedAt,
+		Ttype:          t.Ttype,
 		TimeToComplete: t.TimeToComplete,
 		TSize:          t.TSize,
 		Punchlist:      t.Punchlist,
@@ -142,7 +144,7 @@ func LoadTrack(baseDir, id string) (*TrackSave, error) {
 func MakeCatalogList(cat Catalog, onSelect func(CatalogEntry)) fyne.CanvasObject {
 	data := make([]string, len(cat.Entries))
 	for i, e := range cat.Entries {
-		data[i] = fmt.Sprintf("%s", e.Name)
+		data[i] = e.Name
 	}
 
 	list := widget.NewList(

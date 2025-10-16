@@ -74,7 +74,7 @@ func calculateCellSize(winSize fyne.Size, rows, cols int) float32 {
 	))
 }
 
-func Grid_Widget(trackType string, numObstacles int) {
+func Grid_Widget(trackType string, numObstacles int, T TrackSave) {
 	if CurrentStop != nil {
 		close(CurrentStop)
 	}
@@ -196,7 +196,7 @@ func Grid_Widget(trackType string, numObstacles int) {
 	runAgainButton := widget.NewButton("Re-Generate", func() {
 		punchWin.Hide()
 		SafeStop()
-		go Grid_Widget(trackType, numObstacles)
+		go Grid_Widget(trackType, numObstacles, none)
 	})
 
 	PunchInfoButton := widget.NewButton("Punch Info", func() {
@@ -250,7 +250,11 @@ func Grid_Widget(trackType string, numObstacles int) {
 		}
 		Track = append(Track, cell)
 	}
-	DeterminePath_setStart(CurrentStop, trackType, numRows, numCols)
+	if Loading {
+		DisplayTrkImages(CurrentStop, T.TrackData)
+	} else {
+		DeterminePath_setStart(CurrentStop, trackType, numRows, numCols)
+	}
 }
 
 func SafeStop() {

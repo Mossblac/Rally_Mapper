@@ -8,6 +8,7 @@ import (
 var mainWin fyne.Window
 var punchWin fyne.Window
 var saveWin fyne.Window
+var loadWin fyne.Window
 
 func main() {
 
@@ -15,6 +16,9 @@ func main() {
 	mainWin = Rally_Mapper.NewWindow("Rally Mapper")
 	punchWin = Rally_Mapper.NewWindow("Punch Info")
 	saveWin = Rally_Mapper.NewWindow("Save Track")
+	loadWin = Rally_Mapper.NewWindow("Load Saved Tracks")
+	loadWin.Resize(fyne.NewSize(600, 600))
+	loadWin.Hide()
 	saveWin.Resize(fyne.NewSize(100, 100))
 	saveWin.Hide()
 	punchWin.Resize(fyne.NewSize(300, 500))

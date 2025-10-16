@@ -19,6 +19,7 @@ func SaveWindow(numObstacles int) {
 		save := TrackSave{
 			Name:           TrackName,
 			TimeToComplete: TotalTrackTime(),
+			Ttype:          TrackT,
 			TSize:          numObstacles,
 			Punchlist:      PunchList,
 			TrackData:      TrackClone,

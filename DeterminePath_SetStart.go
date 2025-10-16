@@ -53,7 +53,7 @@ func DeterminePath_setStart(stop <-chan struct{}, TrackType string, numRows, num
 		fmt.Printf("ok = : %v\n", ok)
 		if ok {
 			fyne.Do(func() {
-				DisplayTrkImages(stop)
+				DisplayTrkImages(stop, Track)
 			})
 		}
 	}

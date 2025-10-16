@@ -7,7 +7,7 @@ import (
 
 var TrackClone []TrackCell
 
-func DisplayTrkImages(stop <-chan struct{}) {
+func DisplayTrkImages(stop <-chan struct{}, track []TrackCell) {
 
 	go func() {
 		select {
@@ -16,7 +16,7 @@ func DisplayTrkImages(stop <-chan struct{}) {
 		default:
 		}
 
-		TrackClone = CloneTrack(Track)
+		TrackClone = CloneTrack(track)
 
 		for i := 0; i < len(TrackClone); i++ {
 			select {
