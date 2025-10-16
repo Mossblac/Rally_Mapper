@@ -7,7 +7,11 @@ import (
 )
 
 func TotalTrackTime() time.Duration {
-	return CalcTime(0, TrackLength)
+	if !Loading {
+		return CalcTime(0, TrackLength)
+	} else {
+		return LoadedTrk.TimeToComplete
+	}
 }
 
 func CalcTime(Pstart, Punch int) time.Duration {

@@ -189,6 +189,7 @@ func Grid_Widget(trackType string, numObstacles int, T TrackSave) {
 	})
 
 	homeButton := widget.NewButton("Home", func() {
+		ClickedOnce = false
 		saveWin.Hide()
 		punchWin.Hide()
 		SafeStop()
@@ -263,6 +264,7 @@ func Grid_Widget(trackType string, numObstacles int, T TrackSave) {
 		Track = append(Track, cell)
 	}
 	if Loading {
+		LoadedTrk = T
 		PunchList = T.Punchlist
 		DisplayTrkImages(CurrentStop, T.TrackData)
 	} else {
