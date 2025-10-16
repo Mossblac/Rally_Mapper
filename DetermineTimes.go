@@ -11,25 +11,24 @@ func TotalTrackTime() time.Duration {
 }
 
 func CalcTime(Pstart, Punch int) time.Duration {
-	TotalSeconds := 0.0
+	var Total time.Duration
 	for i := Pstart; i < Punch; i++ {
 		if Track[i].Start {
-			TotalSeconds += 3
+			Total += 3 * time.Second
 		}
 		if IsCurbDropOrParkingBlock(Track[i].Image.Ic4) {
-			TotalSeconds += 1.5
+			Total += 1500 * time.Millisecond
 		}
 		if IsLowBridge(Track[i].Image.Ic4) {
-			TotalSeconds += 0.6
+			Total += 600 * time.Millisecond
 		}
 		if Track[i].Cul {
-			TotalSeconds += 3
+			Total += 3 * time.Second
 		} else {
-			TotalSeconds += 0.4
+			Total += 400 * time.Millisecond
 		}
 	}
-	Time := time.Duration(TotalSeconds) * time.Second
-	return Time
+	return Total
 
 }
 
