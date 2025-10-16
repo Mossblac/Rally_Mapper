@@ -25,24 +25,24 @@ var PreSetCuls []int
 var PunchList []int
 
 type IconSet struct {
-	Ic1 *fyne.StaticResource
-	Ic2 *fyne.StaticResource
-	Ic3 *fyne.StaticResource
-	Ic4 *fyne.StaticResource
-	Ic5 *fyne.StaticResource
+	Ic1 *fyne.StaticResource `json:"ic1"`
+	Ic2 *fyne.StaticResource `json:"ic2"`
+	Ic3 *fyne.StaticResource `json:"ic3"`
+	Ic4 *fyne.StaticResource `json:"ic4"`
+	Ic5 *fyne.StaticResource `json:"ic5"`
 }
 
 type TrackCell struct {
-	TrackInt int
-	CurPosR  int
-	CurPosC  int
-	PrevMov  string
-	Visited  int
-	Image    IconSet
-	Start    bool
-	Finish   bool
-	Cul      bool
-	Rev      bool
-	RevRef   int
-	PTime    time.Duration
+	TrackInt int           `json:"trackInt"`
+	CurPosR  int           `json:"curPosR"`
+	CurPosC  int           `json:"curPosC"`
+	PrevMov  string        `json:"prevMov"`
+	Visited  int           `json:"visited"`
+	Image    IconSet       `json:"image"`
+	Start    bool          `json:"start"`
+	Finish   bool          `json:"finish"`
+	Cul      bool          `json:"cul"`
+	Rev      bool          `json:"rev"`
+	RevRef   int           `json:"revRef"`
+	PTime    time.Duration `json:"pTime"`
 }
