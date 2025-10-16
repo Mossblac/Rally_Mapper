@@ -64,7 +64,7 @@ func PunchInfo() {
 	Punch10.SetMinSize(fyne.NewSize(65, 65))
 
 	Punch1stack := container.NewStack(iconBackground, container.NewCenter(Punch1))
-	/*Punch2stack := container.NewStack(iconBackground, container.NewCenter(Punch2))
+	Punch2stack := container.NewStack(iconBackground, container.NewCenter(Punch2))
 	Punch3stack := container.NewStack(iconBackground, container.NewCenter(Punch3))
 	Punch4stack := container.NewStack(iconBackground, container.NewCenter(Punch4))
 	Punch5stack := container.NewStack(iconBackground, container.NewCenter(Punch5))
@@ -72,13 +72,25 @@ func PunchInfo() {
 	Punch7stack := container.NewStack(iconBackground, container.NewCenter(Punch7))
 	Punch8stack := container.NewStack(iconBackground, container.NewCenter(Punch8))
 	Punch9stack := container.NewStack(iconBackground, container.NewCenter(Punch9))
-	Punch10stack := container.NewStack(iconBackground, container.NewCenter(Punch10))*/
+	Punch10stack := container.NewStack(iconBackground, container.NewCenter(Punch10))
 
 	P1WithText := container.NewHBox(layout.NewSpacer(), Punch1stack, labelFromPtime(PTimes(0)), layout.NewSpacer())
+	P2WithText := container.NewHBox(layout.NewSpacer(), Punch2stack, labelFromPtime(PTimes(1)), layout.NewSpacer())
+	P3WithText := container.NewHBox(layout.NewSpacer(), Punch3stack, labelFromPtime(PTimes(2)), layout.NewSpacer())
+	P4WithText := container.NewHBox(layout.NewSpacer(), Punch4stack, labelFromPtime(PTimes(3)), layout.NewSpacer())
+	P5WithText := container.NewHBox(layout.NewSpacer(), Punch5stack, labelFromPtime(PTimes(4)), layout.NewSpacer())
+	P6WithText := container.NewHBox(layout.NewSpacer(), Punch6stack, labelFromPtime(PTimes(5)), layout.NewSpacer())
+	P7WithText := container.NewHBox(layout.NewSpacer(), Punch7stack, labelFromPtime(PTimes(6)), layout.NewSpacer())
+	P8WithText := container.NewHBox(layout.NewSpacer(), Punch8stack, labelFromPtime(PTimes(7)), layout.NewSpacer())
+	P9WithText := container.NewHBox(layout.NewSpacer(), Punch9stack, labelFromPtime(PTimes(8)), layout.NewSpacer())
+	P10WithText := container.NewHBox(layout.NewSpacer(), Punch10stack, labelFromPtime(PTimes(9)), layout.NewSpacer())
 
-	AllInfoVBox := container.NewVBox(LabelFromTotalTime(TotalTrackTime()), P1WithText, layout.NewSpacer())
+	AllInfoVBox := container.NewVBox(LabelFromTotalTime(TotalTrackTime()), P1WithText, P2WithText,
+		P3WithText, P4WithText, P5WithText, P6WithText, P7WithText, P8WithText, P9WithText, P10WithText, layout.NewSpacer())
 
-	PBorderBox := container.NewBorder(nil, CloseButtonCentered, AllInfoVBox, nil, nil)
+	AllInfoScroll := container.NewScroll(AllInfoVBox)
+
+	PBorderBox := container.NewBorder(nil, CloseButtonCentered, nil, nil, AllInfoScroll)
 
 	punchWin.SetContent(PBorderBox)
 }
@@ -87,7 +99,7 @@ func PTimes(I int) (ptime time.Duration) {
 	if PunchList == nil {
 		return time.Duration(0.0)
 	}
-	if len(PunchList) >= I {
+	if len(PunchList) > I {
 		return Track[PunchList[I]].PTime
 	}
 	return time.Duration(0.0)

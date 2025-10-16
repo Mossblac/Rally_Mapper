@@ -215,7 +215,6 @@ func Grid_Widget(trackType string, numObstacles int) {
 		layout.NewSpacer(),
 		PunchInfoButton,
 	)
-	//centeredBottom := container.NewCenter(bottomButtons)
 
 	content := container.NewBorder(
 		layout.NewSpacer(),
