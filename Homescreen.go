@@ -76,6 +76,7 @@ func HomeScreen() {
 
 	iconBackground := canvas.NewRectangle(color.Black)
 	iconBackground.SetMinSize(fyne.NewSize(70, 70))
+	iconBackground.CornerRadius = 20
 
 	lowBridgeStack := container.NewStack(iconBackground, container.NewCenter(lowbridge))
 	parkingBlockStack := container.NewStack(iconBackground, container.NewCenter(parkingBlock))
@@ -139,6 +140,7 @@ func HomeScreen() {
 
 	TrackSizeSelect := widget.NewSelect(Loop_UnChecked_options, TrackSizeConverter)
 	selectbackground := canvas.NewRectangle(color.Black)
+	selectbackground.CornerRadius = 20
 	TrackSizeSelectStack := container.NewStack(selectbackground, TrackSizeSelect)
 
 	TtypeCheck := widget.NewCheck("", func(checked bool) {
@@ -189,6 +191,7 @@ func HomeScreen() {
 	SelectObstacles := widget.NewLabel("Choose Obstacles\nMax 10")
 	SelectObstacles.Alignment = fyne.TextAlignCenter
 	SelObBKG := canvas.NewRectangle(color.Black)
+	SelObBKG.CornerRadius = 20
 	SelectObTxtStack := container.NewStack(SelObBKG, SelectObstacles)
 	SelectObTextBox := container.NewHBox(layout.NewSpacer(), SelectObTxtStack, layout.NewSpacer())
 
@@ -197,6 +200,7 @@ func HomeScreen() {
 	buttonBox := container.NewHBox(mainB, createB)
 	centeredBox := container.NewCenter(buttonBox)
 	ObstacleDisplayBKGRD := canvas.NewRectangle(color.Black)
+	ObstacleDisplayBKGRD.CornerRadius = 20
 	ObstacleDisplayBKGRD.SetMinSize(fyne.NewSize(170, 300))
 
 	ObDisplayStack := container.NewStack(ObstacleDisplayBKGRD, container.NewCenter(ObDisplayText))

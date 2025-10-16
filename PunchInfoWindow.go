@@ -21,6 +21,7 @@ func PunchInfo() {
 
 	iconBackground := canvas.NewRectangle(color.Black)
 	iconBackground.SetMinSize(fyne.NewSize(70, 70))
+	iconBackground.CornerRadius = 20
 
 	Punch1 := canvas.NewImageFromResource(Punch1icon)
 	Punch1.FillMode = canvas.ImageFillContain
