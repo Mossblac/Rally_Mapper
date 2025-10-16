@@ -184,7 +184,6 @@ func HomeScreen() {
 
 	loadTrack := widget.NewButton("Load Track", func() {
 		LoadT()
-		loadWin.Show()
 	})
 
 	CheckBox := container.NewHBox(SmallText, TtypeCheck)

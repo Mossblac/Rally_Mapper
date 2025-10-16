@@ -1,19 +1,41 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/canvas"
+	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/widget"
+)
 
 func LoadT() {
 
-	loadWin.SetCloseIntercept(func() {
+	/*loadWin.SetCloseIntercept(func() {
 		loadWin.Hide()
+	})*/
+	Home := widget.NewButton("home", func() {
+		HomeScreen()
 	})
+	CHome := container.NewCenter(Home)
+
+	text := widget.NewLabel("Select Track to Load")
+	text.Alignment = fyne.TextAlignCenter
+	Ctext := container.NewCenter(text)
+
 	cat, err := LoadCatalog("./Saves/catalog.json")
 	if err != nil {
 		fmt.Printf("error loading catalogue: %v\n", err)
 	}
 	catList := MakeCatalogList(cat, onSelect)
 
-	loadWin.SetContent(catList)
+	bkg := canvas.NewImageFromFile("./images/menuBkG.jpg")
+
+	centerStack := container.NewStack(bkg, catList)
+
+	LoadListWithButton := container.NewBorder(Ctext, CHome, nil, nil, centerStack)
+
+	mainWin.SetContent(LoadListWithButton)
 }
 
 func onSelect(T CatalogEntry) {
@@ -30,6 +52,5 @@ func onSelect(T CatalogEntry) {
 	}
 	Trk := *TrkPoint
 	Grid_Widget(trackT, Trk.TSize, Trk)
-	loadWin.Hide()
 
 }

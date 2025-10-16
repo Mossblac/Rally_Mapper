@@ -2,6 +2,7 @@ package main
 
 import (
 	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
 )
@@ -39,7 +40,13 @@ func SaveWindow(numObstacles int) {
 	SaveB := container.NewVBox(SaveButton)
 	SaveEntryAndButton := container.NewVBox(SaveEntry, SaveB)
 
-	saveWin.SetContent(SaveEntryAndButton)
+	bkg := canvas.NewImageFromFile("./images/menuBkG.jpg")
+
+	SStack := container.NewStack(bkg, SaveEntryAndButton)
+
+	Centered := container.NewBorder(nil, nil, nil, nil, SStack)
+
+	saveWin.SetContent(Centered)
 }
 
 func SavedWindow() {

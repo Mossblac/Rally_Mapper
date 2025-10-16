@@ -90,7 +90,11 @@ func PunchInfo(T TrackSave) {
 
 	AllInfoScroll := container.NewScroll(AllInfoVBox)
 
-	PBorderBox := container.NewBorder(nil, CloseButtonCentered, nil, nil, AllInfoScroll)
+	bkg := canvas.NewImageFromFile("./images/menuBkG.jpg")
+
+	AllinfoStack := container.NewStack(bkg, AllInfoScroll)
+
+	PBorderBox := container.NewBorder(nil, CloseButtonCentered, nil, nil, AllinfoStack)
 
 	punchWin.SetCloseIntercept(func() {
 		punchWin.Hide()
