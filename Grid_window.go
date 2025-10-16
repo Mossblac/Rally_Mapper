@@ -206,9 +206,14 @@ func Grid_Widget(trackType string, numObstacles int) {
 	)
 	centeredBottom := container.NewCenter(bottomButtons)
 
+	ProgBarCalc = widget.NewProgressBarInfinite()
+	ProgBarCalc.Hide()
+
+	BottomBoxWithButtonsAndProgressBar := container.NewVBox(ProgBarCalc, centeredBottom)
+
 	content := container.NewBorder(
 		layout.NewSpacer(),
-		centeredBottom,
+		BottomBoxWithButtonsAndProgressBar,
 		nil,
 		nil,
 		scrollStack,
@@ -227,7 +232,6 @@ func Grid_Widget(trackType string, numObstacles int) {
 		}
 		Track = append(Track, cell)
 	}
-
 	DeterminePath_setStart(CurrentStop, trackType, numRows, numCols)
 }
 

@@ -172,7 +172,7 @@ func HomeScreen() {
 		if TrackSize == 0 {
 			return
 		} else {
-			fyne.DoAndWait(func() {
+			fyne.Do(func() {
 				Grid_Widget(courseType, TrackSize)
 			})
 		}
