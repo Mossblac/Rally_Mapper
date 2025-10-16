@@ -11,6 +11,7 @@ import (
 var ProgBarCalc *widget.ProgressBarInfinite
 
 var Track []TrackCell
+var TrackName string
 
 var GridBackground *canvas.Rectangle
 
@@ -23,6 +24,8 @@ var RevCount int
 var TrackT bool
 var PreSetCuls []int
 var PunchList []int
+
+var ClickedOnce bool
 
 type IconSet struct {
 	Ic1 *fyne.StaticResource `json:"ic1"`

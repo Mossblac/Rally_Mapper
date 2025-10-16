@@ -5,6 +5,8 @@ import (
 	"time"
 )
 
+var TrackClone []TrackCell
+
 func DisplayTrkImages(stop <-chan struct{}) {
 
 	go func() {
@@ -14,14 +16,14 @@ func DisplayTrkImages(stop <-chan struct{}) {
 		default:
 		}
 
-		trackClone := CloneTrack(Track)
+		TrackClone = CloneTrack(Track)
 
-		for i := 0; i < len(trackClone); i++ {
+		for i := 0; i < len(TrackClone); i++ {
 			select {
 			case <-stop:
 				return
 			default:
-				m := trackClone[i]
+				m := TrackClone[i]
 				if m.CurPosR != -1 && m.CurPosC != -1 {
 					SetImageInCell(m.CurPosR, m.CurPosC, m.Image)
 				}

@@ -203,11 +203,24 @@ func Grid_Widget(trackType string, numObstacles int) {
 		PunchInfo()
 		punchWin.Show()
 	})
+	ClickedOnce = false
+	SaveWindowButton := widget.NewButton("Save", func() {
+		if !ClickedOnce {
+			SaveWindow(numObstacles)
+			saveWin.Show()
+			ClickedOnce = true
+		} else {
+			SavedWindow()
+			saveWin.Show()
+		}
+	})
 
 	bottomButtons := container.NewHBox(
 		zoomIn,
 		zoomOut,
 		resetZoom,
+		layout.NewSpacer(),
+		SaveWindowButton,
 		layout.NewSpacer(),
 		homeButton,
 		layout.NewSpacer(),

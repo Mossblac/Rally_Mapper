@@ -32,10 +32,8 @@ type TrackSave struct {
 	Name           string        `json:"name"`
 	CreatedAt      time.Time     `json:"createdAt"`
 	TimeToComplete time.Duration `json:"timeToComplete"`
-	Rows           int           `json:"rows"`
-	Cols           int           `json:"cols"`
-	ObstaclesCount int           `json:"obstaclesCount"`
-	PunchList      []int         `json:"punchList"`
+	TSize          int           `json:"tSize"`
+	Punchlist      []int         `json:"punchList"`
 	TrackData      []TrackCell   `json:"trackData"`
 }
 
@@ -44,10 +42,8 @@ type CatalogEntry struct {
 	Name           string        `json:"name"`
 	CreatedAt      time.Time     `json:"createdAt"`
 	TimeToComplete time.Duration `json:"timeToComplete"`
-	Rows           int           `json:"rows"`
-	Cols           int           `json:"cols"`
-	ObstaclesCount int           `json:"obstaclesCount"`
-	PunchList      []int         `json:"punchList"`
+	TSize          int           `json:"tSize"`
+	Punchlist      []int         `json:"punchList"`
 }
 
 type Catalog struct {
@@ -112,10 +108,8 @@ func SaveNewTrack(baseDir string, t *TrackSave) error {
 		Name:           t.Name,
 		CreatedAt:      t.CreatedAt,
 		TimeToComplete: t.TimeToComplete,
-		Rows:           t.Rows,
-		Cols:           t.Cols,
-		ObstaclesCount: t.ObstaclesCount,
-		PunchList:      t.PunchList,
+		TSize:          t.TSize,
+		Punchlist:      t.Punchlist,
 	})
 	return atomicWriteJSON(catalogPath, &cat, 0o644)
 }
@@ -148,7 +142,7 @@ func LoadTrack(baseDir, id string) (*TrackSave, error) {
 func MakeCatalogList(cat Catalog, onSelect func(CatalogEntry)) fyne.CanvasObject {
 	data := make([]string, len(cat.Entries))
 	for i, e := range cat.Entries {
-		data[i] = fmt.Sprintf("%s (%dx%d)", e.Name, e.Rows, e.Cols)
+		data[i] = fmt.Sprintf("%s", e.Name)
 	}
 
 	list := widget.NewList(
