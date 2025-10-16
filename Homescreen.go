@@ -171,10 +171,17 @@ func HomeScreen() {
 		showInstructions()
 	})
 
+	Warning := canvas.NewText("Select Track Size to Create", color.RGBA{R: 54, G: 1, B: 63, A: 255})
+	Warning.Alignment = fyne.TextAlignCenter
+	Warning.TextStyle.Bold = true
+	Warning.TextSize = 40
+	Warning.Hide()
+
 	createB := widget.NewButton("create", func() {
 		Loading = false
 		if TrackSize == 0 {
-			return
+			Warning.Show()
+			Warning.Refresh()
 		} else {
 			fyne.Do(func() {
 				Grid_Widget(courseType, TrackSize, none)
@@ -203,8 +210,11 @@ func HomeScreen() {
 
 	CheckAndSelectBox := container.NewVBox(CheckBox, picktracksizeText, TrackSizeSelectCentered, SelectObTextBox, IconVBox)
 
-	buttonBox := container.NewHBox(InfoB, layout.NewSpacer(), loadTrack, layout.NewSpacer(), createB) // add load button here
+	buttonBox := container.NewHBox(InfoB, layout.NewSpacer(), loadTrack, layout.NewSpacer(), createB)
+
 	centeredBox := container.NewCenter(buttonBox)
+
+	buttonBoxWithWarning := container.NewVBox(Warning, centeredBox)
 
 	ObstacleDisplayBKGRD := canvas.NewRectangle(color.Black)
 	ObstacleDisplayBKGRD.CornerRadius = 20
@@ -213,7 +223,7 @@ func HomeScreen() {
 	ObDisplayStack := container.NewStack(ObstacleDisplayBKGRD, container.NewCenter(ObDisplayText))
 	obDisplayVbox := container.NewVBox(layout.NewSpacer(), ObDisplayStack, layout.NewSpacer())
 
-	borderBox := container.NewBorder(container.NewCenter(LargeText), centeredBox, CheckAndSelectBox, obDisplayVbox)
+	borderBox := container.NewBorder(container.NewCenter(LargeText), buttonBoxWithWarning, CheckAndSelectBox, obDisplayVbox)
 
 	bkg := canvas.NewImageFromFile("./images/backgroundcropped.jpg")
 	bkg.FillMode = canvas.ImageFillStretch
