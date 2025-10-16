@@ -25,7 +25,7 @@ func DisplayTrkImages(stop <-chan struct{}, track []TrackCell) {
 			default:
 				m := TrackClone[i]
 				if m.CurPosR != -1 && m.CurPosC != -1 {
-					SetImageInCell(m.CurPosR, m.CurPosC, m.Image)
+					SetTrackImageInCell(m.CurPosR, m.CurPosC, m.Image)
 				}
 				select {
 				case <-stop:

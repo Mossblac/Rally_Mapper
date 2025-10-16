@@ -9,9 +9,7 @@ import (
 	"fyne.io/fyne/v2/theme"
 )
 
-// update this function to take a struct or map so the number of images are optional- DisplayTrkImages, SetStart, PickNext
-
-func SetImageInCell(row, col int, icons IconSet) {
+func SetTrackImageInCell(row, col int, icons IconSet) {
 	go func() {
 		fyne.Do(func() {
 			res := theme.CancelIcon() // "x" icon
@@ -27,14 +25,13 @@ func SetImageInCell(row, col int, icons IconSet) {
 			if cell == nil || len(cell.Objects) < 2 {
 				return
 			}
-			// cell.Objects[0] = border, cell.Objects[1] = stack
+
 			border := cell.Objects[0]
 			stack, ok := cell.Objects[1].(*fyne.Container)
 			if !ok {
 				return
 			}
 
-			// stack.objects are your images, stack.object[0] is on bottom, the next on top would be stack.object[1] and so on
 			if len(stack.Objects) > 0 {
 				bg := stack.Objects[0]
 				stack.Objects = []fyne.CanvasObject{bg}
@@ -42,11 +39,11 @@ func SetImageInCell(row, col int, icons IconSet) {
 				stack.Objects = nil
 			}
 
-			border.Hide() // this hides the square with border before placing new image.
+			border.Hide()
 
 			if icons.Ic1 != nil {
-				stack.Add(img)  // you can add another image here with another stack.add(image) or to a specific layer by index: stack.object[index]
-				stack.Refresh() // call refresh after adding each new image to stack
+				stack.Add(img)
+				stack.Refresh()
 
 				FadeInAnimate(img)
 			} else {
@@ -72,21 +69,21 @@ func SetImageInCell(row, col int, icons IconSet) {
 				stack.Add(fourthimg)
 				stack.Refresh()
 
-				DropInAnimate(fourthimg)
+				DropInAnimate(fourthimg, time.Millisecond*400)
 			}
 
 			if icons.Ic5 != nil {
 				stack.Add(fifthimg)
 				stack.Refresh()
 
-				DropInAnimate(fifthimg)
+				DropInAnimate(fifthimg, time.Millisecond*700)
 			}
 
 		})
 	}()
 }
 
-func FadeInAnimate(img *canvas.Image) { //you can add the time as an input and have each image fade in one after another
+func FadeInAnimate(img *canvas.Image) {
 	fadeIn := canvas.NewColorRGBAAnimation(
 		color.RGBA{A: 0}, color.RGBA{A: 255},
 		500*time.Millisecond,
@@ -107,17 +104,15 @@ func ResourceToIcon(static *fyne.StaticResource) *canvas.Image {
 	return img
 }
 
-func DropInAnimate(image *canvas.Image) {
-	// Start above the container
+func DropInAnimate(image *canvas.Image, delay time.Duration) {
 	originalPos := image.Position()
 	image.Move(fyne.NewPos(originalPos.X, originalPos.Y-100))
-	image.Translucency = 0.0 // Start visible
+	image.Translucency = 0.0
 
-	// Animate dropping down
 	dropAnimation := canvas.NewPositionAnimation(
 		fyne.NewPos(originalPos.X, originalPos.Y-100),
 		originalPos,
-		time.Millisecond*300,
+		delay,
 		func(pos fyne.Position) {
 			image.Move(pos)
 			image.Refresh()
