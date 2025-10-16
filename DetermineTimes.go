@@ -7,18 +7,14 @@ import (
 )
 
 func TotalTrackTime() time.Duration {
-	return CalcTime(0, TFinish)
+	return CalcTime(0, TrackLength)
 }
 
 func CalcTime(Pstart, Punch int) time.Duration {
-	Length := Pstart + Punch
 	TotalSeconds := 0.0
-	for i := range Length {
-		if i == 0 || i == 1 {
+	for i := Pstart; i < Punch; i++ {
+		if Track[i].Start {
 			TotalSeconds += 3
-		}
-		if Track[i].Image.Ic4 != nil {
-			TotalSeconds += 0.4
 		}
 		if IsCurbDropOrParkingBlock(Track[i].Image.Ic4) {
 			TotalSeconds += 1.5

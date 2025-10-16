@@ -62,7 +62,7 @@ func CalcSpacing() { // call before Determine Obstacles
 	if len(Obstacles) == 0 {
 		return
 	} else {
-		spacing := TFinish / (len(Obstacles) + 1)
+		spacing := TrackLength / (len(Obstacles) + 1)
 		for i := 1; i < len(Obstacles)+1; i++ {
 			SpacingList = append(SpacingList, spacing*i)
 		}
@@ -186,7 +186,7 @@ func DetermineOBIconAndPlace(I int, obstacle string) { // ect, etc...
 
 	Track[I].Image.Ic4 = ic4
 
-	for i := range TFinish {
+	for i := range TrackLength {
 		if Track[i].CurPosR == Track[I].CurPosR && Track[i].CurPosC == Track[I].CurPosC {
 			Track[i].Image.Ic4 = ic4
 		}

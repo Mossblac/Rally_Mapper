@@ -1,6 +1,11 @@
 package main
 
+import "fmt"
+
+var NewCell int
+
 func DetermineCorners(numRows, numCols int) {
+	NewCell = TrackLength
 	type Cell struct{ R, C int }
 	type void struct{}
 	var v void
@@ -10,7 +15,7 @@ func DetermineCorners(numRows, numCols int) {
 	bl := map[Cell]void{}
 	br := map[Cell]void{}
 
-	for i := range Track {
+	for i := range TrackLength {
 		r, c := Track[i].CurPosR, Track[i].CurPosC
 		if IsDTopRight(r, c) || IsDTopRight2(r, c) && IsDBottomLeft(r-1, c+1) { //DUPRight
 			if InBounds(r, c+1, numRows, numCols) && !IsDTopLeft(r, c+1) {
@@ -227,9 +232,15 @@ func OnTrack(r, c int) bool {
 }
 
 func MakeTrack(r, c int) {
-	TrackLength++
-	Track[TrackLength+1].CurPosR = r
-	Track[TrackLength+1].CurPosC = c
-	Track[TrackLength+1].Image.Ic1 = Grassicon
+	if !OnTrack(r, c) {
+		NewCell++
+		Track[NewCell].CurPosR = r
+		Track[NewCell].CurPosC = c
+		Track[NewCell].Image.Ic1 = Grassicon
+		fmt.Printf("making track for corner @: %v, %v\n", r, c)
+	} else {
+		fmt.Printf("refusing to make duplicate")
+		return
+	}
 
 }

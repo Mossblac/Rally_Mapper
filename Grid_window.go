@@ -83,7 +83,6 @@ func Grid_Widget(trackType string, numObstacles int) {
 	NumObstacles = numObstacles
 	Track = nil
 	TrackLength = 0
-	TFinish = 0
 	PreSetCuls = nil
 	SpacingList = nil
 
@@ -206,14 +205,9 @@ func Grid_Widget(trackType string, numObstacles int) {
 	)
 	centeredBottom := container.NewCenter(bottomButtons)
 
-	ProgBarCalc = widget.NewProgressBarInfinite()
-	ProgBarCalc.Hide()
-
-	BottomBoxWithButtonsAndProgressBar := container.NewVBox(ProgBarCalc, centeredBottom)
-
 	content := container.NewBorder(
 		layout.NewSpacer(),
-		BottomBoxWithButtonsAndProgressBar,
+		centeredBottom,
 		nil,
 		nil,
 		scrollStack,

@@ -185,7 +185,6 @@ func PickNext(stop <-chan struct{}, numRows, numCols, I int) bool {
 		}
 		if FindFinish(I) {
 			TrackLength = I + 1
-			TFinish = I + 1
 			fin, ficon := DetermineLastAndFinishIcon(I + 1)
 			ficonSet := IconSet{Ic1: ficon, Ic2: fin}
 			Track[I+1].Image = ficonSet
