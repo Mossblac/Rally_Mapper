@@ -15,19 +15,21 @@ func DetermineCorners(numRows, numCols int) {
 	bl := map[Cell]void{}
 	br := map[Cell]void{}
 
+	toMake := map[Cell]void{}
+
 	for i := range TrackLength {
 		r, c := Track[i].CurPosR, Track[i].CurPosC
 		if IsDTopRight(r, c) || IsDTopRight2(r, c) && IsDBottomLeft(r-1, c+1) { //DUPRight
 			if InBounds(r, c+1, numRows, numCols) && !IsDTopLeft(r, c+1) {
 				tl[Cell{r, c + 1}] = v
 				if !OnTrack(r, c+1) {
-					MakeTrack(r, c+1)
+					toMake[Cell{r, c + 1}] = v
 				}
 			}
 			if InBounds(r-1, c, numRows, numCols) && !IsDBottomRight(r-1, c) {
 				br[Cell{r - 1, c}] = v
 				if !OnTrack(r-1, c) {
-					MakeTrack(r-1, c)
+					toMake[Cell{r - 1, c}] = v
 				}
 			}
 		}
@@ -36,13 +38,13 @@ func DetermineCorners(numRows, numCols int) {
 			if InBounds(r, c-1, numRows, numCols) && !IsDTopRight(r, c-1) {
 				tr[Cell{r, c - 1}] = v
 				if !OnTrack(r, c-1) {
-					MakeTrack(r, c-1)
+					toMake[Cell{r, c - 1}] = v
 				}
 			}
 			if InBounds(r-1, c, numRows, numCols) && !IsDBottomLeft(r-1, c) {
 				bl[Cell{r - 1, c}] = v
 				if !OnTrack(r-1, c) {
-					MakeTrack(r-1, c)
+					toMake[Cell{r - 1, c}] = v
 				}
 			}
 		}
@@ -51,13 +53,13 @@ func DetermineCorners(numRows, numCols int) {
 			if InBounds(r+1, c, numRows, numCols) && !IsDTopRight(r+1, c) {
 				tr[Cell{r + 1, c}] = v
 				if !OnTrack(r+1, c) {
-					MakeTrack(r+1, c)
+					toMake[Cell{r + 1, c}] = v
 				}
 			}
 			if InBounds(r, c+1, numRows, numCols) && !IsDBottomLeft(r, c+1) {
 				bl[Cell{r, c + 1}] = v
 				if !OnTrack(r, c+1) {
-					MakeTrack(r, c+1)
+					toMake[Cell{r, c + 1}] = v
 				}
 			}
 		}
@@ -66,17 +68,21 @@ func DetermineCorners(numRows, numCols int) {
 			if InBounds(r+1, c, numRows, numCols) && !IsDTopLeft(r+1, c) {
 				tl[Cell{r + 1, c}] = v
 				if !OnTrack(r+1, c) {
-					MakeTrack(r+1, c)
+					toMake[Cell{r + 1, c}] = v
 				}
 			}
 			if InBounds(r, c-1, numRows, numCols) && !IsDBottomRight(r, c-1) {
 				br[Cell{r, c - 1}] = v
 				if !OnTrack(r, c-1) {
-					MakeTrack(r, c-1)
+					toMake[Cell{r, c - 1}] = v
 				}
 			}
 		}
 
+	}
+
+	for key := range toMake {
+		MakeTrack(key.R, key.C)
 	}
 
 	for i := range Track {
@@ -232,15 +238,10 @@ func OnTrack(r, c int) bool {
 }
 
 func MakeTrack(r, c int) {
-	if !OnTrack(r, c) {
-		NewCell++
-		Track[NewCell].CurPosR = r
-		Track[NewCell].CurPosC = c
-		Track[NewCell].Image.Ic1 = Grassicon
-		fmt.Printf("making track for corner @: %v, %v\n", r, c)
-	} else {
-		fmt.Printf("refusing to make duplicate")
-		return
-	}
+	NewCell++
+	Track[NewCell].CurPosR = r
+	Track[NewCell].CurPosC = c
+	Track[NewCell].Image.Ic1 = Grassicon
+	fmt.Printf("making track for corner @: %v, %v\n", r, c)
 
 }

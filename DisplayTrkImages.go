@@ -37,7 +37,8 @@ func DisplayTrkImages(stop <-chan struct{}) {
 			fmt.Printf("%+v\n\n", Track[i])
 
 		}
-		fmt.Printf("Track Length : %v\n", TrackLength)
+		fmt.Printf("Track Length : %v\n\n", TrackLength)
+		fmt.Printf("Track Length with Corners: %v\n\n", len(Track))
 		fmt.Printf("all images set\n\n")
 		fmt.Printf("%v\n", TotalTrackTime())
 
