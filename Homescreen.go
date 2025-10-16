@@ -237,26 +237,62 @@ func HomeScreen() {
 
 }
 
-func showInstructions() { //need to update this
-	textLabel := widget.NewLabel("Enter number of punches\n\nEnter physical equipment avalable\n\nEnter number of desired obstacles\n\nEnter 0-4 to reprisent percentage\n of required obstacles\n (0 = 0%, 2 = 50%, 4 = 100%)\n\nEnter maximum size of\n area in square feet\n - default is unlimited\n\nverify info and confirm")
-	textLabel.Alignment = fyne.TextAlignCenter
+func showInstructions() {
+
+	textLabel := widget.NewLabel(`
+	Rally Mapper: 
+	
+	The default track style is a looping course,
+	you can switch to a straight course with the toggle select.
+
+	Select the size of your track - required - 
+	This is the maximum area the course can occupy
+
+	Select the obstacles that you want included on the track
+	you can choose up to 10 that will be placed in the 
+	order you selected. 
+
+	Click "Create" to randomly generate a new Track!
+
+	A Punch is a soft wireless pressure switch 
+	they act as checkpoints throughout the track. 
+	They are placed automatically
+	and the time reduction for each is calculated for you. 
+
+	Knock, hit, smash, tap, or punch 
+	to obtain a small time reduction on your run. 
+
+	The average track time, and specific time reductions for each Punch
+	can be found by pressing the -Punch Info- button below the Track display
+
+	Inspect the layout with the zoom buttons, and save your favorites
+
+	The save button will open a small window that allows you to name your 
+	Track and saves it under the name you provide. 
+
+	Warning: each track has a unique ID, That is not based on the name you assign
+	you can have multiple tracks under the same name or a track with no name at all. 
+
+	To load, click the -load- button on the Home Menu 
+	and select your track from the list. 
+
+
+
+	`)
 
 	homeButton := widget.NewButton("Home", func() {
 		HomeScreen()
 	})
+	centeredLabel := container.NewCenter(textLabel)
+	textScroll := container.NewVScroll(centeredLabel)
 
-	textLayout := container.New(layout.NewVBoxLayout(),
-		layout.NewSpacer(),
-		textLabel,
-		layout.NewSpacer(),
-	)
+	centeredTextContent := container.NewBorder(nil, homeButton, nil, nil, textScroll)
 
-	centeredTextContent := container.New(layout.NewBorderLayout(nil, homeButton, nil, nil),
-		homeButton,
-		textLayout,
-	)
+	bkg := canvas.NewImageFromFile("./images/menuBkG.jpg")
 
-	mainWin.SetContent(centeredTextContent)
+	instructStack := container.NewStack(bkg, centeredTextContent)
+
+	mainWin.SetContent(instructStack)
 
 }
 
