@@ -9,6 +9,7 @@ import (
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/layout"
+	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
 )
 
@@ -131,6 +132,7 @@ func Grid_Widget(trackType string, numObstacles int, T TrackSave) {
 			gridObjects = append(gridObjects, cellContainer)
 		}
 	}
+
 	GridBackground = canvas.NewRectangle(color.Black)
 	gridWidth := gridLayout.cellSize * float32(gridLayout.cols)
 	gridHeight := gridLayout.cellSize * float32(gridLayout.rows)
@@ -228,10 +230,26 @@ func Grid_Widget(trackType string, numObstacles int, T TrackSave) {
 		}
 	})
 
+	work := theme.SettingsIcon()
+	Working := canvas.NewImageFromResource(work)
+	Working.FillMode = canvas.ImageFillContain
+	Working.SetMinSize(fyne.NewSize(45, 45))
+	Working.Show()
+
+	iconBackground := canvas.NewRectangle(color.Black)
+	iconBackground.SetMinSize(fyne.NewSize(50, 50))
+	iconBackground.CornerRadius = 20
+
+	workingStack := container.NewStack(iconBackground, Working)
+
+	workingBox := container.NewVBox(layout.NewSpacer(), workingStack)
+	canvas.Refresh(Working)
+
 	bottomButtons := container.NewHBox(
 		zoomIn,
 		zoomOut,
 		resetZoom,
+		workingBox,
 		layout.NewSpacer(),
 		SaveWindowButton,
 		layout.NewSpacer(),
@@ -266,9 +284,9 @@ func Grid_Widget(trackType string, numObstacles int, T TrackSave) {
 	if Loading {
 		LoadedTrk = T
 		PunchList = T.Punchlist
-		DisplayTrkImages(CurrentStop, T.TrackData)
+		DisplayTrkImages(CurrentStop, T.TrackData, Working)
 	} else {
-		DeterminePath_setStart(CurrentStop, trackType, numRows, numCols)
+		DeterminePath_setStart(CurrentStop, trackType, numRows, numCols, Working)
 	}
 }
 

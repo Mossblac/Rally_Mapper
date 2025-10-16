@@ -3,12 +3,14 @@ package main
 import (
 	"fmt"
 	"time"
+
+	"fyne.io/fyne/v2/canvas"
 )
 
 var TrackClone []TrackCell
 
-func DisplayTrkImages(stop <-chan struct{}, track []TrackCell) {
-
+func DisplayTrkImages(stop <-chan struct{}, track []TrackCell, working *canvas.Image) {
+	working.Hide()
 	go func() {
 		select {
 		case <-stop:

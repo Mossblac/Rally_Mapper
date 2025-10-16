@@ -4,9 +4,10 @@ import (
 	"fmt"
 
 	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/canvas"
 )
 
-func DeterminePath_setStart(stop <-chan struct{}, TrackType string, numRows, numCols int) {
+func DeterminePath_setStart(stop <-chan struct{}, TrackType string, numRows, numCols int, working *canvas.Image) {
 	if len(Track) != numRows*numCols {
 		if !VerifyTrackReset(Track) {
 			fmt.Println("Track NOT RESET!")
@@ -53,7 +54,7 @@ func DeterminePath_setStart(stop <-chan struct{}, TrackType string, numRows, num
 		fmt.Printf("ok = : %v\n", ok)
 		if ok {
 			fyne.Do(func() {
-				DisplayTrkImages(stop, Track)
+				DisplayTrkImages(stop, Track, working)
 			})
 		}
 	}
