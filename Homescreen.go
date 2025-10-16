@@ -66,10 +66,10 @@ func HomeScreen() {
 
 	lowbridge := canvas.NewImageFromResource(LowBridge_Verticalicon)
 	lowbridge.FillMode = canvas.ImageFillContain
-	lowbridge.SetMinSize(fyne.NewSize(40, 40))
+	lowbridge.SetMinSize(fyne.NewSize(65, 65))
 	parkingBlock := canvas.NewImageFromResource(ParkingBlock_Verticalicon)
 	parkingBlock.FillMode = canvas.ImageFillContain
-	parkingBlock.SetMinSize(fyne.NewSize(40, 40))
+	parkingBlock.SetMinSize(fyne.NewSize(65, 65))
 	curb_drop := canvas.NewImageFromResource(CurbDrop_Verticalicon)
 	curb_drop.FillMode = canvas.ImageFillContain
 	curb_drop.SetMinSize(fyne.NewSize(65, 65))
@@ -172,7 +172,7 @@ func HomeScreen() {
 		if TrackSize == 0 {
 			return
 		} else {
-			fyne.DoAndWait(func() {
+			fyne.Do(func() {
 				Grid_Widget(courseType, TrackSize)
 			})
 		}

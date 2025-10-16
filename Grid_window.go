@@ -85,6 +85,7 @@ func Grid_Widget(trackType string, numObstacles int) {
 	TrackLength = 0
 	PreSetCuls = nil
 	SpacingList = nil
+	PunchList = nil
 
 	var numCols, numRows int
 	if trackType == "loop" {
@@ -188,26 +189,37 @@ func Grid_Widget(trackType string, numObstacles int) {
 	})
 
 	homeButton := widget.NewButton("Home", func() {
+		punchWin.Hide()
 		SafeStop()
 		HomeScreen()
 	})
 	runAgainButton := widget.NewButton("Re-Generate", func() {
+		punchWin.Hide()
 		SafeStop()
 		go Grid_Widget(trackType, numObstacles)
+	})
+
+	PunchInfoButton := widget.NewButton("Punch Info", func() {
+		PunchInfo()
+		punchWin.Show()
 	})
 
 	bottomButtons := container.NewHBox(
 		zoomIn,
 		zoomOut,
 		resetZoom,
+		layout.NewSpacer(),
 		homeButton,
+		layout.NewSpacer(),
 		runAgainButton,
+		layout.NewSpacer(),
+		PunchInfoButton,
 	)
-	centeredBottom := container.NewCenter(bottomButtons)
+	//centeredBottom := container.NewCenter(bottomButtons)
 
 	content := container.NewBorder(
 		layout.NewSpacer(),
-		centeredBottom,
+		bottomButtons,
 		nil,
 		nil,
 		scrollStack,

@@ -3,7 +3,6 @@ package main
 import "fyne.io/fyne/v2"
 
 func DeterminePunches() {
-	var PunchList []int
 	if len(Obstacles) == 0 {
 		return
 	}
@@ -33,7 +32,7 @@ func DeterminePunches() {
 	for i := 0; i < len(PunchList); i++ {
 		Track[PunchList[i]].Image.Ic5 = PunchImages[i]
 		if i == 0 {
-			Track[PunchList[i]].PTime = CalcTime(0, PunchList[i])
+			Track[PunchList[i]].PTime = CalcTime(0, PunchList[i]) //decide how much to reduce this by
 
 		} else {
 			Track[PunchList[i]].PTime = CalcTime(PunchList[i-1], PunchList[i])
