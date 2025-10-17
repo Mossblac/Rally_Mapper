@@ -26,8 +26,7 @@ A Rally Track is a **timed** course consisting of three components:
 
 ***
 
-**The Obstacles** are objects within the course that require the performance of certain riding skills in order to navigate successfully and even more skill  
-to overcome at speed
+**The Obstacles** are objects within the course that require the performance of certain riding skills in order to navigate successfully and even more skill to overcome at speed
 
 ***
 
@@ -66,8 +65,7 @@ as well as creating sharable videos of their performance.
 > 8. tons of quality of life UI improvements.
 > 9. Rally Mapper Mobile
 
-- Considering that I had no introduction to Fyne before beginning this project, I am however pretty satisfied with how  
-it is working at the end of my 30 day deadline.  
+- Considering that I had no introduction to Fyne before beginning this project, I am however pretty satisfied with how it is working at the end of my 30 day deadline.  
 (while still working 40hrs a week away from my computer)
 
 ## Required to build app
