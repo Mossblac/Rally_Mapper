@@ -46,3 +46,10 @@ as well as creating sharable videos of their performance.
 fyne.io/fyne/v2: The Fyne toolkit itself, which you install using go get fyne.io/fyne/v2@latest.
 Fyne Setup tool: A utility to check your development environment and assist with troubleshooting.
 fyne-cross: For cross-compiling your Fyne application to different platforms, particularly useful for mobile and other OS targets from a single development machine.
+
+**Or just Run The Precompiled Files!**
+
+- Windows - Rally_Mapper/fyne-cross/bin/windows-amd64/Rally_Mapper.exe
+
+- Linux - Rally_Mapper/Rally_Mapper
+
