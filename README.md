@@ -1,30 +1,32 @@
 # Rally_Mapper
-**A Rally Course Generator**
+
+## A Rally Course Generator
 
 ![RallyMapper logo](./images/rally_mapper_logo_smaller.png)
 
 ***
 
-## Rally: A skill and strategy based time trial race.  
+## Rally: A skill and strategy based time trial race  
 
-> While it is possible to run a Rally on foot, These Tracks are specifically designed to take advantage of the 
-> capability of a Rally Board or EUC. Which are handsfree operated, partially self balancing, 
+> While it is possible to run a Rally on foot, These Tracks are specifically designed to take advantage of the  
+> capability of a Rally Board or EUC. Which are handsfree operated, partially self balancing,  
 > personal electric vehicles or P.E.V.s
 
 ***
 
 A Rally Track is a **timed** course consisting of three components:
+
 1. **A Course**  
-2. **Obstacles** 
-3. **and Punches** 
+2. **Obstacles**  
+3. **and Punches**  
 
 ***
 
-**The Track** can be linear or a loop. changed with a toggle on the main menu. 
+**The Track** can be linear or a loop. changed with a toggle on the main menu.  
 
 ***
 
-**The Obstacles** are objects within the course that require the performance of certain riding skills in order to navigate successfully and even more skill 
+**The Obstacles** are objects within the course that require the performance of certain riding skills in order to navigate successfully and even more skill  
 to overcome at speed
 
 ***
@@ -35,25 +37,25 @@ to overcome at speed
 
 ## Rally Mapper: A Track Generator and Time Calculator
 
-Choose the type of map   
-Choose the size of the map   
-Choose your obstacles    
+Choose the type of map  
+Choose the size of the map  
+Choose your obstacles  
 
-Rally Mapper will generate a custom Track, Place Obstacles and Punches, and provide the calculated time reductions gained from each. 
+Rally Mapper will generate a custom Track, Place Obstacles and Punches, and provide the calculated time reductions gained from each.  
 
 ***
 
 This Application was made using **Fyne** UI and **Go** programming language.
 Track Data is stored locally in JSON format allowing for the eventual implementation
-of an online database. 
+of an online database.  
 
-
-It is intended to be the first part of a larger application that will run   
-Rallys based on the Track information created with the Rally Mapper.    
-Automatically calculating times and logging multiple runs for each contestant,     
-as well as creating sharable videos of their performance.    
+It is intended to be the first part of a larger application that will run  
+Rallys based on the Track information created with the Rally Mapper.  
+Automatically calculating times and logging multiple runs for each contestant,  
+as well as creating sharable videos of their performance.  
 
 **This is a work in progress** There is a long list of missing features and potential updates, such as:
+
 > 1. delete saves from within the app
 > 2. animation updates to place obstacles and punches after track is placed
 > 3. pinch zoom and rotate the map smoothly
@@ -64,11 +66,12 @@ as well as creating sharable videos of their performance.
 > 8. tons of quality of life UI improvements.
 > 9. Rally Mapper Mobile
 
-- Considering that I had no introduction to Fyne before beginning this project, I am however pretty satisfied with how 
-it is working at the end of my 30 day deadline.       
+- Considering that I had no introduction to Fyne before beginning this project, I am however pretty satisfied with how  
+it is working at the end of my 30 day deadline.  
 (while still working 40hrs a week away from my computer)
 
-## Required to build app:
+## Required to build app
+
 1. Go Language: Fyne is built in Go, so you need a working Go installation. Version 1.17 or later is recommended.
 
 2. C Compiler: Fyne utilizes CGo to interact with system graphics drivers (like GLFW for desktop platforms), which necessitates a C compiler.
@@ -78,11 +81,11 @@ it is working at the end of my 30 day deadline.
     - macOS: Xcode, which includes the necessary command-line tools, provides the C compiler.
     - Windows: Options include MSYS2 with MingW-w64, TDM-GCC, or Cygwin.
 
-4. System Graphics Driver: Fyne relies on your system's graphics driver to render the UI. This is typically handled by the C compiler and associated libraries. 
+4. System Graphics Driver: Fyne relies on your system's graphics driver to render the UI. This is typically handled by the C compiler and associated libraries.  
 
 **Optional but Recommended:**
-fyne.io/fyne/v2: The Fyne toolkit itself, which you install using go get fyne.io/fyne/v2@latest.    
-Fyne Setup tool: A utility to check your development environment and assist with troubleshooting.    
+fyne.io/fyne/v2: The Fyne toolkit itself, which you install using go get fyne.io/fyne/v2@latest.  
+Fyne Setup tool: A utility to check your development environment and assist with troubleshooting.  
 fyne-cross: For cross-compiling your Fyne application to different platforms, particularly useful for mobile and other OS targets from a single development machine.
 
 **Or just Run The Precompiled Files!**
@@ -90,4 +93,3 @@ fyne-cross: For cross-compiling your Fyne application to different platforms, pa
 - Windows - Rally_Mapper/fyne-cross/bin/windows-amd64/Rally_Mapper.exe
 
 - Linux - Rally_Mapper/Rally_Mapper
-
