@@ -225,10 +225,12 @@ func HomeScreen() {
 
 	borderBox := container.NewBorder(container.NewCenter(LargeText), buttonBoxWithWarning, CheckAndSelectBox, obDisplayVbox)
 
-	bkg := canvas.NewImageFromFile("./images/backgroundcropped.jpg")
+	res := fyne.NewStaticResource("images/backgroundcropped.jpg", resourceBackgroundcroppedJpgData)
+	bkg := canvas.NewImageFromResource(res)
 	bkg.FillMode = canvas.ImageFillStretch
 
-	logo := canvas.NewImageFromFile("./images/rally_mapper_logo.png")
+	res2 := fyne.NewStaticResource("images/rally_mapper_logo.png", resourceRallymapperlogoPngData)
+	logo := canvas.NewImageFromResource(res2)
 	logo.FillMode = canvas.ImageFillContain
 
 	FullContent := container.NewStack(bkg, logo, borderBox)

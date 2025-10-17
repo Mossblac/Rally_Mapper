@@ -29,7 +29,8 @@ func LoadT() {
 	}
 	catList := MakeCatalogList(cat, onSelect)
 
-	bkg := canvas.NewImageFromFile("./images/menuBkG.jpg")
+	resBK := fyne.NewStaticResource("images/menuBkG.jpg", resourceMenuBkGJpgData)
+	bkg := canvas.NewImageFromResource(resBK)
 
 	centerStack := container.NewStack(bkg, catList)
 

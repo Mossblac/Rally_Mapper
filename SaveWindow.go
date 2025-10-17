@@ -40,7 +40,8 @@ func SaveWindow(numObstacles int) {
 	SaveB := container.NewVBox(SaveButton)
 	SaveEntryAndButton := container.NewVBox(SaveEntry, SaveB)
 
-	bkg := canvas.NewImageFromFile("./images/menuBkG.jpg")
+	resBK := fyne.NewStaticResource("images/menuBkG.jpg", resourceMenuBkGJpgData)
+	bkg := canvas.NewImageFromResource(resBK)
 
 	SStack := container.NewStack(bkg, SaveEntryAndButton)
 

@@ -90,7 +90,8 @@ func PunchInfo(T TrackSave) {
 
 	AllInfoScroll := container.NewScroll(AllInfoVBox)
 
-	bkg := canvas.NewImageFromFile("./images/menuBkG.jpg")
+	resBK := fyne.NewStaticResource("images/menuBkG.jpg", resourceMenuBkGJpgData)
+	bkg := canvas.NewImageFromResource(resBK)
 
 	AllinfoStack := container.NewStack(bkg, AllInfoScroll)
 
