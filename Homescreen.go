@@ -208,7 +208,7 @@ func HomeScreen() {
 	SelectObTxtStack := container.NewStack(SelObBKG, SelectObstacles)
 	SelectObTextBox := container.NewHBox(layout.NewSpacer(), SelectObTxtStack, layout.NewSpacer())
 
-	CheckAndSelectBox := container.NewVBox(CheckBox, picktracksizeText, TrackSizeSelectCentered, SelectObTextBox, IconVBox)
+	CheckAndSelectBox := container.NewVBox(layout.NewSpacer(), CheckBox, layout.NewSpacer(), picktracksizeText, TrackSizeSelectCentered, layout.NewSpacer(), SelectObTextBox, IconVBox, layout.NewSpacer())
 
 	buttonBox := container.NewHBox(InfoB, layout.NewSpacer(), loadTrack, layout.NewSpacer(), createB)
 

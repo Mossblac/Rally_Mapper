@@ -56,7 +56,7 @@ as well as creating sharable videos of their performance.
 **This is a work in progress** There is a long list of missing features and potential updates, such as:
 
 > 1. delete saves from within the app
-> 2. animation updates to place obstacles and punches after track is placed
+> 2. ~~animation updates to place obstacles and punches after track is placed~~
 > 3. pinch zoom and rotate the map smoothly
 > 4. run the track animation that takes you through the course at the average speed.
 > 5. ability to upload and share Tracks
@@ -64,9 +64,6 @@ as well as creating sharable videos of their performance.
 > 7. manual obstacle and punch placement
 > 8. tons of quality of life UI improvements.
 > 9. Rally Mapper Mobile
-
-- Considering that I had no introduction to Fyne before beginning this project, I am however pretty satisfied with how it is working at the end of my 30 day deadline.  
-(while still working 40hrs a week away from my computer)
 
 ## Required to build app
 
@@ -85,9 +82,3 @@ as well as creating sharable videos of their performance.
 fyne.io/fyne/v2: The Fyne toolkit itself, which you install using go get fyne.io/fyne/v2@latest.  
 Fyne Setup tool: A utility to check your development environment and assist with troubleshooting.  
 fyne-cross: For cross-compiling your Fyne application to different platforms, particularly useful for mobile and other OS targets from a single development machine.
-
-**Or just Run The Precompiled Files!**
-
-- Windows - Rally_Mapper/fyne-cross/bin/windows-amd64/Rally_Mapper.exe
-
-- Linux - Rally_Mapper/Rally_Mapper

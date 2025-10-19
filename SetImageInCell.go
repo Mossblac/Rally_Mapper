@@ -18,8 +18,6 @@ func SetTrackImageInCell(row, col int, icons IconSet) {
 			img := ResourceToIcon(icons.Ic1)
 			secondimg := ResourceToIcon(icons.Ic2)
 			thirdimg := ResourceToIcon(icons.Ic3)
-			fourthimg := ResourceToIcon(icons.Ic4)
-			fifthimg := ResourceToIcon(icons.Ic5)
 
 			cell := CellGrid[row][col]
 			if cell == nil || len(cell.Objects) < 2 {
@@ -45,7 +43,7 @@ func SetTrackImageInCell(row, col int, icons IconSet) {
 				stack.Add(img)
 				stack.Refresh()
 
-				FadeInAnimate(img)
+				FadeInAnimate(img, time.Millisecond*500)
 			} else {
 				stack.Add(ex)
 				stack.Refresh()
@@ -55,38 +53,78 @@ func SetTrackImageInCell(row, col int, icons IconSet) {
 				stack.Add(secondimg)
 				stack.Refresh()
 
-				FadeInAnimate(secondimg)
+				FadeInAnimate(secondimg, time.Millisecond*500)
 			}
 
 			if icons.Ic3 != nil {
 				stack.Add(thirdimg)
 				stack.Refresh()
 
-				FadeInAnimate(thirdimg)
-			}
-
-			if icons.Ic4 != nil {
-				stack.Add(fourthimg)
-				stack.Refresh()
-
-				DropInAnimate(fourthimg, time.Millisecond*400)
-			}
-
-			if icons.Ic5 != nil {
-				stack.Add(fifthimg)
-				stack.Refresh()
-
-				DropInAnimate(fifthimg, time.Millisecond*700)
+				FadeInAnimate(thirdimg, time.Millisecond*500)
 			}
 
 		})
 	}()
 }
 
-func FadeInAnimate(img *canvas.Image) {
+func SetTrackObsInCell(row, col int, icons IconSet) {
+	go func() {
+		fyne.Do(func() {
+
+			fourthimg := ResourceToIcon(icons.Ic4)
+
+			cell := CellGrid[row][col]
+			if cell == nil || len(cell.Objects) < 2 {
+				return
+			}
+
+			stack, ok := cell.Objects[1].(*fyne.Container)
+			if !ok {
+				return
+			}
+
+			if icons.Ic4 != nil {
+				stack.Add(fourthimg)
+				stack.Refresh()
+
+				DropInAnimate(fourthimg, time.Millisecond*500)
+			}
+
+		})
+	}()
+}
+
+func SetTrackPunchInCell(row, col int, icons IconSet) {
+	go func() {
+		fyne.Do(func() {
+
+			fifthimg := ResourceToIcon(icons.Ic5)
+
+			cell := CellGrid[row][col]
+			if cell == nil || len(cell.Objects) < 2 {
+				return
+			}
+
+			stack, ok := cell.Objects[1].(*fyne.Container)
+			if !ok {
+				return
+			}
+
+			if icons.Ic5 != nil {
+				stack.Add(fifthimg)
+				stack.Refresh()
+
+				DropInAnimate(fifthimg, time.Millisecond*500)
+			}
+
+		})
+	}()
+}
+
+func FadeInAnimate(img *canvas.Image, delay time.Duration) {
 	fadeIn := canvas.NewColorRGBAAnimation(
 		color.RGBA{A: 0}, color.RGBA{A: 255},
-		500*time.Millisecond,
+		delay,
 		func(c color.Color) {
 			_, _, _, a := c.RGBA()
 			img.Translucency = 1.0 - (float64(a) / 65535.0)
@@ -107,7 +145,8 @@ func ResourceToIcon(static *fyne.StaticResource) *canvas.Image {
 func DropInAnimate(image *canvas.Image, delay time.Duration) {
 	originalPos := image.Position()
 	image.Move(fyne.NewPos(originalPos.X, originalPos.Y-100))
-	image.Translucency = 0.0
+	FadeInAnimate(image, delay)
+	//image.Translucency = 0.0
 
 	dropAnimation := canvas.NewPositionAnimation(
 		fyne.NewPos(originalPos.X, originalPos.Y-100),
