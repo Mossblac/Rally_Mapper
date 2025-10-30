@@ -34,7 +34,7 @@ A Rally Track is a **timed** course consisting of three components:
 
 ***
 
-## Rally Mapper: A Track Generator and Time Calculator
+## A Track Generator and Time Calculator
 
 Choose the type of map  
 Choose the size of the map  
@@ -55,15 +55,15 @@ as well as creating sharable videos of their performance.
 
 **This is a work in progress** There is a long list of missing features and potential updates, such as:
 
-> 1. delete saves from within the app
-> 2. ~~animation updates to place obstacles and punches after track is placed~~
+> 1. ~~animation updates to place obstacles and punches after track is placed~~
+> 2. delete saves from within the app
 > 3. pinch zoom and rotate the map smoothly
 > 4. run the track animation that takes you through the course at the average speed.
 > 5. ability to upload and share Tracks
 > 6. Login and Multiple user support
 > 7. manual obstacle and punch placement
-> 8. tons of quality of life UI improvements.
-> 9. Rally Mapper Mobile
+> 8. Rally Mapper Mobile
+> 9. minor UI improvements.
 
 ## Required to build app
 
