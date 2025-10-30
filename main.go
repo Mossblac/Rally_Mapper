@@ -27,7 +27,3 @@ func main() {
 	mainWin.ShowAndRun()
 
 }
-
-func init() {
-
-}

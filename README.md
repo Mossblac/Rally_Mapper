@@ -2,6 +2,8 @@
 
 ![RallyMapper logo](./images/rally_mapper_logo_smaller.png)
 
+![TrackGif](./output.gif) / ! [](./output.gif)
+
 ***
 
 ## Rally: A skill and strategy based time trial race  

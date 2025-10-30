@@ -100,7 +100,7 @@ func HomeScreen() {
 	LargeText.TextStyle.Bold = true
 	LargeText.TextSize = 60
 
-	SmallText := canvas.NewText("Check to switch to : linear", color.Black)
+	SmallText := canvas.NewText("Check to switch to : linear", color.White)
 	SmallText.TextSize = 20
 
 	Linear_Checked_options := []string{"120ft", "180ft", "240ft", "300ft", "360ft", "420ft", "480ft"}
@@ -225,7 +225,7 @@ func HomeScreen() {
 
 	borderBox := container.NewBorder(container.NewCenter(LargeText), buttonBoxWithWarning, CheckAndSelectBox, obDisplayVbox)
 
-	res := fyne.NewStaticResource("images/backgroundcropped.jpg", resourceBackgroundcroppedJpgData)
+	res := fyne.NewStaticResource("images/menuBkG.jpg", resourceMenuBkGJpgData)
 	bkg := canvas.NewImageFromResource(res)
 	bkg.FillMode = canvas.ImageFillStretch
 

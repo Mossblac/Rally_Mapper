@@ -141,7 +141,7 @@ func Grid_Widget(trackType string, numObstacles int, T TrackSave) {
 	grid := container.New(gridLayout, gridObjects...)
 	centeredGrid := container.NewCenter(container.NewWithoutLayout(GridBackground, grid))
 	scroll = container.NewScroll(centeredGrid)
-	res := fyne.NewStaticResource("images/backgroundcropped.jpg", resourceBackgroundcroppedJpgData)
+	res := fyne.NewStaticResource("images/menuBkG.jpg", resourceMenuBkGJpgData)
 	bkg := canvas.NewImageFromResource(res)
 	bkg.FillMode = canvas.ImageFillStretch
 	scrollStack := container.NewStack(bkg, scroll)
