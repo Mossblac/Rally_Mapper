@@ -6,7 +6,14 @@
 
 ## Rally: A skill and strategy based time trial race  
 
-> While it is possible to run a Rally on foot, These Tracks are specifically designed to take advantage of the  
+While I thoroughly enjoy riding both my **Fungineer FunWheel X7** Rally board and my **FutureMotion OneWheel pintX**
+Rally board almost every day, I can't say I have ever enjoyed watching a competition involving them. Not only are there no events that can effectivly place these boards against one another, the few races and trick competitions I've seen have all failed to capture my attention (and bored me to tears...)
+
+These are not mountain bikes, dirt bikes or off-road skateboards, Why are all the competitions on tracks built for that equipment?
+
+## I want to change to game, literally....
+
+> These Tracks are specifically designed to take advantage of the  
 > capability of a Rally Board or EUC. Which are handsfree operated, partially self balancing,  
 > personal electric vehicles or P.E.V.s
 
@@ -51,7 +58,7 @@ Rallys based on the Track information created with the Rally Mapper.
 Automatically calculating times and logging multiple runs for each contestant,  
 as well as creating sharable videos of their performance.  
 
-**This is a work in progress** There is a long list of missing features and potential updates, such as:
+**This is a work in progress** Here are some of the upcoming features and planned improvements:
 
 > 1. ~~animation updates to place obstacles and punches after track is placed~~
 > 2. delete saves from within the app
