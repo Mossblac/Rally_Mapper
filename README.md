@@ -4,7 +4,7 @@
 
 ***
 
-## Rally: A skill and strategy based time trial race  
+## Motivation
 
 While I thoroughly enjoy riding both my **Fungineer FunWheel X7** Rally board and my **FutureMotion OneWheel pintX**
 Rally board almost every day, I can't say I have ever enjoyed watching a competition involving them. Not only are there no events that can effectivly place these boards against one another, the few races and trick competitions I've seen have all failed to capture my attention (and bored me to tears...)
@@ -24,7 +24,6 @@ These are not mountain bikes, dirt bikes or off-road skateboards, Why are all th
 ### 1. Install Rally_Mapper using the Go toolchain
 
 ```bash
-# Install Rally_Mapper
 go install github.com/Mossblac/Rally_Mapper@latest
 ```
 
@@ -44,8 +43,10 @@ Rally Mapper will generate a custom Track, Place Obstacles and Punches, and prov
 2. **Obstacles**  
 3. **and Punches**  
 
->**The Track** can be linear or a loop. changed with a toggle on the main menu.  
+>**The Track** can be linear or a loop. changed with a toggle on the main menu.
+
 >**The Obstacles** are objects within the course that require the performance of certain riding skills in order to navigate successfully and even more skill to overcome at speed
+
 >**Punches** are triggered checkpoints located throughout the Track that, when activated, grant a bonus time reduction to your run.
 
 ## Usage
@@ -55,7 +56,6 @@ Track Type (Loop vs Linear)
 - Control: Home > Track Type toggle
 - Values: Loop | Linear (default: Loop)
 - Effect: Loop connects end to start; Linear creates distinct start/finish, which changes checkpoint placement and time calc.
-- Apply: Click Regenerate to rebuild with the selected type.
 
 Save and Load Tracks
 
@@ -99,3 +99,20 @@ Rallys based on the Track information created with the Rally Mapper.
 Automatically calculating times and logging multiple runs for each contestant,  
 as well as creating sharable videos of their performance.  
 
+## 🤝 Contributing
+
+### Clone the repo
+
+```bash
+git clone https://github.com/Mossblac/Rally_Mapper@latest
+```
+
+### Build the compiled binary
+
+```bash
+go build
+```
+
+### Submit a pull request
+
+If you'd like to contribute, please fork the repository and open a pull request to the `main` branch.
