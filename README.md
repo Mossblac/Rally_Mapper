@@ -19,27 +19,18 @@ These are not mountain bikes, dirt bikes or off-road skateboards, Why are all th
 
 ***
 
-A Rally Track is a **timed** course consisting of three components:
+## 🚀 Quick Start
 
-1. **A Course**  
-2. **Obstacles**  
-3. **and Punches**  
+### 1. Install Rally_Mapper using the Go toolchain
 
-***
-
-**The Track** can be linear or a loop. changed with a toggle on the main menu.  
-
-***
-
-**The Obstacles** are objects within the course that require the performance of certain riding skills in order to navigate successfully and even more skill to overcome at speed
+```bash
+# Install Rally_Mapper
+go install github.com/Mossblac/Rally_Mapper@latest
+```
 
 ***
 
-**Punches** are triggered checkpoints located throughout the Track that, when activated, grant a bonus time reduction to your run.  
-
-***
-
-## A Track Generator and Time Calculator
+## Getting Started
 
 Choose the type of map  
 Choose the size of the map  
@@ -47,16 +38,24 @@ Choose your obstacles
 
 Rally Mapper will generate a custom Track, Place Obstacles and Punches, and provide the calculated time reductions gained from each.  
 
-***
+## Usage
 
-This Application was made using **Fyne** UI and **Go** programming language.
-Track Data is stored locally in JSON format allowing for the eventual implementation
-of an online database.  
+## A Rally Track is a **timed** course consisting of three components:
 
-It is intended to be the first part of a larger application that will run  
-Rallys based on the Track information created with the Rally Mapper.  
-Automatically calculating times and logging multiple runs for each contestant,  
-as well as creating sharable videos of their performance.  
+1. **A Course**  
+2. **Obstacles**  
+3. **and Punches**  
+
+>**The Track** can be linear or a loop. changed with a toggle on the main menu.  
+>**The Obstacles** are objects within the course that require the performance of certain riding skills in order to navigate successfully and even more skill to overcome at speed
+>**Punches** are triggered checkpoints located throughout the Track that, when activated, grant a bonus time reduction to your run.
+
+```bash
+from the Track screen you can regenerate new maps using the same parameters, click save to store your favorites
+and reload using the load menu on the homescreen 
+```
+
+*** 
 
 **This is a work in progress** Here are some of the upcoming features and planned improvements:
 
@@ -70,10 +69,14 @@ as well as creating sharable videos of their performance.
 > 8. Rally Mapper Mobile
 > 9. minor UI improvements.
 
-## 🚀 Quick Start
+***
 
-### 1. Install Rally_Mapper using the Go toolchain
+This Application was made using **Fyne** UI and **Go** programming language.
+Track Data is stored locally in JSON format allowing for the eventual implementation
+of an online database.  
 
-```bash
-# Install Rally_Mapper
-go install github.com/Mossblac/Rally_Mapper@latest
+It is intended to be the first part of a larger application that will run  
+Rallys based on the Track information created with the Rally Mapper.  
+Automatically calculating times and logging multiple runs for each contestant,  
+as well as creating sharable videos of their performance.  
+
