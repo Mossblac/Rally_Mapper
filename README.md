@@ -1,6 +1,6 @@
 # Rally_Mapper : A Rally Course Generator
 
-![TrackGif](./demo.gif) [](./demo.gif)
+![TrackGif](./demoC.gif) [](./demoC.gif)
 
 ***
 
