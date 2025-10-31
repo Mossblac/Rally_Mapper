@@ -70,20 +70,10 @@ as well as creating sharable videos of their performance.
 > 8. Rally Mapper Mobile
 > 9. minor UI improvements.
 
-## Required to build app
+## 🚀 Quick Start
 
-1. Go Language: Fyne is built in Go, so you need a working Go installation. Version 1.17 or later is recommended.
+### 1. Install Rally_Mapper using the Go toolchain
 
-2. C Compiler: Fyne utilizes CGo to interact with system graphics drivers (like GLFW for desktop platforms), which necessitates a C compiler.
-
-3. OS specific :
-    - Linux: GCC is typically suitable. You might also need libgl1-mesa-dev and xorg-dev packages on Debian/Ubuntu-based systems.
-    - macOS: Xcode, which includes the necessary command-line tools, provides the C compiler.
-    - Windows: Options include MSYS2 with MingW-w64, TDM-GCC, or Cygwin.
-
-4. System Graphics Driver: Fyne relies on your system's graphics driver to render the UI. This is typically handled by the C compiler and associated libraries.  
-
-**Optional but Recommended:**
-fyne.io/fyne/v2: The Fyne toolkit itself, which you install using go get fyne.io/fyne/v2@latest.  
-Fyne Setup tool: A utility to check your development environment and assist with troubleshooting.  
-fyne-cross: For cross-compiling your Fyne application to different platforms, particularly useful for mobile and other OS targets from a single development machine.
+```bash
+# Install Rally_Mapper
+go install github.com/Mossblac/Rally_Mapper@latest
