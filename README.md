@@ -38,8 +38,6 @@ Choose your obstacles
 
 Rally Mapper will generate a custom Track, Place Obstacles and Punches, and provide the calculated time reductions gained from each.  
 
-## Usage
-
 ## A Rally Track is a **timed** course consisting of three components:
 
 1. **A Course**  
@@ -50,10 +48,31 @@ Rally Mapper will generate a custom Track, Place Obstacles and Punches, and prov
 >**The Obstacles** are objects within the course that require the performance of certain riding skills in order to navigate successfully and even more skill to overcome at speed
 >**Punches** are triggered checkpoints located throughout the Track that, when activated, grant a bonus time reduction to your run.
 
-```bash
-from the Track screen you can regenerate new maps using the same parameters, click save to store your favorites
-and reload using the load menu on the homescreen 
-```
+## Usage
+
+Track Type (Loop vs Linear)
+
+- Control: Home > Track Type toggle
+- Values: Loop | Linear (default: Loop)
+- Effect: Loop connects end to start; Linear creates distinct start/finish, which changes checkpoint placement and time calc.
+- Apply: Click Regenerate to rebuild with the selected type.
+
+Save and Load Tracks
+
+- Control: Results Screen > Save; Home > Load
+- Format: JSON (includes obstacles, seed, and timing metadata)
+- Effect: Enables exact reproduction and sharing of generated tracks.
+
+Add and Order Obstacles
+
+- Control: Home > Add/Subtract buttons
+- Values: separate selects for each obstacle (default: No obstacles)
+- Effect: Adds selected obstacles to Track in the order they are selected, spaced evenly.
+
+Quick Regenerate
+
+- Control: Results Screen > Regenerate
+- Effect: creates a new Track using the same parameters set on the homescreen
 
 *** 
 
