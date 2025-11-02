@@ -189,7 +189,7 @@ func HomeScreen() {
 		}
 	})
 
-	loadTrack := widget.NewButton("Load Track", func() {
+	loadTrack := widget.NewButton("Saved Tracks", func() {
 		LoadT()
 	})
 

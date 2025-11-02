@@ -11,9 +11,10 @@ import (
 
 func LoadT() {
 
-	/*loadWin.SetCloseIntercept(func() {
-		loadWin.Hide()
-	})*/
+	//del button
+	//del mode window. hide
+	//confirm window. hide to pass into DelT
+
 	Home := widget.NewButton("home", func() {
 		HomeScreen()
 	})
@@ -54,4 +55,17 @@ func onSelect(T CatalogEntry) {
 	Trk := *TrkPoint
 	Grid_Widget(trackT, Trk.TSize, Trk)
 
+}
+
+func DelT() {
+	// delete mode window (red square, message change).hide within LoadT, shows upon button press.
+	//del confirm window, also hidden, pass into DelT to show
+
+	//LoadT window with red partially transparent square on top of background
+	//message changes to "select track to delete".
+
+	//when selected, show the confirmation screen, "confirm delete Track : %v"
+	//confirm screen has less transparent red background and small centered hbox with confirm and cancel buttons.
+
+	//confirm will delete entry and return to LoadT, cancel will return to LoadT without deleting.
 }
