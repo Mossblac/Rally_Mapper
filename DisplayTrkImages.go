@@ -32,7 +32,7 @@ func DisplayTrkImages(stop <-chan struct{}, track []TrackCell, working *canvas.I
 				if TrackClone[i].Finish {
 					TrackLength = i
 				}
-				if i < len(TrackClone) { //this needs to be the length of the track and the corners, but not the blanks after.
+				if m.CurPosR != -1 && m.CurPosC != -1 { //this needs to be the length of the track and the corners, but not the blanks after.
 					select {
 					case <-stop:
 						return
