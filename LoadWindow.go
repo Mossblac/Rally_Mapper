@@ -59,7 +59,7 @@ func LoadT() {
 	if err != nil {
 		fmt.Printf("error loading catalogue: %v\n", err)
 	}
-	catList := MakeCatalogList(cat, onSelect)
+	catList := MakeCatalogList(Del_Confirm_red, CentConfirmBox, cat, onSelect)
 
 	resBK := fyne.NewStaticResource("images/menuBkG.jpg", resourceMenuBkGJpgData)
 	bkg := canvas.NewImageFromResource(resBK)
@@ -71,9 +71,10 @@ func LoadT() {
 	mainWin.SetContent(LoadListWithButton)
 }
 
-func onSelect(T CatalogEntry) {
+func onSelect(T CatalogEntry, bkg *canvas.Rectangle, Cbut *fyne.Container) {
 	if Delete_Activator {
-		//need to find a way to have this show Del_Confirm_red and CentConfirmBox
+		bkg.Show()
+		Cbut.Show()
 	} else {
 		Loading = true
 		TrkPoint, err := LoadTrack("./Saves", T.ID)
