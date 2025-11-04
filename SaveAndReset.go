@@ -9,7 +9,6 @@ import (
 	"time"
 
 	"fyne.io/fyne/v2"
-	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/widget"
 	"github.com/google/uuid"
 )
@@ -143,7 +142,7 @@ func LoadTrack(baseDir, id string) (*TrackSave, error) {
 	return &t, nil
 }
 
-func MakeCatalogList(bkg *canvas.Rectangle, Cbut *fyne.Container, cat Catalog, onSelect func(CatalogEntry, *canvas.Rectangle, *fyne.Container)) fyne.CanvasObject {
+func MakeCatalogList(cat Catalog, onSelect func(CatalogEntry)) fyne.CanvasObject {
 	data := make([]string, len(cat.Entries))
 	for i, e := range cat.Entries {
 		data[i] = fmt.Sprintf("%v - Created: %v - Avg TTC: %v", e.Name, e.CreatedAt, e.TimeToComplete)
@@ -159,7 +158,7 @@ func MakeCatalogList(bkg *canvas.Rectangle, Cbut *fyne.Container, cat Catalog, o
 
 	list.OnSelected = func(i widget.ListItemID) {
 		if i >= 0 && i < len(cat.Entries) {
-			onSelect(cat.Entries[i], bkg, Cbut)
+			onSelect(cat.Entries[i])
 		}
 	}
 	return list
