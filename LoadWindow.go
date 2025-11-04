@@ -11,8 +11,10 @@ import (
 )
 
 var Delete_Activator bool
+var ToDelete CatalogEntry
 
 func LoadT() {
+
 	redLevelselect := &color.RGBA{R: 255, G: 0, B: 0, A: 25}
 	redLevelConfirm := &color.RGBA{R: 255, G: 0, B: 0, A: 75}
 	Del_Sel_rec := canvas.NewRectangle(redLevelselect)
@@ -38,17 +40,21 @@ func LoadT() {
 
 	Comfirm_text := widget.NewLabel("Confirm Delete Selected Track")
 	text.Alignment = fyne.TextAlignCenter
-	Cent_Confirm_text := container.NewCenter(Comfirm_text)
+	textBkg := canvas.NewRectangle(color.Black)
+	textBkg.CornerRadius = 20
+	textStack := container.NewStack(textBkg, Comfirm_text)
+	Cent_Confirm_text := container.NewCenter(textStack)
 
 	Confirmed_DeleteBut := widget.NewButton("DELETE", func() {
-
+		fmt.Printf("Track: %v will be deleted", ToDelete.Name)
 	})
 	CancelDeleteBut := widget.NewButton("Cancel", func() {
-
+		LoadT()
 	})
 
 	ConfirmButtons := container.NewHBox(CancelDeleteBut, Confirmed_DeleteBut)
-	ConfirmBox := container.NewVBox(Cent_Confirm_text, ConfirmButtons)
+	CconfirmButtons := container.NewCenter(ConfirmButtons)
+	ConfirmBox := container.NewVBox(Cent_Confirm_text, CconfirmButtons)
 	CentConfirmBox := container.NewCenter(ConfirmBox)
 	CentConfirmBox.Hide()
 
@@ -64,7 +70,7 @@ func LoadT() {
 	resBK := fyne.NewStaticResource("images/menuBkG.jpg", resourceMenuBkGJpgData)
 	bkg := canvas.NewImageFromResource(resBK)
 
-	centerStack := container.NewStack(bkg, Del_Sel_rec, Del_Confirm_red, catList, CentConfirmBox)
+	centerStack := container.NewStack(bkg, Del_Sel_rec, catList, Del_Confirm_red, CentConfirmBox)
 
 	LoadListWithButton := container.NewBorder(Ctext, Cbuttons, nil, nil, centerStack)
 
@@ -75,6 +81,7 @@ func onSelect(T CatalogEntry, bkg *canvas.Rectangle, Cbut *fyne.Container) {
 	if Delete_Activator {
 		bkg.Show()
 		Cbut.Show()
+		ToDelete = T
 	} else {
 		Loading = true
 		TrkPoint, err := LoadTrack("./Saves", T.ID)

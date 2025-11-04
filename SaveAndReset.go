@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/fs"
 	"os"
 	"path/filepath"
@@ -145,7 +146,7 @@ func LoadTrack(baseDir, id string) (*TrackSave, error) {
 func MakeCatalogList(bkg *canvas.Rectangle, Cbut *fyne.Container, cat Catalog, onSelect func(CatalogEntry, *canvas.Rectangle, *fyne.Container)) fyne.CanvasObject {
 	data := make([]string, len(cat.Entries))
 	for i, e := range cat.Entries {
-		data[i] = e.Name
+		data[i] = fmt.Sprintf("%v - Created: %v - Avg TTC: %v", e.Name, e.CreatedAt, e.TimeToComplete)
 	}
 
 	list := widget.NewList(

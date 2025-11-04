@@ -8,11 +8,15 @@ import (
 )
 
 func SaveWindow(numObstacles int) {
+	maxEntryLength := 25
 	SaveName := widget.NewEntry()
 	SaveName.PlaceHolder = "Track Name"
 	SaveName.MultiLine = false
 	SaveName.Wrapping = fyne.TextWrapOff
 	SaveName.OnChanged = func(name string) {
+		if len(name) > maxEntryLength {
+			SaveName.SetText(name[:maxEntryLength])
+		}
 		TrackName = name
 	}
 
