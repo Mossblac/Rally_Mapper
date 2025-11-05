@@ -79,10 +79,10 @@ Quick Regenerate
 **This is a work in progress** Here are some of the upcoming features and planned improvements:
 
 > 1. ~~animation updates to place obstacles and punches after track is placed~~
-> 2. delete saves from within the app
-> 3. pinch zoom and rotate the map smoothly
-> 4. run the track animation that takes you through the course at the average speed.
-> 5. ability to upload and share Tracks
+> 2. ~~delete saves from within the app~~
+> 3. pinch zoom and rotate the map.
+> 4. run the track animation.
+> 5. upload and share Tracks
 > 6. Login and Multiple user support
 > 7. manual obstacle and punch placement
 > 8. Rally Mapper Mobile

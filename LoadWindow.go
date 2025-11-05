@@ -108,7 +108,7 @@ func ConfirmWin(ToDelete CatalogEntry) {
 			fmt.Printf("error deleting track JSON: %v", err)
 		}
 
-		fmt.Printf("Track: %v deleted", ToDelete.Name)
+		fmt.Printf("Track: '%v' deleted\n", ToDelete.Name)
 		LoadT()
 	})
 	CancelDeleteBut := widget.NewButton("Cancel", func() {
