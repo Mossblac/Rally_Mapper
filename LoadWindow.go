@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"image/color"
+	"os"
+	"path/filepath"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
@@ -14,6 +16,7 @@ var Delete_Activator bool
 var ToDelete CatalogEntry
 
 func LoadT() {
+	Delete_Activator = false
 	redLevelselect := &color.RGBA{R: 255, G: 0, B: 0, A: 25}
 	Del_Sel_rec := canvas.NewRectangle(redLevelselect)
 	Del_Sel_rec.Hide()
@@ -86,7 +89,27 @@ func ConfirmWin(ToDelete CatalogEntry) {
 	Cent_Confirm_text := container.NewCenter(textStack)
 
 	Confirmed_DeleteBut := widget.NewButton("DELETE", func() {
-		fmt.Printf("Track: %v will be deleted", ToDelete.Name)
+		cat, err := LoadCatalog("./Saves/catalog.json")
+		if err != nil {
+			fmt.Printf("error loading catalogue: %v\n", err)
+		}
+		var NewCat Catalog
+		for _, entry := range cat.Entries {
+			if entry.ID != ToDelete.ID {
+				NewCat.Add(entry)
+			}
+		}
+		catalogPath := filepath.Join("./Saves", "catalog.json")
+		atomicWriteJSON(catalogPath, &NewCat, 0o644)
+
+		trackPath := filepath.Join("./Saves", "tracks", ToDelete.ID+".json")
+		err = os.Remove(trackPath)
+		if err != nil {
+			fmt.Printf("error deleting track JSON: %v", err)
+		}
+
+		fmt.Printf("Track: %v deleted", ToDelete.Name)
+		LoadT()
 	})
 	CancelDeleteBut := widget.NewButton("Cancel", func() {
 		LoadT()

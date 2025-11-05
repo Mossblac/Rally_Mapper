@@ -38,35 +38,6 @@
         120,
         122
       ]
-    },
-    {
-      "id": "65046ef8-1776-4c23-b697-f70ca61773c1",
-      "name": "I dont like it, delete me ",
-      "createdAt": "2025-11-03T03:56:30.284716243Z",
-      "type": true,
-      "timeToComplete": 61100000000,
-      "tSize": 5,
-      "punchList": [
-        14,
-        28,
-        42,
-        56,
-        70,
-        84,
-        98
-      ]
-    },
-    {
-      "id": "41a57586-ef2d-4b62-9d6c-f14fedf0fc5d",
-      "name": "this is the max length YO",
-      "createdAt": "2025-11-04T04:39:48.336309108Z",
-      "type": true,
-      "timeToComplete": 35400000000,
-      "tSize": 4,
-      "punchList": [
-        26,
-        52
-      ]
     }
   ]
 }

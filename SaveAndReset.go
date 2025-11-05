@@ -52,8 +52,8 @@ type Catalog struct {
 	Entries []CatalogEntry `json:"entries"`
 }
 
-func (c *Catalog) Add(e CatalogEntry) {
-	c.Entries = append(c.Entries, e) // immutable: no updates
+func (c *Catalog) Add(entry CatalogEntry) {
+	c.Entries = append(c.Entries, entry) // immutable: no updates
 }
 
 // go
@@ -144,8 +144,8 @@ func LoadTrack(baseDir, id string) (*TrackSave, error) {
 
 func MakeCatalogList(cat Catalog, onSelect func(CatalogEntry)) fyne.CanvasObject {
 	data := make([]string, len(cat.Entries))
-	for i, e := range cat.Entries {
-		data[i] = fmt.Sprintf("%v - Created: %v - Avg TTC: %v", e.Name, e.CreatedAt, e.TimeToComplete)
+	for i, entry := range cat.Entries {
+		data[i] = fmt.Sprintf("%v - Created: %v - Avg TTC: %v", entry.Name, entry.CreatedAt, entry.TimeToComplete)
 	}
 
 	list := widget.NewList(
@@ -172,8 +172,8 @@ func makeMainUI(baseDir string, w fyne.Window) (fyne.CanvasObject, error) {
     }
 
     preview := widget.NewLabel("Select a track to preview")
-    list := makeCatalogList(cat, func(e CatalogEntry) {
-        t, err := loadTrack(baseDir, e.ID)
+    list := makeCatalogList(cat, func(entry CatalogEntry) {
+        t, err := loadTrack(baseDir, entry.ID)
         if err != nil {
             dialog.ShowError(err, w)
             return
