@@ -115,6 +115,7 @@ var Curve90B_RSVG []byte
 
 //go:embed assets/icons/Curve90B_L.svg
 var Curve90B_LSVG []byte
+
 //go:embed assets/icons/FinishlineB.svg
 var FinishlineBSVG []byte
 
@@ -330,4 +331,3 @@ var Punch8SVG []byte
 
 //go:embed assets/icons/Punch9.svg
 var Punch9SVG []byte
-

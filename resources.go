@@ -219,4 +219,3 @@ var Punch7icon = fyne.NewStaticResource("Punch7.svg", Punch7SVG)
 var Punch8icon = fyne.NewStaticResource("Punch8.svg", Punch8SVG)
 
 var Punch9icon = fyne.NewStaticResource("Punch9.svg", Punch9SVG)
-
