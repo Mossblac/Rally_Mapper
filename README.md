@@ -1,5 +1,7 @@
 # Rally_Mapper : A Rally Course Generator
 
+![testing badge](https://github.com/Mossblac/Rally_Mapper/actions/workflows/ci.yml/badge.svg)
+
 ![TrackGif](./demoC.gif) [](./demoC.gif)
 
 ***

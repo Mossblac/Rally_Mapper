@@ -1,3 +1,17 @@
 {
-  "entries": null
+  "entries": [
+    {
+      "id": "53464be4-9cee-437f-958e-c99c6e42d1df",
+      "name": "sample track for testing",
+      "createdAt": "2025-11-05T23:28:06.295067209Z",
+      "type": true,
+      "timeToComplete": 22600000000,
+      "tSize": 2,
+      "punchList": [
+        6,
+        12,
+        18
+      ]
+    }
+  ]
 }
