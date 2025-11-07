@@ -214,17 +214,75 @@ func Grid_Widget(trackType string, numObstacles int, T TrackSave) {
 		PunchInfo(T)
 		punchWin.Show()
 	})
+
+	maxEntryLength := 25
+	SaveName := widget.NewEntry()
+	SaveName.PlaceHolder = "Enter Track Name"
+	SaveName.MultiLine = false
+	SaveName.Wrapping = fyne.TextWrapOff
+	SaveName.OnChanged = func(name string) {
+		if len(name) > maxEntryLength {
+			SaveName.SetText(name[:maxEntryLength])
+		}
+		TrackName = name
+	}
+
+	var SavesToAppear *fyne.Container
+	var AlreadySavedMessage *fyne.Container
+
+	SaveButton := widget.NewButton("                 Save                 ", func() {
+		Save(TrackName, numObstacles)
+		SavesToAppear.Hide()
+
+	})
+
+	SaveBkg := canvas.NewRectangle(color.RGBA{R: 54, G: 1, B: 63, A: 255})
+	SaveBkg.CornerRadius = 20
+	SaveBWithEntry := container.NewVBox(SaveName, SaveButton)
+	SaveBkgWithBut := container.NewStack(SaveBkg, SaveBWithEntry)
+	CentSBwithEntry := container.NewCenter(SaveBkgWithBut)
+
+	SavesToAppear = container.NewBorder(
+		nil,
+		nil,
+		nil,
+		nil,
+		CentSBwithEntry,
+	)
+
+	SavesToAppear.Hide()
+
+	AlSavedClose := widget.NewButton("     close     ", func() {
+		AlreadySavedMessage.Hide()
+	})
+
+	AlSavedText := widget.NewLabel("     Track Saved     ")
+
+	SavedBkg := canvas.NewRectangle(color.RGBA{R: 54, G: 1, B: 63, A: 255})
+	SavedBkg.CornerRadius = 20
+	AlSavedButAndText := container.NewVBox(AlSavedText, AlSavedClose)
+	AlsavedBkgandBut := container.NewStack(SavedBkg, AlSavedButAndText)
+	CentAlSavedButandText := container.NewCenter(AlsavedBkgandBut)
+
+	AlreadySavedMessage = container.NewBorder(
+		nil,
+		nil,
+		nil,
+		nil,
+		CentAlSavedButandText,
+	)
+
+	AlreadySavedMessage.Hide()
+
 	ClickedOnce = false
 	SaveWindowButton := widget.NewButton("Save", func() {
 		punchWin.Hide()
 		if !Loading {
 			if !ClickedOnce {
-				SaveWindow(numObstacles)
-				saveWin.Show()
+				SavesToAppear.Show()
 				ClickedOnce = true
 			} else {
-				SavedWindow()
-				saveWin.Show()
+				AlreadySavedMessage.Show()
 			}
 		} else {
 			return
@@ -269,7 +327,9 @@ func Grid_Widget(trackType string, numObstacles int, T TrackSave) {
 		scrollStack,
 	)
 
-	mainWin.SetContent(content)
+	winstack := container.NewStack(content, SavesToAppear, AlreadySavedMessage)
+
+	mainWin.SetContent(winstack)
 
 	for i := 0; i < numRows*numCols; i++ {
 		cell := TrackCell{
