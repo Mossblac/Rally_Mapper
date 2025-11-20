@@ -4,29 +4,28 @@ import (
 	"fmt"
 	"image/png"
 	"os"
-	"time"
 )
 
 func CreateImage() {
 
-	//Grid.Refresh()
+	mainWin.Canvas().Refresh(mainWin.Content())
 
-	time.Sleep(50 * time.Millisecond)
-
-	Timg := mainWin.Canvas().Capture()
-
-	file, err := os.Create("test_img.png")
-	if err != nil {
-		fmt.Printf("error creating file: %v", err)
+	img := mainWin.Canvas().Capture()
+	if img == nil {
+		fmt.Println("Capture returned nil")
+		return
 	}
 
-	defer file.Close()
-
-	err = png.Encode(file, Timg)
+	f, err := os.Create("test_img.png")
 	if err != nil {
-		fmt.Printf("error encoding image: %v", err)
+		fmt.Println("create error:", err)
+		return
+	}
+	defer f.Close()
+
+	if err := png.Encode(f, img); err != nil {
+		fmt.Println("encode error:", err)
 	} else {
 		fmt.Println("image saved")
 	}
-
 }
