@@ -11,6 +11,7 @@ var Track []TrackCell
 var TrackName string
 
 var GridBackground *canvas.Rectangle
+var Grid *fyne.Container
 
 var CurrentStop chan struct{}
 var SpacingList []int

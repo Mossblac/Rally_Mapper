@@ -138,8 +138,8 @@ func Grid_Widget(trackType string, numObstacles int, T TrackSave) {
 	gridHeight := gridLayout.cellSize * float32(gridLayout.rows)
 	GridBackground.Resize(fyne.NewSize(gridWidth, gridHeight))
 
-	grid := container.New(gridLayout, gridObjects...)
-	centeredGrid := container.NewCenter(container.NewWithoutLayout(GridBackground, grid))
+	Grid = container.New(gridLayout, gridObjects...)
+	centeredGrid := container.NewCenter(container.NewWithoutLayout(GridBackground, Grid))
 	scroll = container.NewScroll(centeredGrid)
 	res := fyne.NewStaticResource("images/menuBkG.jpg", resourceMenuBkGJpgData)
 	bkg := canvas.NewImageFromResource(res)
@@ -158,7 +158,7 @@ func Grid_Widget(trackType string, numObstacles int, T TrackSave) {
 				gridLayout.cellSize*float32(gridLayout.cols),
 				gridLayout.cellSize*float32(gridLayout.rows),
 			))
-			grid.Refresh()
+			Grid.Refresh()
 			scroll.Refresh()
 		}
 	})
@@ -174,7 +174,7 @@ func Grid_Widget(trackType string, numObstacles int, T TrackSave) {
 				gridLayout.cellSize*float32(gridLayout.cols),
 				gridLayout.cellSize*float32(gridLayout.rows),
 			))
-			grid.Refresh()
+			Grid.Refresh()
 			scroll.Refresh()
 		}
 	})
@@ -186,20 +186,18 @@ func Grid_Widget(trackType string, numObstacles int, T TrackSave) {
 			gridLayout.cellSize*float32(gridLayout.cols),
 			gridLayout.cellSize*float32(gridLayout.rows),
 		))
-		grid.Refresh()
+		Grid.Refresh()
 		scroll.ScrollToTop()
 		scroll.Refresh()
 	})
 
 	homeButton := widget.NewButton("Home", func() {
 		ClickedOnce = false
-		saveWin.Hide()
 		punchWin.Hide()
 		SafeStop()
 		HomeScreen()
 	})
 	runAgainButton := widget.NewButton("Re-Generate", func() {
-		saveWin.Hide()
 		punchWin.Hide()
 		if !Loading {
 			SafeStop()
@@ -210,7 +208,6 @@ func Grid_Widget(trackType string, numObstacles int, T TrackSave) {
 	})
 
 	PunchInfoButton := widget.NewButton("Punch Info", func() {
-		saveWin.Hide()
 		PunchInfo(T)
 		punchWin.Show()
 	})
