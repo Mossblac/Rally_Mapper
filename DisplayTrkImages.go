@@ -88,6 +88,5 @@ func DisplayTrkImages(stop <-chan struct{}, track []TrackCell, working *canvas.I
 		fmt.Printf("Track Length with Corners: %v\n\n", len(Track))
 		fmt.Printf("all images set\n\n")
 		fmt.Printf("%v\n", TotalTrackTime())
-
 	}()
 }

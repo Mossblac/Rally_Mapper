@@ -138,8 +138,8 @@ func Grid_Widget(trackType string, numObstacles int, T TrackSave) {
 	gridHeight := gridLayout.cellSize * float32(gridLayout.rows)
 	GridBackground.Resize(fyne.NewSize(gridWidth, gridHeight))
 
-	grid := container.New(gridLayout, gridObjects...)
-	centeredGrid := container.NewCenter(container.NewWithoutLayout(GridBackground, grid))
+	Grid = container.New(gridLayout, gridObjects...)
+	centeredGrid := container.NewCenter(container.NewWithoutLayout(GridBackground, Grid))
 	scroll = container.NewScroll(centeredGrid)
 	res := fyne.NewStaticResource("images/menuBkG.jpg", resourceMenuBkGJpgData)
 	bkg := canvas.NewImageFromResource(res)
@@ -158,7 +158,7 @@ func Grid_Widget(trackType string, numObstacles int, T TrackSave) {
 				gridLayout.cellSize*float32(gridLayout.cols),
 				gridLayout.cellSize*float32(gridLayout.rows),
 			))
-			grid.Refresh()
+			Grid.Refresh()
 			scroll.Refresh()
 		}
 	})
@@ -174,7 +174,7 @@ func Grid_Widget(trackType string, numObstacles int, T TrackSave) {
 				gridLayout.cellSize*float32(gridLayout.cols),
 				gridLayout.cellSize*float32(gridLayout.rows),
 			))
-			grid.Refresh()
+			Grid.Refresh()
 			scroll.Refresh()
 		}
 	})
@@ -186,20 +186,18 @@ func Grid_Widget(trackType string, numObstacles int, T TrackSave) {
 			gridLayout.cellSize*float32(gridLayout.cols),
 			gridLayout.cellSize*float32(gridLayout.rows),
 		))
-		grid.Refresh()
+		Grid.Refresh()
 		scroll.ScrollToTop()
 		scroll.Refresh()
 	})
 
 	homeButton := widget.NewButton("Home", func() {
 		ClickedOnce = false
-		saveWin.Hide()
 		punchWin.Hide()
 		SafeStop()
 		HomeScreen()
 	})
 	runAgainButton := widget.NewButton("Re-Generate", func() {
-		saveWin.Hide()
 		punchWin.Hide()
 		if !Loading {
 			SafeStop()
@@ -210,21 +208,78 @@ func Grid_Widget(trackType string, numObstacles int, T TrackSave) {
 	})
 
 	PunchInfoButton := widget.NewButton("Punch Info", func() {
-		saveWin.Hide()
 		PunchInfo(T)
 		punchWin.Show()
 	})
+
+	maxEntryLength := 25
+	SaveName := widget.NewEntry()
+	SaveName.PlaceHolder = "Enter Track Name"
+	SaveName.MultiLine = false
+	SaveName.Wrapping = fyne.TextWrapOff
+	SaveName.OnChanged = func(name string) {
+		if len(name) > maxEntryLength {
+			SaveName.SetText(name[:maxEntryLength])
+		}
+		TrackName = name
+	}
+
+	var SavesToAppear *fyne.Container
+	var AlreadySavedMessage *fyne.Container
+
+	SaveButton := widget.NewButton("                 Save                 ", func() {
+		Save(TrackName, numObstacles)
+		SavesToAppear.Hide()
+
+	})
+
+	SaveBkg := canvas.NewRectangle(color.RGBA{R: 54, G: 1, B: 63, A: 255})
+	SaveBkg.CornerRadius = 20
+	SaveBWithEntry := container.NewVBox(SaveName, SaveButton)
+	SaveBkgWithBut := container.NewStack(SaveBkg, SaveBWithEntry)
+	CentSBwithEntry := container.NewCenter(SaveBkgWithBut)
+
+	SavesToAppear = container.NewBorder(
+		nil,
+		nil,
+		nil,
+		nil,
+		CentSBwithEntry,
+	)
+
+	SavesToAppear.Hide()
+
+	AlSavedClose := widget.NewButton("     close     ", func() {
+		AlreadySavedMessage.Hide()
+	})
+
+	AlSavedText := widget.NewLabel("     Track Saved     ")
+
+	SavedBkg := canvas.NewRectangle(color.RGBA{R: 54, G: 1, B: 63, A: 255})
+	SavedBkg.CornerRadius = 20
+	AlSavedButAndText := container.NewVBox(AlSavedText, AlSavedClose)
+	AlsavedBkgandBut := container.NewStack(SavedBkg, AlSavedButAndText)
+	CentAlSavedButandText := container.NewCenter(AlsavedBkgandBut)
+
+	AlreadySavedMessage = container.NewBorder(
+		nil,
+		nil,
+		nil,
+		nil,
+		CentAlSavedButandText,
+	)
+
+	AlreadySavedMessage.Hide()
+
 	ClickedOnce = false
 	SaveWindowButton := widget.NewButton("Save", func() {
 		punchWin.Hide()
 		if !Loading {
 			if !ClickedOnce {
-				SaveWindow(numObstacles)
-				saveWin.Show()
+				SavesToAppear.Show()
 				ClickedOnce = true
 			} else {
-				SavedWindow()
-				saveWin.Show()
+				AlreadySavedMessage.Show()
 			}
 		} else {
 			return
@@ -269,7 +324,9 @@ func Grid_Widget(trackType string, numObstacles int, T TrackSave) {
 		scrollStack,
 	)
 
-	mainWin.SetContent(content)
+	winstack := container.NewStack(content, SavesToAppear, AlreadySavedMessage)
+
+	mainWin.SetContent(winstack)
 
 	for i := 0; i < numRows*numCols; i++ {
 		cell := TrackCell{
