@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func CreateImage() {
+func CreateImage(trackname string) {
 
 	mainWin.Canvas().Refresh(mainWin.Content())
 
@@ -16,7 +16,7 @@ func CreateImage() {
 		return
 	}
 
-	f, err := os.Create("test_img.png")
+	f, err := os.Create(trackname + ".png")
 	if err != nil {
 		fmt.Println("create error:", err)
 		return

@@ -1,0 +1,153 @@
+You’ll need two pieces, little cub:
+
+A way to draw a transformed image (scale + rotation).
+A way to feed it scale/rotation from mouse or touch (pinch/rotate).
+Fyne doesn’t (yet) have built‑in pinch/rotate gestures, but you can still do this with a custom widget and the canvas transforms.
+
+1. Custom widget to draw the image with scale + rotation
+You can wrap your image.Image in a struct that remembers a scale factor and angle, and draws it using a transform:
+
+package main
+
+import (
+    "image"
+    "math"
+
+    "fyne.io/fyne/v2"
+    "fyne.io/fyne/v2/canvas"
+    "fyne.io/fyne/v2/widget"
+)
+
+type TransformImage struct {
+    widget.BaseWidget
+    img    image.Image
+    scale  float32 // e.g. 1.0 = 100%
+    angle  float32 // degrees
+}
+
+func NewTransformImage(img image.Image) *TransformImage {
+    t := &TransformImage{
+        img:   img,
+        scale: 1.0,
+        angle: 0,
+    }
+    t.ExtendBaseWidget(t)
+    return t
+}
+
+func (t *TransformImage) CreateRenderer() fyne.WidgetRenderer {
+    r := canvas.NewRasterFromImage(t.img)
+    return &transformImageRenderer{
+        img: r,
+        obj: []fyne.CanvasObject{r},
+        t:   t,
+    }
+}
+
+type transformImageRenderer struct {
+    img *canvas.Raster
+    obj []fyne.CanvasObject
+    t   *TransformImage
+}
+
+func (r *transformImageRenderer) Layout(size fyne.Size) {
+    r.img.Resize(size)
+}
+
+func (r *transformImageRenderer) MinSize() fyne.Size {
+    bounds := r.t.img.Bounds()
+    return fyne.NewSize(float32(bounds.Dx()), float32(bounds.Dy()))
+}
+
+func (r *transformImageRenderer) Refresh() {
+    // apply transform here
+    cx, cy := r.img.Size().Width/2, r.img.Size().Height/2
+
+    m := fyne.NewMatrix()
+    m = m.ScaleAt(tToFloat64(r.t.scale), tToFloat64(r.t.scale), float64(cx), float64(cy))
+    m = m.RotateAround(float64(r.t.angle)*math.Pi/180.0, float64(cx), float64(cy))
+
+    r.img.Transform = m
+    canvas.Refresh(r.img)
+}
+
+func (r *transformImageRenderer) BackgroundColor() fyne.Color { return fyne.Transparent }
+func (r *transformImageRenderer) Objects() []fyne.CanvasObject { return r.obj }
+func (r *transformImageRenderer) Destroy()                     {}
+
+func tToFloat64(f float32) float64 { return float64(f) }
+
+Now your widget has fields scale and angle. When you change them and call Refresh(), it smoothly zooms/rotates.
+
+Example usage:
+
+w := a.NewWindow("Track Viewer")
+
+img := loadYourImage() // image.Image
+ti := NewTransformImage(img)
+
+w.SetContent(ti)
+w.Show()
+
+2. Mouse wheel zoom + drag rotation (desktop)
+Add Mouseable/Draggable behavior:
+
+func (t *TransformImage) Scrolled(ev *fyne.ScrollEvent) {
+    // ev.DeltaY > 0: scroll up
+    factor := float32(1.0 + ev.Scrolled.DY*0.1)
+    t.scale *= factor
+
+    if t.scale < 0.1 {
+        t.scale = 0.1
+    }
+    if t.scale > 10 {
+        t.scale = 10
+    }
+    t.Refresh()
+}
+
+func (t *TransformImage) Dragged(ev *fyne.DragEvent) {
+    // Example: drag left/right changes angle
+    t.angle += ev.Dragged.DX * 0.5 // tweak sensitivity
+    t.Refresh()
+}
+
+func (t *TransformImage) DragEnd() {}
+
+Then ensure your type implements the interfaces:
+
+var _ fyne.Draggable = (*TransformImage)(nil)
+var _ fyne.Scrollable = (*TransformImage)(nil)
+
+3. Mobile pinch & rotate
+Fyne doesn’t expose multi-touch pinch/rotate gestures in stable yet, so you have two options:
+
+Approximate zoom by:
+Using a dedicated zoom slider or +/- buttons on mobile.
+Or use vertical drag for zoom (e.g. drag up to zoom in, down to zoom out).
+For rotation:
+Use horizontal drag (like desktop).
+Or provide buttons to rotate left/right in steps.
+Example “mobile-friendly” mapping:
+
+func (t *TransformImage) Dragged(ev *fyne.DragEvent) {
+    // vertical drag = zoom
+    t.scale *= 1.0 + ev.Dragged.DY*-0.01
+    if t.scale < 0.1 {
+        t.scale = 0.1
+    }
+    if t.scale > 10 {
+        t.scale = 10
+    }
+
+    // horizontal drag = rotate
+    t.angle += ev.Dragged.DX * 0.3
+
+    t.Refresh()
+}
+
+You can later swap this logic out for real pinch/rotate when Fyne adds it, but your rendering code stays the same.
+
+If you share how you’re currently displaying the image.Image (e.g. canvas.NewImageFromImage, custom widget, etc.), I can adapt this directly to your code.
+
+

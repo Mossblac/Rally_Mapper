@@ -229,7 +229,6 @@ func Grid_Widget(trackType string, numObstacles int, T TrackSave) {
 
 	SaveButton := widget.NewButton("                 Save                 ", func() {
 		Save(TrackName, numObstacles)
-		CreateImage()
 		SavesToAppear.Hide()
 
 	})
